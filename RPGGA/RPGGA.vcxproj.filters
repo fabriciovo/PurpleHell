@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{c56752c1-97d6-4ab8-843a-0287dd429114}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Manager">
+      <UniqueIdentifier>{e5389b9a-bfae-4bb2-a729-8dae8cd4e8d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Player">
+      <UniqueIdentifier>{f830b86c-a1a1-460c-afe3-1465db62894b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Button">
+      <UniqueIdentifier>{e8783881-fbfb-46dd-8c8d-fdb9340e0bc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Entity">
+      <UniqueIdentifier>{4df62f0f-16ec-4d94-aba0-7feb7698cee7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Inventory">
+      <UniqueIdentifier>{f5ee90f8-79c4-4d44-8268-09521aa553ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Inventory\Items">
+      <UniqueIdentifier>{9004ae1b-4f4b-4441-b00e-c64a18c878b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\AI">
+      <UniqueIdentifier>{a560707f-72c1-49c3-85fb-8dd3fb2c2d4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Especial">
+      <UniqueIdentifier>{4b81d75e-bfe5-4c2c-b33b-472c3710643c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Inventory\Equiped Items">
+      <UniqueIdentifier>{18c2bad8-4f0a-46eb-bf6e-acf4e195b33c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Inventory\Units">
+      <UniqueIdentifier>{3dd14a54-9aab-41e0-8876-08caf85d9b47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Entity\Hero">
+      <UniqueIdentifier>{45efd9ae-437f-43b8-a497-dde1758f3b8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Entity\Enemy">
+      <UniqueIdentifier>{759d8fb4-e2c0-4b08-9f81-8451178cc8d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Player">
+      <UniqueIdentifier>{ac91ba4a-dbd4-4c93-8ff9-c27702e0c748}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\AI">
+      <UniqueIdentifier>{5e929a1b-c021-4b83-9a7a-698765b39a79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Rewards">
+      <UniqueIdentifier>{b972c647-a588-4749-8e6c-83dc0f090eb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\RewardSystem">
+      <UniqueIdentifier>{1dc5fb50-2a62-4c82-b2e5-2d4413a4bfca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scene">
+      <UniqueIdentifier>{3db9ba11-09ed-4d47-af65-e1f178f831fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scene\Menu">
+      <UniqueIdentifier>{3a2fdea1-7b21-4c53-9777-cfdd0fa7cccb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scene\Battle">
+      <UniqueIdentifier>{5ad8965e-0541-4637-b7ab-cde9d0a92ee9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scene\Game">
+      <UniqueIdentifier>{b9951221-360e-4242-a14e-bed324f3c20f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Animation">
+      <UniqueIdentifier>{afb038f4-744c-4bdf-b5a7-eb17b89c2989}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Potion.h">
+      <Filter>Game\Inventory\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Game\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Game\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>Game\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Game\Inventory\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="AI.h">
+      <Filter>Game\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Inventory.h">
+      <Filter>Game\Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="Especial.h">
+      <Filter>Game\Especial</Filter>
+    </ClInclude>
+    <ClInclude Include="EquipedItems.h">
+      <Filter>Game\Inventory\Equiped Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Units.h">
+      <Filter>Game\Inventory\Units</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Game\Entity\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Hero.h">
+      <Filter>Game\Entity\Hero</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleScene.h">
+      <Filter>Game\Scene\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>Game\Scene\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuScene.h">
+      <Filter>Game\Scene\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationComponent.h">
+      <Filter>Game\Animation</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="AI.cpp">
+      <Filter>Game\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Game\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Game\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>Game\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Inventory.cpp">
+      <Filter>Game\Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Game\Inventory\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Game\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Potion.cpp">
+      <Filter>Game\Inventory\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Especial.cpp">
+      <Filter>Game\Especial</Filter>
+    </ClCompile>
+    <ClCompile Include="EquipedItems.cpp">
+      <Filter>Game\Inventory\Equiped Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Units.cpp">
+      <Filter>Game\Inventory\Units</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Game\Entity\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Hero.cpp">
+      <Filter>Game\Entity\Hero</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleScene.cpp">
+      <Filter>Game\Scene\Battle</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>Game\Scene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuScene.cpp">
+      <Filter>Game\Scene\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationComponent.cpp">
+      <Filter>Game\Animation</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="res\Player\equiped.txt">
+      <Filter>Resource Files\Player</Filter>
+    </Text>
+    <Text Include="res\Player\Inventory.txt">
+      <Filter>Resource Files\Player</Filter>
+    </Text>
+    <Text Include="res\Player\Team.txt">
+      <Filter>Resource Files\Player</Filter>
+    </Text>
+    <Text Include="res\Player\Units.txt">
+      <Filter>Resource Files\Player</Filter>
+    </Text>
+    <Text Include="res\AI\0.txt">
+      <Filter>Resource Files\AI</Filter>
+    </Text>
+    <Text Include="res\AI\1.txt">
+      <Filter>Resource Files\AI</Filter>
+    </Text>
+    <Text Include="res\AI\2.txt">
+      <Filter>Resource Files\AI</Filter>
+    </Text>
+    <Text Include="res\AI\3.txt">
+      <Filter>Resource Files\AI</Filter>
+    </Text>
+    <Text Include="res\AI\Units.txt">
+      <Filter>Resource Files\AI</Filter>
+    </Text>
+  </ItemGroup>
+</Project>
