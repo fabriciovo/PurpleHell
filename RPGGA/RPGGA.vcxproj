@@ -22,11 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{F4EA1907-F1E0-4D71-9C55-94C262B13EC5}</ProjectGuid>
     <RootNamespace>RPGGA</RootNamespace>
-<<<<<<< HEAD
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
-=======
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
->>>>>>> Inventario ainda faz troca de itens incorretamente, adicionado wave de inimigos, jogo procura pelas sprites corretas agora, removido a animação de especial (por conta de bugs)
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

@@ -98,9 +98,7 @@ void MainMenuScene::updateButtons()
 	if (this->buttonsMap["STARTGAME"]->isPressed()) {
 		this->scenes->push(new GameScene(this->window, this->scenes));
 	}
-	if (this->buttonsMap["QUIT"]->isPressed()) {
-		this->endScene();
-	}
+
 }
 
 void MainMenuScene::updateInput(const float & dt)

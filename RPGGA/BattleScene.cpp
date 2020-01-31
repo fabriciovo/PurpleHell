@@ -104,12 +104,6 @@ void BattleScene::initAI() {
 	ais.push(new AI(1));
 	ais.push(new AI(2));
 	ais.push(new AI(3));
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> Inventario ainda faz troca de itens incorretamente, adicionado wave de inimigos, jogo procura pelas sprites corretas agora, removido a animação de especial (por conta de bugs)
 	ais.front()->battlePosition();
 }
 
