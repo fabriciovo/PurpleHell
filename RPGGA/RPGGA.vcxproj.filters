@@ -29,9 +29,6 @@
     <Filter Include="Game\AI">
       <UniqueIdentifier>{a560707f-72c1-49c3-85fb-8dd3fb2c2d4a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Especial">
-      <UniqueIdentifier>{4b81d75e-bfe5-4c2c-b33b-472c3710643c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Inventory\Equiped Items">
       <UniqueIdentifier>{18c2bad8-4f0a-46eb-bf6e-acf4e195b33c}</UniqueIdentifier>
     </Filter>
@@ -71,6 +68,9 @@
     <Filter Include="Game\Animation">
       <UniqueIdentifier>{afb038f4-744c-4bdf-b5a7-eb17b89c2989}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Entity\Especial">
+      <UniqueIdentifier>{4b81d75e-bfe5-4c2c-b33b-472c3710643c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Potion.h">
@@ -98,7 +98,7 @@
       <Filter>Game\Inventory</Filter>
     </ClInclude>
     <ClInclude Include="Especial.h">
-      <Filter>Game\Especial</Filter>
+      <Filter>Game\Entity\Especial</Filter>
     </ClInclude>
     <ClInclude Include="EquipedItems.h">
       <Filter>Game\Inventory\Equiped Items</Filter>
@@ -157,7 +157,7 @@
       <Filter>Game\Inventory\Items</Filter>
     </ClCompile>
     <ClCompile Include="Especial.cpp">
-      <Filter>Game\Especial</Filter>
+      <Filter>Game\Entity\Especial</Filter>
     </ClCompile>
     <ClCompile Include="EquipedItems.cpp">
       <Filter>Game\Inventory\Equiped Items</Filter>
@@ -167,9 +167,6 @@
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Game\Entity\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="Hero.cpp">
-      <Filter>Game\Entity\Hero</Filter>
     </ClCompile>
     <ClCompile Include="BattleScene.cpp">
       <Filter>Game\Scene\Battle</Filter>
@@ -185,6 +182,9 @@
     </ClCompile>
     <ClCompile Include="AnimationComponent.cpp">
       <Filter>Game\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Hero.cpp">
+      <Filter>Game\Entity\Hero</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

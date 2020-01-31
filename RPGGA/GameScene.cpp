@@ -42,11 +42,11 @@ void GameScene::initButtons()
 	this->buttonsItems.push_back(new Button(289, 84, 2,5, &this->font, "SLOT 6", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
 
 	this->buttonStages.push_back(new Button(91, 20, 2, 5, &this->font, "STAGE 1", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
-	this->buttonStages.push_back(new Button(134, 20, 2, 5, &this->font, "STAGE 2", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
+	/*this->buttonStages.push_back(new Button(134, 20, 2, 5, &this->font, "STAGE 2", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
 	this->buttonStages.push_back(new Button(177, 20, 2, 5, &this->font, "STAGE 3", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
 	this->buttonStages.push_back(new Button(220, 20, 2, 5, &this->font, "STAGE 4", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
 	this->buttonStages.push_back(new Button(263, 20, 2, 5, &this->font, "STAGE 5", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
-	this->buttonStages.push_back(new Button(298, 20, 2, 5, &this->font, "STAGE 6", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
+	this->buttonStages.push_back(new Button(298, 20, 2, 5, &this->font, "STAGE 6", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));*/
 
 }
 
@@ -142,11 +142,7 @@ void GameScene::updateButtons()
 	for (auto& it : this->buttonStages) {
 		it->update(this->mousePosView);
 	}
-	//Stages
-	if (this->buttonStages[0]->isPressed()) {
-		this->scenes->push(new BattleScene(this->window, this->scenes, 0));
-		
-	}
+	
 	//Menu
 	if (this->buttons[0]->isPressed()) {
 		//this->scenes->push(new BattleScene(this->window, this->scenes, 0));
@@ -221,7 +217,16 @@ void GameScene::updateButtons()
 			this->buttonPressed = true;
 		}
 	}
-	
+
+	//Stages
+	if (this->texts[2].getString() == "STAGES") {
+		if (this->buttonStages[0]->isPressed() && !this->buttonPressed) {
+			this->scenes->push(new BattleScene(this->window, this->scenes, 0));
+			this->buttonPressed = true;
+		}
+		
+	}
+
 
 }
 
@@ -341,7 +346,7 @@ void GameScene::ChangeHero(Entity* unit, Entity* hero)
 	ofsHeroes.open("res/Player/Team.txt");
 	for (int it = 0; it < 3; it++) {
 		ofsHeroes 
-<< this->player->getTeam(it)->getName() 
+			<< this->player->getTeam(it)->getName() 
 			<< " " << this->player->getTeam(it)->getHp() 
 			<< " " << this->player->getTeam(it)->getPower() 
 			<< " " << this->player->getTeam(it)->getType()
@@ -370,8 +375,7 @@ void GameScene::ChangeHero(Entity* unit, Entity* hero)
 
 void GameScene::ChangeItems(Entity* inventoryItem , Entity* equipedItem)
 {
-	//equipedItem = hero
-	//inventory = units
+
 	std::fstream ofsEquiped;
 	std::fstream ofsInventory;
 	Entity* tempEquiped;
@@ -381,14 +385,13 @@ void GameScene::ChangeItems(Entity* inventoryItem , Entity* equipedItem)
 	int equipedNum = this->player->getEquipedItems()->UnitNumber(equipedItem);
 	//Inventory
 	std::string inventoryName = inventory->getItem()->getName();
-	int inventoryHp = inventory->getItem()->getHp(), inventoryPower = inventory->getItem()->getPower(), inventorySpell = inventory->getItem()->getType();
+	int inventoryHp = inventoryItem->getHp(), inventoryPower = inventoryItem->getPower(), inventorySpell = inventoryItem->getType();
 
 	//Equiped Item
 	std::string equipName = tempEquiped->getName();
 	int equipHp = tempEquiped->getHp(), equipPower = tempEquiped->getPower(), equipJob = tempEquiped->getType();
 
-	///
-	//Svaing Hero to team
+	//Svaing Equiped to inventory
 	this->inventoryT[equipedNum].loadFromFile("res/img/items/" + inventoryName + ".png");
 	this->player->getEquipedItems()->setItem(equipedNum, new Item(93 + (25 * equipedNum), 118, inventoryName, inventoryHp, inventoryPower, inventorySpell, &this->inventoryT[equipedNum]));
 	std::cout << "EQUIP NAME " << equipName << std::endl;
@@ -422,5 +425,9 @@ void GameScene::ChangeItems(Entity* inventoryItem , Entity* equipedItem)
 
 	}
 	ofsInventory.close();
+
+
+
+
 
 }

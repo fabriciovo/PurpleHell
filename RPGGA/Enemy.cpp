@@ -14,7 +14,7 @@ Enemy::Enemy(float x, float y, std::string name, int hp, int power, sf::Texture*
 	this->CreateSprite(texture);
 	this->SetPosition(x, y);
 	this->createAnimationComponent(*texture);
-	this->animationComponent->addAnimation("IDLE_MONSTER", 0, 0, 0, 1, 0, 16, 16);
+	this->animationComponent->addAnimation("IDLE_MONSTER", 90.f, 0, 0, 1, 0, 16, 16);
 }
 
 Enemy::Enemy(std::string name, int hp, int power, sf::Texture* texture)
@@ -24,7 +24,7 @@ Enemy::Enemy(std::string name, int hp, int power, sf::Texture* texture)
 	this->power = power;
 	this->CreateSprite(texture);
 	this->createAnimationComponent(*texture);
-	this->animationComponent->addAnimation("IDLE_MONSTER", 0, 0, 0, 1, 0, 16, 16);
+	this->animationComponent->addAnimation("IDLE_MONSTER", 90.f, 0, 0, 1, 0, 16, 16);
 
 }
 

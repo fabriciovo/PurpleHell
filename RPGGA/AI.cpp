@@ -11,6 +11,7 @@ AI::AI(int i)
 	std::ifstream ifsEnemies("res/AI/"+std::to_string(i)+".txt");
 	ArquivoEnemies(ifsEnemies, 0);
 
+
 }
 
 

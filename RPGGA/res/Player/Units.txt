@@ -1,3 +1,3 @@
-slot 0 0 0
-slot 0 0 0
+archer 30 5 2
+demonhunter 30 5 2
 slot 0 0 0

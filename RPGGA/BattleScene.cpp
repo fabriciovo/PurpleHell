@@ -5,6 +5,7 @@ void BattleScene::initTextures()
 {
 	this->textureBackground.loadFromFile("res/backgrounds/battle.png");
 	this->background.setTexture(textureBackground);
+
 }
 
 
@@ -32,7 +33,7 @@ void BattleScene::initTexts()
 	turnText.setFont(this->font);
 	turnText.setString("- TURN -");
 	turnText.setCharacterSize(18);
-	turnText.setPosition(this->window->getSize().x / 2-32, this->window->getSize().y / 2- 64);
+	turnText.setPosition(135,60);
 
 	this->infoText = turnText;
 
@@ -103,7 +104,12 @@ void BattleScene::initAI() {
 	ais.push(new AI(1));
 	ais.push(new AI(2));
 	ais.push(new AI(3));
+<<<<<<< HEAD
 
+
+
+=======
+>>>>>>> Inventario ainda faz troca de itens incorretamente, adicionado wave de inimigos, jogo procura pelas sprites corretas agora, removido a animação de especial (por conta de bugs)
 	ais.front()->battlePosition();
 }
 
@@ -147,38 +153,40 @@ void BattleScene::updateButtons()
 	if (this->buttons[0]->isPressed()) {
 		this->endScene();
 	}
-	if (turn && this->player->getHero() && this->ais.front()->selectedEnemy()) {
-		if (this->player->getHero()->getSelected()) {
-			if (this->buttons[1]->isPressed()) {
-				if (!this->buttonPressed) {
-					this->player->getHero()->action(this->ais.front()->getEnemy());
-					this->buttonPressed = true;
 
+	if(!this->ais.empty()){
+		if (turn && this->player->getHero() && this->ais.front()->selectedEnemy()) {
+			if (this->player->getHero()->getSelected()) {
+				if (this->buttons[1]->isPressed()) {
+					if (!this->buttonPressed) {
+						this->player->getHero()->action(this->ais.front()->getEnemy());
+						this->buttonPressed = true;
+
+					}
+				}
+			}
+		}
+
+		if (turn && this->player->getHero() && this->ais.front()->selectedEnemy()) {
+			if (this->player->getHero()->getSelected()) {
+				if (this->buttons[2]->isPressed()) {
+					if (!this->buttonPressed) {
+						this->player->getHero()->special(this->ais.front()->getEnemy());
+						this->buttonPressed = true;
+					}
+				}
+			}
+		}
+
+		if (turn && this->player->getEquipedItems()->getItem()) {
+			if (this->buttons[3]->isPressed()) {
+				if (!this->buttonPressed && this->player->getHero()) {
+					this->player->getEquipedItems()->getItem()->action(this->player->getHero());
+					this->buttonPressed = true;
 				}
 			}
 		}
 	}
-
-	if (turn && this->player->getHero() && this->ais.front()->selectedEnemy()) {
-		if (this->player->getHero()->getSelected()) {
-			if (this->buttons[2]->isPressed()) {
-				if (!this->buttonPressed) {
-					this->player->getHero()->special(this->ais.front()->getEnemy());
-					this->buttonPressed = true;
-				}
-			}
-		}
-	}
-
-	if (turn && this->player->getEquipedItems()->getItem()) {
-		if (this->buttons[3]->isPressed()) {
-			if (!this->buttonPressed && this->player->getHero()) {
-				this->player->getEquipedItems()->getItem()->action(this->player->getHero());
-				this->buttonPressed = true;
-			}
-		}
-	}
-
 }
 
 void BattleScene::updateInput(const float& dt)
@@ -190,48 +198,51 @@ void BattleScene::updateInput(const float& dt)
 
 void BattleScene::update(const float& dt)
 {
-
-	this->updateMousePosition();
-	this->updateInput(dt);
-	this->updateButtons();
-	this->updateTexts();
-	this->player->update(mousePosView, dt);
-	this->player->getEquipedItems()->updateEquipedItems(mousePosView, dt);
-	this->ais.front()->updateEnemies(mousePosView,dt);
 	this->updateFade(dt);
+	this->updateMousePosition();
+	this->updateTexts();
+	this->player->getEquipedItems()->updateEquipedItems(mousePosView, dt);
+
+	if (!this->ais.empty()) {
+		this->ais.front()->updateEnemies(mousePosView, dt);
+		this->updateInput(dt);
+		this->updateButtons();
+		this->player->update(mousePosView, dt);
+
+		if (this->ais.front()->checkDeads()) {
+			this->player->setTeamToTrue();
+			this->ais.pop();
+		}
+	}
 
 	if (!this->player->checkPlayed()) {
 		turn = false;
 	}
 
-	if (turn == false) {
-
+	if (turn == false && !this->ais.empty()) {
 		battleSystem(dt);
-
 	}
 
-	if (this->ais.front()->checkDeads()) {
-		this->player->setTeamToTrue();
-		this->ais.pop();
-	}
-	if (ais.empty() == true) {
+	if (this->ais.empty()) {
 		std::cout << "PLAYER WIN" << std::endl;
+		this->winEnemy = false;
 		this->win = true;
 		this->playerReward();
 		this->endScene();
 	}
 	else
 	{
-		ais.front()->battlePosition();
+		this->ais.front()->battlePosition();
 	}
 
 	if (this->player->checkDeads()) {
 		this->winEnemy = true;
-		std::cout << "ENEMY WIN" << std::endl;
+		this->win = false;
+		std::cout << "ENEMY WIN" << std::endl;;
 		this->endScene();
 
 	}
-
+	
 }
 
 //Renders
@@ -243,12 +254,16 @@ void BattleScene::render(sf::RenderTarget* target)
 
 	target->draw(this->background);
 	target->draw(this->hudSprite);
-	this->renderButtons(target);
 	this->renderTexts(target);
 	this->player->render(target);
 	this->player->getEquipedItems()->renderEquipedItems(target);
-	this->ais.front()->renderEnemies(target);
 	this->renderFade(target);
+
+	if (!this->ais.empty()) {
+			this->renderButtons(target);
+
+			this->ais.front()->renderEnemies(target);
+	}
 }
 
 void BattleScene::renderTexts(sf::RenderTarget* target)
@@ -262,44 +277,47 @@ void BattleScene::renderTexts(sf::RenderTarget* target)
 
 void BattleScene::updateTexts()
 {
-	if (turn && this->player->getHero()) {
-		this->battleTexts[0].setString(this->player->getHero()->getName());
-		this->battleTexts[2].setString("HP: " + std::to_string(this->player->getHero()->getHp()));
-		this->battleTexts[6].setString("POWER: " + std::to_string(this->player->getHero()->getPower()));
-	}
-	else
-	{
-		this->battleTexts[0].setString("");
-		this->battleTexts[2].setString("");
-		this->battleTexts[6].setString("");
-	}
 
-	if (this->ais.front()->selectedEnemy()) {
-		this->battleTexts[1].setString(this->ais.front()->getEnemy()->getName());
-		this->battleTexts[3].setString("HP: " + std::to_string(this->ais.front()->getEnemy()->getHp()));
-	}
-	else {
-		this->battleTexts[1].setString("");
-		this->battleTexts[3].setString("");
-	}
+	if(!this->ais.empty()){
+		if (turn && this->player->getHero()) {
+			this->battleTexts[0].setString(this->player->getHero()->getName());
+			this->battleTexts[2].setString("HP: " + std::to_string(this->player->getHero()->getHp()));
+			this->battleTexts[6].setString("POWER: " + std::to_string(this->player->getHero()->getPower()));
+		}
+		else
+		{
+			this->battleTexts[0].setString("");
+			this->battleTexts[2].setString("");
+			this->battleTexts[6].setString("");
+		}
 
-	if (this->player->getHero()) {
-		if (this->player->getHero()->getPlayed()) {
-			this->battleTexts[5].setString("Played");
+		if (this->ais.front()->selectedEnemy()) {
+			this->battleTexts[1].setString(this->ais.front()->getEnemy()->getName());
+			this->battleTexts[3].setString("HP: " + std::to_string(this->ais.front()->getEnemy()->getHp()));
+		}
+		else {
+			this->battleTexts[1].setString("");
+			this->battleTexts[3].setString("");
+		}
+
+		if (this->player->getHero()) {
+			if (this->player->getHero()->getPlayed()) {
+				this->battleTexts[5].setString("Played");
+			}
+			else {
+				this->battleTexts[5].setString("");
+			}
 		}
 		else {
 			this->battleTexts[5].setString("");
 		}
 	}
-	else {
-		this->battleTexts[5].setString("");
-	}
 
 	if (turn && !win && !winEnemy) {
-		this->infoText.setString("PLAYER");
+		this->infoText.setString(" - TURN - \n- PLAYER -");
 	}
 	else {
-		this->infoText.setString("ENEMY");
+		this->infoText.setString(" - TURN - \n- ENEMY -");
 	}
 
 	if (win && !winEnemy) {
@@ -309,6 +327,7 @@ void BattleScene::updateTexts()
 	if (!win && winEnemy) {
 		this->infoText.setString("ENEMY WINS!");
 	}
+	
 }
 
 void BattleScene::renderButtons(sf::RenderTarget * target)
@@ -338,46 +357,54 @@ void BattleScene::battleSystem(const float& dt)
 {
 
 
-		this->infoText.setString("- Enemy Turn -");
-	
-		for (int i = 0; i < this->ais.front()->NumberOfEnemies(); i++) {
-			std::srand(time(NULL));
-			int num = rand() % 100;
-			std::cout << num << std::endl;
+	this->infoText.setString("- Enemy Turn -");
+	bool attacking = false;
 
-			if ((num > 33 && num < 66) && this->player->getTeam(0) != nullptr ) {
-				if (this->player->getTeam(0)->getHp() > 0) {
-					this->ais.front()->getTeam(i)->action(this->player->getTeam(0));
-					std::cout << "ENEMY -> " << this->ais.front()->getTeam(i)->getName() << "ATTACK -> " << this->player->getTeam(0)->getName() << std::endl;
-				}
-				else {
-					std::cout << "ENEMY -> MISS" << std::endl;
-				}	
-			}
-			else if (num < 33 && this->player->getTeam(1) != nullptr ) {
-				if (this->player->getTeam(1)->getHp() > 0) {
-					this->ais.front()->getTeam(i)->action(this->player->getTeam(1));
-					std::cout << "ENEMY -> " << this->ais.front()->getTeam(i)->getName() << "ATTACK -> " << this->player->getTeam(1)->getName() << std::endl;
-				}
-				else {
-					std::cout << "ENEMY -> MISS" << std::endl;
-				}
-			}
-			else if (num > 66 && this->player->getTeam(2) != nullptr) {
-				if (this->player->getTeam(2)->getHp() > 0) {
-					this->ais.front()->getTeam(i)->action(this->player->getTeam(2));
-					std::cout << "ENEMY -> " << this->ais.front()->getTeam(i)->getName() << "ATTACK -> " << this->player->getTeam(2)->getName() << std::endl;
-				}
-				else {
-					std::cout << "ENEMY -> MISS" << std::endl;
-				}
+	for (int i = 0; i < this->ais.front()->NumberOfEnemies(); i++) {
+		std::srand(time(NULL));
+		int num = rand() % 100;
+		std::cout << num << std::endl;
+
+		if ((num > 33 && num < 66) && this->player->getTeam(0) != nullptr ) {
+			if (this->player->getTeam(0)->getHp() > 0) {
+				this->ais.front()->getTeam(i)->action(this->player->getTeam(0));
+				this->infoText.setString(" - Enemy Attack - \n- "+ this->player->getTeam(0)->getName() +"-");
+					
 			}
 			else {
 				std::cout << "ENEMY -> MISS" << std::endl;
+				this->infoText.setString(" - Enemy Turn - \n- "+ this->ais.front()->getTeam(i)->getName() +" MISS -");
+			}	
+		}
+		else if (num < 33 && this->player->getTeam(1) != nullptr ) {
+			if (this->player->getTeam(1)->getHp() > 0) {
+				this->ais.front()->getTeam(i)->action(this->player->getTeam(1));
+				this->infoText.setString(" - Enemy Attack - \n- " + this->player->getTeam(1)->getName() + "-");
+			}
+			else {
+				this->infoText.setString(" - Enemy Turn - \n- " + this->ais.front()->getTeam(i)->getName() + " MISS -");
 			}
 		}
-		this->player->setTeamToTrue();
-		turn = true;
+		else if (num > 66 && this->player->getTeam(2) != nullptr) {
+			if (this->player->getTeam(2)->getHp() > 0) {
+				this->ais.front()->getTeam(i)->action(this->player->getTeam(2));
+				this->infoText.setString(" - Enemy Attack - \n- " + this->player->getTeam(2)->getName() + "-");
+			}
+			else {
+				this->infoText.setString(" - Enemy Turn - \n- " + this->ais.front()->getTeam(i)->getName() + " MISS -");
+			}
+		}
+		else {
+			this->infoText.setString(" - Enemy Turn - \n- " + this->ais.front()->getTeam(i)->getName() + " MISS -");
+		}
+	}
+	this->player->setTeamToTrue();
+	turn = true;
+	
+
+
+
+
 }
 
 
@@ -392,9 +419,9 @@ void BattleScene::playerReward()
 		{
 			if (fsUnits.good())
 			{
-				/*fsUnits << "roulf 25 5 2" << std::endl;
-				fsUnits << "louis 35 6 2" << std::endl;
-				fsUnits << "slot 0 0 0";*/
+				fsUnits << "knight 25 5 2" << std::endl;
+				fsUnits << "archer 35 6 2" << std::endl;
+				fsUnits << "slot 0 0 0";
 			}
 
 			fsUnits.close();
@@ -404,12 +431,12 @@ void BattleScene::playerReward()
 		{
 			if (fsInventory.good())
 			{
-				/*fsInventory << "potion 1 5 1" << std::endl;
+				fsInventory << "potion 1 5 1" << std::endl;
 				fsInventory << "knife 1 5 2" << std::endl;
 				fsInventory << "axe 1 10 3" << std::endl;
 				fsInventory << "sword 1 15 4" << std::endl;
 				fsInventory << "magicAxe 1 20 5" << std::endl;
-				fsInventory << "slot 0 0 0";*/
+				fsInventory << "slot 0 0 0";
 			}
 			fsInventory.close();
 		}

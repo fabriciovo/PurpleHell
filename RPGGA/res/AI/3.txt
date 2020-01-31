@@ -1,6 +1,12 @@
+<<<<<<< HEAD
+monster01 20 2
+monster01 20 2
 slot 0 0
-slot 0 0
-slot 0 0
+=======
+monster01 10 1
+monster02 10 2
+monster03 10 5
+>>>>>>> Inventario ainda faz troca de itens incorretamente, adicionado wave de inimigos, jogo procura pelas sprites corretas agora, removido a animação de especial (por conta de bugs)
 slot 0 0
 slot 0 0
 slot 0 0

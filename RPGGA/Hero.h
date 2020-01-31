@@ -11,6 +11,7 @@ private:
 	int originalX;
 	int originalY;
 
+	Especial *spell;
 
 public:
 	Hero();
@@ -20,7 +21,7 @@ public:
 	virtual ~Hero();
 	void special(Entity *entity);
 	void action(Entity * entity);
-
+	Especial * getSpell();
 	void updateAnimation(const float &dt);
 
 };

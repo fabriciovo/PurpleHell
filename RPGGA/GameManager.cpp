@@ -42,7 +42,7 @@ GameManager::~GameManager()
 //Functions
 void GameManager::updateDt()
 {
-	this->dt = this->dtClock.getElapsedTime().asSeconds();
+	this->dt = this->dtClock.restart().asSeconds();
 }
 
 void GameManager::updateSFMLEvents()

@@ -20,7 +20,7 @@ Hero::Hero(float x, float y, std::string name, int hp, int power,int type, sf::T
 	this->originalX = x;
 	this->originalY = y;
 
-	this->animationComponent->addAnimation("IDLE", 40.f, 0, 0, 1, 0, 18, 18);
+	this->animationComponent->addAnimation("IDLE", 90.f, 0, 0, 1, 0, 18, 18);
 
 
 }
@@ -52,7 +52,7 @@ Hero::~Hero()
 }
 void Hero::special(Entity *entity)
 {
-	Especial(this->type, entity);
+	this->spell = new Especial(this->type, entity);
 	this->setPlayed(true);
 }
 
@@ -64,9 +64,19 @@ void Hero::action(Entity * entity)
 	this->setSelected(false);
 }
 
+Especial * Hero::getSpell()
+{
+	if (this->spell != nullptr) {
+		return this->spell;
+	}
+	return nullptr;
+}
+
 void Hero::updateAnimation(const float & dt)
 {
-	this->animationComponent->play("IDLE", dt);
+
+		this->animationComponent->play("IDLE", dt);
+	
 }
 
 

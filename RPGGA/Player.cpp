@@ -52,6 +52,10 @@ void Player::render(sf::RenderTarget * target)
 	for (int i = 0; i < this->maxUnits; i++) {
 		if (this->team[i]) {
 			this->team[i]->render(target);
+
+			if(this->team[i]->getSpell()){
+				this->team[i]->getSpell()->render(target);
+			}
 		}
 	}
 }
@@ -62,6 +66,11 @@ void Player::update(sf::Vector2f mousePos,const float &dt)
 		if (this->team[i]){
 			this->team[i]->update(mousePos,dt);
 			this->team[i]->updateAnimation(dt);
+
+			if (this->team[i]->getSpell()) {
+				this->team[i]->getSpell()->updateAnimation(dt);
+			}
+
 		}
 	}
 }
@@ -112,6 +121,19 @@ bool Player::getClear()
 void Player::setClear(bool value)
 {
 	this->clear = value;
+}
+
+int Player::teamSize()
+{
+	int a = 0;
+	for (int i = 0; i < this->maxUnits; i++) {
+		if (this->team[i]) {
+			if (this->team[i]->getName() != "slot") {
+				a++;
+			}
+		}
+	}
+	return a;
 }
 
 bool Player::checkPlayed()
@@ -206,7 +228,7 @@ void Player::ArquivoHeroesBattle(std::ifstream &ifsHeroes, int i)
 		if (!ifsHeroes.eof())
 		{
 			ifsHeroes >> name >> hp >> power >> spell;
-			if (name != "slot" || name != " ") {
+			if (name != "slot") {
 				sf::Texture *tex;
 				tex = new sf::Texture();
 				tex->loadFromFile("res/img/Player/" + name + ".png");

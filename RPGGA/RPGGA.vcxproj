@@ -22,32 +22,36 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{F4EA1907-F1E0-4D71-9C55-94C262B13EC5}</ProjectGuid>
     <RootNamespace>RPGGA</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
+<<<<<<< HEAD
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+=======
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+>>>>>>> Inventario ainda faz troca de itens incorretamente, adicionado wave de inimigos, jogo procura pelas sprites corretas agora, removido a animação de especial (por conta de bugs)
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -76,11 +80,11 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\fabriciovo\Downloads\SFML-2.5.1\include;C:\Users\fabriciovo\Downloads\SFML-2.5.1\include;C:\Users\Fabricio\OneDrive\Documentos\Visual Studio 2017\Projects\RPGGA\SFML-2.5.1\include;C:\Users\fabriciovo\Downloads\RPGGA\SFML-2.5.1\include;C:\Users\Fabricio\OneDrive\Documentos\Visual Studio 2017\Projects\RPG\RPGGA\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)SFML-2.5.1/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>C:\Users\fabriciovo\Downloads\SFML-2.5.1\lib;C:\Users\fabriciovo\Downloads\SFML-2.5.1\include;C:\Users\Fabricio\OneDrive\Documentos\Visual Studio 2017\Projects\RPGGA\SFML-2.5.1\lib;C:\Users\fabriciovo\Downloads\RPGGA\SFML-2.5.1\lib;C:\Users\Fabricio\OneDrive\Documentos\Visual Studio 2017\Projects\RPG\RPGGA\SFML-2.5.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\SFML-2.5.1\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -90,6 +94,9 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>SFML-2.5.1lib</AdditionalLibraryDirectories>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -99,13 +106,13 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\fabriciovo\Downloads\SFML-2.5.1\include;C:\Users\fabriciovo\Downloads\RPGGA\SFML-2.5.1\include;C:\Users\Fabricio\OneDrive\Documentos\Visual Studio 2017\Projects\RPG\RPGGA\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)SFML-2.5.1/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>C:\Users\fabriciovo\Downloads\SFML-2.5.1\lib;C:\Users\fabriciovo\Downloads\RPGGA\SFML-2.5.1\lib;C:\Users\Fabricio\OneDrive\Documentos\Visual Studio 2017\Projects\RPG\RPGGA\SFML-2.5.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\SFML-2.5.1\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics-s.lib;sfml-window-s.lib;sfml-system-s.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -120,6 +127,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>SFML-2.5.1lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -139,10 +147,8 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Especial.h" />
     <ClInclude Include="Potion.h" />
-    <ClInclude Include="Recursao.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Units.h" />
-    <ClInclude Include="WorldScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AI.cpp" />
@@ -157,7 +163,6 @@
     <ClCompile Include="Hero.cpp" />
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Potion.cpp" />
-    <ClCompile Include="Recursao.cpp" />
     <ClCompile Include="Units.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
@@ -165,7 +170,6 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Especial.cpp" />
     <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="WorldScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="res\AI\0.txt" />

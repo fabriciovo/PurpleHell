@@ -41,6 +41,6 @@ public:
 	EquipedItems *getEquipedItems();
 	bool getClear();
 	void setClear(bool value);
-
+	int teamSize();
 };
 #endif // !PLAYER_H

@@ -12,6 +12,7 @@ AnimationComponent::~AnimationComponent()
 	{
 		delete i.second;
 	}
+
 }
 
 //Accessors
@@ -36,6 +37,7 @@ void AnimationComponent::addAnimation(
 
 const bool& AnimationComponent::play(const std::string key, const float & dt, const bool priority)
 {
+
 	if (this->priorityAnimation) //If there is a priority animation
 	{
 		if (this->priorityAnimation == this->animations[key])
@@ -131,3 +133,4 @@ const bool& AnimationComponent::play(const std::string key, const float & dt, co
 
 	return this->animations[key]->isDone();
 }
+

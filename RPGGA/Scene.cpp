@@ -56,7 +56,8 @@ void Scene::updateMousePosition()
 void Scene::updateFade(const float& dt)
 {
 	if (fade) {
-		if (dt > 1.0f) {
+		
+		if (dt < 1.0f) {
 			timerFade += 5;
 			this->fadeShape.setFillColor(sf::Color(0, 0, 0, timerFade));
 
@@ -69,7 +70,7 @@ void Scene::updateFade(const float& dt)
 	if (!fade) {
 		
 		if (timerFade > 0) {
-			if (dt > 1.0f) {
+			if (dt < 1.0f) {
 				timerFade -= 5;
 				this->fadeShape.setFillColor(sf::Color(0, 0, 0, timerFade));
 			}

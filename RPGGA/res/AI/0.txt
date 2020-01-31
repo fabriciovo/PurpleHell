@@ -1,4 +1,4 @@
-monster01 20 10
+monster01 14 2
 slot 0 0
 slot 0 0
 slot 0 0

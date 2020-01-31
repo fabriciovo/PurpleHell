@@ -3,6 +3,12 @@
 
 #include "GameScene.h"
 #include "Button.h"
+#include <iostream>
+#include <map>
+#include <string>
+
+#include <map>
+
 class MainMenuScene :
 	public Scene
 {
@@ -14,6 +20,8 @@ private:
 	sf::Text texts[3];
 
 	std::vector <Button*> buttons;
+
+	std::map<std::string, Button*> buttonsMap;
 
 	void initFonts();
 	void initButtons();

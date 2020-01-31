@@ -1,3 +1,7 @@
-mage 10 10 1
+<<<<<<< HEAD
+mage 30 5 2
+=======
+mage 20 10 2
+>>>>>>> Inventario ainda faz troca de itens incorretamente, adicionado wave de inimigos, jogo procura pelas sprites corretas agora, removido a animação de especial (por conta de bugs)
 slot 0 0 0
 slot 0 0 0

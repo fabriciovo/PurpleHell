@@ -13,9 +13,18 @@ void MainMenuScene::initButtons()
 {
 	sf::Texture texture1;
 	texture1.loadFromFile("res/hud/button1.png");
-	this->buttons.push_back(new Button(135,80,75,20,&this->font,"Start Game", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture1));
+
+
+	//Map
+	this->buttonsMap["STARTGAME"] = (new Button(135, 80, 75, 20, &this->font, "Start Game", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture1));
+	this->buttonsMap["QUIT"] = (new Button(135, 110, 75, 20, &this->font, "QUIT", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture1));
+	this->buttonsMap["CREDITS"] = (new Button(135, 140, 75, 20, &this->font, "Credits", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture1));
+
+	//Vectors
+	/*this->buttons.push_back(new Button(135,80,75,20,&this->font,"Start Game", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture1));
 	this->buttons.push_back(new Button(135,110, 75, 20, &this->font, "QUIT", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture1));
 	this->buttons.push_back(new Button(135,140, 75, 20, &this->font, "Credits", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture1));
+	*/
 }
 
 void MainMenuScene::initTexts()
@@ -51,9 +60,9 @@ MainMenuScene::MainMenuScene(sf::RenderWindow *window, std::stack<Scene*> *scene
 
 MainMenuScene::~MainMenuScene()
 {
-	auto it = this->buttons.begin();
-	for (it = this->buttons.begin(); it != this->buttons.end(); ++it) {
-	
+	auto it = this->buttonsMap.begin();
+	for (it = this->buttonsMap.begin(); it != this->buttonsMap.end(); ++it) {
+		delete it->second;
 	}
 }
 
@@ -66,8 +75,14 @@ void MainMenuScene::updateButtons()
 		it->update(this->mousePosView);
 	}
 
+	for (auto &it : this->buttonsMap) {
 
-	if (this->buttons[0]->isPressed()) {
+		it.second->update(this->mousePosView);
+	}
+
+
+
+	/*if (this->buttons[0]->isPressed()) {
 		this->scenes->push(new GameScene(this->window, this->scenes));
 		//this->endScene();
 
@@ -78,6 +93,13 @@ void MainMenuScene::updateButtons()
 	}
 	if (this->buttons[2]->isPressed()) {
 		this->showCredits = true;
+	}*/
+
+	if (this->buttonsMap["STARTGAME"]->isPressed()) {
+		this->scenes->push(new GameScene(this->window, this->scenes));
+	}
+	if (this->buttonsMap["QUIT"]->isPressed()) {
+		this->endScene();
 	}
 }
 
@@ -103,7 +125,11 @@ void MainMenuScene::renderButtons(sf::RenderTarget * target)
 
 		it->render(target);
 	}
-	
+	for (auto &it : this->buttonsMap) {
+
+		it.second->render(target);
+	}
+
 }
 
 
