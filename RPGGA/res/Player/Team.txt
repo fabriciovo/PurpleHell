@@ -1,3 +1,0 @@
-mage 20 10 2
-slot 0 0 0
-slot 0 0 0

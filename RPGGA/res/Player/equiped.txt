@@ -1,6 +1,0 @@
-knife 1 5 2
-sword 1 10 4
-slot 0 0 0
-slot 0 0 0
-slot 0 0 0
-slot 0 0 0

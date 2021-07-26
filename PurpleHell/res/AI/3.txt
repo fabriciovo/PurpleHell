@@ -1,0 +1,6 @@
+monster01 10 1
+monster02 10 2
+monster03 10 5
+slot 0 0
+slot 0 0
+slot 0 0
