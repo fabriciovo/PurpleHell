@@ -3,7 +3,7 @@
 ![prints](./doc/game.png)
 
 
-# [PurpleHell](https://github.com/fabriciovo/AFKnights)
+# [PurpleHell](https://github.com/fabriciovo/PurpleHell)
 This game was made for college, your intention is use all kind of data structures Linked Lists, Stacks, Queues, etc. 
 
 ## About
