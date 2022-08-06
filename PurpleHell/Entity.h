@@ -59,7 +59,8 @@ public:
 
 	const bool &getSelected() const;
 	const bool &getPlayed() const;
-	
+	sf::Sprite *getSprite();
+
 	void setDamage(int hp);
 
 	std::string getName();
@@ -70,6 +71,8 @@ public:
 	void setHp(int hp);
 	void setPower(int power);
 	int getType();
+
+
 
 
 

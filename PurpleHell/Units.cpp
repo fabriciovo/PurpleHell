@@ -34,6 +34,7 @@ void Units::updateUnits(sf::Vector2f mousePos,const float &dt)
 
 bool Units::selectedHero()
 {
+
 	for (int i = 0; i < this->maxUnitsInventory; i++) {
 		if (this->heroes[i]) {
 			if (heroes[i]->getSelected()) {
@@ -48,7 +49,7 @@ Entity* Units::getHero()
 {
 	for (int i = 0; i < this->maxUnitsInventory; i++) {
 		if (this->heroes[i]) {
-			if(this->heroes[i]->getName() != "slot"){
+			if(this->heroes[i]->getName() != "slot" && !this->heroes[i]->getSelected()){
 				if (heroes[i]->getSelected()) {
 					return this->heroes[i];
 				}

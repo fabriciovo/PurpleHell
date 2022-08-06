@@ -13,7 +13,7 @@ public:
 
 	void action(Entity* entity);
 	void special(Entity *entity);
-	void update(sf::Vector2f mousePos);
+	void update(sf::Vector2f mousePos, const float& dt);
 	int getHp();
 	std::string getName();
 	void removeSelected();

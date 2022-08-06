@@ -44,6 +44,12 @@ const bool& Entity::getPlayed() const
 	return this->played;
 }
 
+sf::Sprite* Entity::getSprite()
+{
+	return this->sprite;
+}
+
+
 void Entity::setDamage(int damage)
 {
 	this->hp -= damage;
@@ -78,35 +84,19 @@ void Entity::SetScale(const float x, const float y)
 
 void Entity::update(sf::Vector2f mousePos, const float &dt)
 {
-	if(this->hp > 0){
-		if (this->sprite->getGlobalBounds().contains(mousePos)) {
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-					this->selected = true;
-			}
-		}
-
-		if (!this->sprite->getGlobalBounds().contains(mousePos)) {
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
-				this->selected = false;
-
-			}
-		}
-
-		if (selected){
-			this->sprite->setColor(sf::Color::Yellow);
-		}
-		else {
-			this->sprite->setColor(sf::Color::White);
-		}
-	} else{ 
-		this->selected = false;
+	if (this->selected && !this->played) {
+		this->sprite->setColor(sf::Color::Yellow);
+	}
+	else if (this->played) {
+		this->sprite->setColor(sf::Color::Green);
+	}
+	else if (this->hp <= 0) {
 		this->sprite->setColor(sf::Color::Black);
-	}
-	if (this->hp <= 0) {
-		this->selected = false;
-	}
-	
 
+	}
+	else {
+		this->sprite->setColor(sf::Color::White);
+	}
 }
 
 
@@ -139,12 +129,7 @@ void Entity::setPlayed(bool value)
 void Entity::setSelected(bool value)
 {
 	this->selected = value;
-	if (selected) {
-		this->sprite->setColor(sf::Color::Yellow);
-	}
-	else {
-		this->sprite->setColor(sf::Color::White);
-	}
+
 }
 
 

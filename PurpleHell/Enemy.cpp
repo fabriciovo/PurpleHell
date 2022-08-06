@@ -50,8 +50,9 @@ void Enemy::special(Entity *entity)
 
 
 
-void Enemy::update(sf::Vector2f mousePos)
-{
+void Enemy::update(sf::Vector2f mousePos, const float& dt)
+{	
+	Entity::update(mousePos, dt);
 	if (this->hp > 0) {
 		if (this->sprite->getGlobalBounds().contains(mousePos)) {
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
@@ -65,17 +66,9 @@ void Enemy::update(sf::Vector2f mousePos)
 
 			}
 		}
-
-		if (selected) {
-			this->sprite->setColor(sf::Color::Yellow);
-		}
-		else {
-			this->sprite->setColor(sf::Color::White);
-		}
 	}
 	else {
 		this->selected = false;
-		this->sprite->setColor(sf::Color::Black);
 	}
 }
 

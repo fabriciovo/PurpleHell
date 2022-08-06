@@ -62,15 +62,32 @@ void Player::render(sf::RenderTarget * target)
 
 void Player::update(sf::Vector2f mousePos,const float &dt)
 {
+
 	for (int i = 0; i < this->maxUnits; i++) {
-		if (this->team[i]){
-			this->team[i]->update(mousePos,dt);
-			this->team[i]->updateAnimation(dt);
+		if (this->team[i]) {
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+				if (this->team[i]->getSprite()->getGlobalBounds().contains(mousePos)) {
+					selectedUnit = i;
+				}
+			}
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
+					selectedUnit = -1;
+			}
 
 			if (this->team[i]->getSpell()) {
 				this->team[i]->getSpell()->updateAnimation(dt);
 			}
+			
 
+			if (i == selectedUnit) {
+				this->team[i]->setSelected(true);
+			}
+			else {
+				this->team[i]->setSelected(false);
+			}
+
+			this->team[i]->updateAnimation(dt);
+			this->team[i]->update(mousePos,dt);
 		}
 	}
 }
