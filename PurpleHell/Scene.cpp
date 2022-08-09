@@ -18,8 +18,6 @@ Scene::Scene(sf::RenderWindow * window, std::stack<Scene*> *scenes)
 	this->fadeShape.setPosition(sf::Vector2f(0, 0));
 	this->fadeShape.setFillColor(sf::Color(0, 0, 0, timerFade));
 	this->fadeShape.setSize(sf::Vector2f(350,197));
-	
-
 }
 
 

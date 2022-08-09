@@ -54,8 +54,6 @@ void AI::battlePosition()
 				this->team[i]->SetPosition(55 + (35 * i), 152);
 			}
 		}
-
-	
 }
 
 bool AI::selectedEnemy()
@@ -105,6 +103,17 @@ int AI::NumberOfEnemies()
 			}
 	}
 	return temp;
+}
+
+bool AI::enemyPlayed()
+{
+	for (int i = 0; i < this->maxUnits; i++) {
+		if (this->team[i])
+			if (!this->team[i]->getPlayed()) {
+				return false;
+			}
+	}
+	return true;
 }
 
 //Arquivos

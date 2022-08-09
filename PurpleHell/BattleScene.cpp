@@ -350,53 +350,79 @@ void BattleScene::renderButtons(sf::RenderTarget * target)
 void BattleScene::battleSystem(const float& dt)
 {
 
-
-	this->infoText.setString("- Enemy Turn -");
 	bool attacking = false;
-
-	for (int i = 0; i < this->ais.front()->NumberOfEnemies(); i++) {
-		std::srand(time(NULL));
-		int num = rand() % 100;
-		std::cout << num << std::endl;
-
-		if ((num > 33 && num < 66) && this->player->getTeam(0) != nullptr ) {
-			if (this->player->getTeam(0)->getHp() > 0) {
-				this->ais.front()->getTeam(i)->action(this->player->getTeam(0));
-				this->infoText.setString(" - Enemy Attack - \n- "+ this->player->getTeam(0)->getName() +"-");
-					
-			}
-			else {
-				std::cout << "ENEMY -> MISS" << std::endl;
-				this->infoText.setString(" - Enemy Turn - \n- "+ this->ais.front()->getTeam(i)->getName() +" MISS -");
-			}	
-		}
-		else if (num < 33 && this->player->getTeam(1) != nullptr ) {
-			if (this->player->getTeam(1)->getHp() > 0) {
-				this->ais.front()->getTeam(i)->action(this->player->getTeam(1));
-				this->infoText.setString(" - Enemy Attack - \n- " + this->player->getTeam(1)->getName() + "-");
-			}
-			else {
-				this->infoText.setString(" - Enemy Turn - \n- " + this->ais.front()->getTeam(i)->getName() + " MISS -");
-			}
-		}
-		else if (num > 66 && this->player->getTeam(2) != nullptr) {
-			if (this->player->getTeam(2)->getHp() > 0) {
-				this->ais.front()->getTeam(i)->action(this->player->getTeam(2));
-				this->infoText.setString(" - Enemy Attack - \n- " + this->player->getTeam(2)->getName() + "-");
-			}
-			else {
-				this->infoText.setString(" - Enemy Turn - \n- " + this->ais.front()->getTeam(i)->getName() + " MISS -");
-			}
-		}
-		else {
-			this->infoText.setString(" - Enemy Turn - \n- " + this->ais.front()->getTeam(i)->getName() + " MISS -");
-		}
-	}
-	this->player->setTeamToTrue();
-	turn = true;
+	std::cout << this->timer << std::endl;
 	
 
 
+	if (this->timer <= 0 && !this->ais.front()->enemyPlayed()) {
+		std::srand(time(NULL));
+		int num = rand() % 100;
+		if ((num > 33 && num < 66) && this->player->getTeam(0) != nullptr) {
+			this->infoText.setString(" - Enemy Attack - \n -" + this->player->getTeam(0)->getName() + " -");
+			this->ais.front()->getTeam(0)->action(this->player->getTeam(0));
+		}
+		else {
+			this->infoText.setString(" - Enemy - " + this->ais.front()->getTeam(0)->getName() + " MISS - ");
+		}
+		this->enemyIndex++;
+		this->timer = 100;
+	}
+	
+	if (this->ais.front()->enemyPlayed() && this->timer <=0 ) {
+		this->player->setTeamToTrue();
+		turn = true;
+		this->enemyIndex = 0;
+	}
+	this->timer -= dt;
+	//if(this->timer > 0){
+	//	this->infoText.setString("- Enemy Turn -");
+	//	
+	//}else{
+	/*this->timer -= dt;
+		for (int i = 0; i < this->ais.front()->NumberOfEnemies(); i++) {
+			std::srand(time(NULL));
+			int num = rand() % 100;
+			
+			if ((num > 33 && num < 66) && this->player->getTeam(0) != nullptr && this->timer <= 0 ) {
+				if (this->player->getTeam(0)->getHp() > 0) {
+					this->ais.front()->getTeam(i)->action(this->player->getTeam(0));
+					this->infoText.setString(" - Enemy Attack - \n- "+ this->player->getTeam(0)->getName() +"-");
+					
+				}
+				else {
+					std::cout << "ENEMY -> MISS" << std::endl;
+					this->infoText.setString(" - Enemy Turn - \n- "+ this->ais.front()->getTeam(i)->getName() +" MISS -");
+				}	
+				this->timer = 100;
+			}
+			else if (num < 33 && this->player->getTeam(1) != nullptr && this->timer <= 0) {
+				if (this->player->getTeam(1)->getHp() > 0) {
+					this->ais.front()->getTeam(i)->action(this->player->getTeam(1));
+					this->infoText.setString(" - Enemy Attack - \n- " + this->player->getTeam(1)->getName() + "-");
+				}
+				else {
+					this->infoText.setString(" - Enemy Turn - \n- " + this->ais.front()->getTeam(i)->getName() + " MISS -");
+				}
+				this->timer = 100;
+			}
+			else if (num > 66 && this->player->getTeam(2) != nullptr && this->timer <= 0) {
+				if (this->player->getTeam(2)->getHp() > 0) {
+					this->ais.front()->getTeam(i)->action(this->player->getTeam(2));
+					this->infoText.setString(" - Enemy Attack - \n- " + this->player->getTeam(2)->getName() + "-");
+				}
+				else {
+					this->infoText.setString(" - Enemy Turn - \n- " + this->ais.front()->getTeam(i)->getName() + " MISS -");
+				}
+				this->timer = 100;
+			}
+			else {
+				this->infoText.setString(" - Enemy Turn - \n- " + this->ais.front()->getTeam(i)->getName() + " MISS -");
+				this->timer = 100;
+			}
+		}*/
+
+		
 
 
 }

@@ -12,18 +12,14 @@ void Inventory::initInventory()
 		std::getline(ifsInventory, title);
 		while (ifsInventory.good())
 		{
-
 			ifsInventory >> name >> hp >> power >> type;
 
 			sf::Texture *tx;
 			tx = new sf::Texture();
 			tx->loadFromFile("res/img/items/" + name + ".png");
 
-
 			this->items.push_back(new Item(93 + (25 * it), 23, name, hp, power, type, tx));
 			
-
-
 			it++;
 
 			if (it ==this->maxItems) {
@@ -70,8 +66,6 @@ bool Inventory::selectedItem()
 		}
 	}
 	return false;
-
-
 }
 
 Entity * Inventory::getItem()

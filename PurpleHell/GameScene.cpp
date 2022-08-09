@@ -420,9 +420,6 @@ void GameScene::ChangeItems(Entity* inventoryItem , Entity* equipedItem)
 			<< " " << this->inventory->getItemById(t)->getPower()
 			<< " " << this->inventory->getItemById(t)->getType()
 			<< std::endl;
-
-
-
 	}
 	ofsInventory.close();
 

@@ -84,7 +84,8 @@ void Entity::SetScale(const float x, const float y)
 
 void Entity::update(sf::Vector2f mousePos, const float &dt)
 {
-	if (this->selected && !this->played) {
+	if (this->selected ) {
+
 		this->sprite->setColor(sf::Color::Yellow);
 	}
 	else if (this->played) {

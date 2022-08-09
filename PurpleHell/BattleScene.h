@@ -39,7 +39,9 @@ protected:
 
 	int wave;
 	int maxWave;
-
+	int timer = 100;
+	int timerToStart = 100;
+	int enemyIndex = 0;
 	void initTextures();
 	void initButtons();
 	void initFont();

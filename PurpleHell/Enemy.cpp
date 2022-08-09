@@ -36,7 +36,6 @@ Enemy::~Enemy()
 void Enemy::action(Entity* entity)
 {
 	if(this->hp > 0){
-		std::cout << "ENEMY " << this->name << " ATTACK" << std::endl;
 		entity->setDamage(this->power);
 		this->setPlayed(true);
 		entity->setSelected(false);
@@ -59,7 +58,6 @@ void Enemy::update(sf::Vector2f mousePos, const float& dt)
 				this->selected = true;
 			}
 		}
-
 		if (!this->sprite->getGlobalBounds().contains(mousePos)) {
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
 				this->selected = false;

@@ -1,7 +1,6 @@
-sword 1 20 5
-slot 0 0 0
-slot 0 0 0
-slot 0 0 0
-slot 0 0 0
-slot 0 0 0
-0 0
+potion 1 5 1
+knife 1 5 2
+axe 1 10 3
+sword 1 15 4
+magicAxe 1 20 5
+

@@ -27,6 +27,7 @@ public:
 	void updateEnemies(sf::Vector2f mousePos, const float &dt);
 	void battlePosition();
 	bool selectedEnemy();
+	bool enemyPlayed();
 	Enemy* getEnemy();	
 
 	Enemy* getTeam(int i);
