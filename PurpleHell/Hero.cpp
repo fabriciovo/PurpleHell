@@ -74,9 +74,7 @@ Especial * Hero::getSpell()
 
 void Hero::updateAnimation(const float & dt)
 {
-
-		this->animationComponent->play("IDLE", dt);
-	
+	this->animationComponent->play("IDLE", dt);	
 }
 
 
