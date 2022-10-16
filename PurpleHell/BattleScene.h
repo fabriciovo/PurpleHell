@@ -41,6 +41,7 @@ protected:
 	int maxWave;
 	int timer = 100;
 	int timerToStart = 100;
+	int enemyTurnIndex = 0;
 	int enemyIndex = 0;
 	void initTextures();
 	void initButtons();
@@ -64,6 +65,7 @@ public:
 	void render(sf::RenderTarget* target = NULL);
 	void renderTexts(sf::RenderTarget* target = NULL);
 	void updateTexts();
+	void enemyTurn();
 
 
 };

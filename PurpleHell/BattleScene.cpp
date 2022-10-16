@@ -310,9 +310,7 @@ void BattleScene::updateTexts()
 	if (turn && !win && !winEnemy) {
 		this->infoText.setString(" - TURN - \n- PLAYER -");
 	}
-	else {
-		this->infoText.setString(" - TURN - \n- ENEMY -");
-	}
+
 
 	if (win && !winEnemy) {
 		this->infoText.setString("PLAYER WINS!");
@@ -322,6 +320,33 @@ void BattleScene::updateTexts()
 		this->infoText.setString("ENEMY WINS!");
 	}
 	
+}
+
+void BattleScene::enemyTurn()
+{
+	if (this->enemyTurnIndex == 0) {
+		//enemy Turn start
+		this->infoText.setString(" - Enemy Turn - \n -");
+		//this->enemyTurnIndex++;
+	}
+	else if (this->enemyTurnIndex == 1) {
+		this->infoText.setString(this->ais.front()->getTeam(this->enemyIndex)->getName() + " - Attack - \n -" + this->player->getTeam(0)->getName() + " -");
+		//this->enemyTurnIndex++;
+	}
+	else if (this->enemyTurnIndex == 2) { 
+		std::srand(time(NULL));
+		int num = rand() % 100;
+		if ((num > 33 && num < 66) && this->player->getTeam(0) != nullptr) {
+			this->infoText.setString(" - Enemy Attack - \n -" + this->player->getTeam(0)->getName() + " -");
+			this->ais.front()->getTeam(this->enemyIndex)->action(this->player->getTeam(0));
+		}
+		else {
+			this->infoText.setString(" - Enemy - " + this->ais.front()->getTeam(this->enemyIndex)->getName() + " MISS - ");
+		}
+		this->enemyTurnIndex =  0;
+		//this->enemyIndex++;
+	}
+
 }
 
 void BattleScene::renderButtons(sf::RenderTarget * target)
@@ -344,37 +369,57 @@ void BattleScene::renderButtons(sf::RenderTarget * target)
 	}
 }
 
-
-//BattleScene
-
 void BattleScene::battleSystem(const float& dt)
 {
 
 	bool attacking = false;
 	std::cout << this->timer << std::endl;
-	
 
-
-	if (this->timer <= 0 && !this->ais.front()->enemyPlayed()) {
-		std::srand(time(NULL));
-		int num = rand() % 100;
-		if ((num > 33 && num < 66) && this->player->getTeam(0) != nullptr) {
-			this->infoText.setString(" - Enemy Attack - \n -" + this->player->getTeam(0)->getName() + " -");
-			this->ais.front()->getTeam(0)->action(this->player->getTeam(0));
-		}
-		else {
-			this->infoText.setString(" - Enemy - " + this->ais.front()->getTeam(0)->getName() + " MISS - ");
-		}
-		this->enemyIndex++;
+	if (this->timer <= 0) {
+		enemyTurn();
 		this->timer = 100;
+		this->enemyTurnIndex++;
 	}
+	//if (this->timer <= 0 && !this->ais.front()->enemyPlayed()) {
+	//	std::srand(time(NULL));
+	//	int num = rand() % 100;
+
+	//	this->ais.front()->getTeam(0)->action(this->player->getTeam(0));
+	//	if ((num > 33 && num < 66) && this->player->getTeam(0) != nullptr) {
+
+	//		this->infoText.setString(" - Enemy Attack - \n -" + this->player->getTeam(0)->getName() + " -");
+	//		this->ais.front()->getTeam(0)->action(this->player->getTeam(0));
+	//	}
+	//	else {
+	//		this->infoText.setString(" - Enemy - " + this->ais.front()->getTeam(0)->getName() + " MISS - ");
+	//	}
+
+
+
 	
-	if (this->ais.front()->enemyPlayed() && this->timer <=0 ) {
-		this->player->setTeamToTrue();
-		turn = true;
-		this->enemyIndex = 0;
-	}
 	this->timer -= dt;
+
+
+	//if (this->timer <= 0 && !this->ais.front()->enemyPlayed()) {
+	//	std::srand(time(NULL));
+	//	int num = rand() % 100;
+	//	if ((num > 33 && num < 66) && this->player->getTeam(0) != nullptr) {
+	//		this->infoText.setString(" - Enemy Attack - \n -" + this->player->getTeam(0)->getName() + " -");
+	//		this->ais.front()->getTeam(0)->action(this->player->getTeam(0));
+	//	}
+	//	else {
+	//		this->infoText.setString(" - Enemy - " + this->ais.front()->getTeam(0)->getName() + " MISS - ");
+	//	}
+	//	this->enemyIndex++;
+	//	this->timer = 100;
+	//}
+	//
+	//if (this->ais.front()->enemyPlayed() && this->timer <=0 ) {
+	//	this->player->setTeamToTrue();
+	//	turn = true;
+	//	this->enemyIndex = 0;
+	//}
+	//this->timer -= dt;
 	//if(this->timer > 0){
 	//	this->infoText.setString("- Enemy Turn -");
 	//	
