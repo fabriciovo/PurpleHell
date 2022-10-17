@@ -121,6 +121,14 @@ Entity* Player::getTeam(int i)
 	return this->team[i];
 }
 
+Entity* Player::getRandomHero()
+{
+	int heroIndex = rand() % 3;
+
+
+	return this->team[heroIndex];
+}
+
 void Player::setTeam(int i, Hero * hero)
 {
 	this->team[i] = hero;

@@ -88,8 +88,8 @@ void Entity::update(sf::Vector2f mousePos, const float &dt)
 
 		this->sprite->setColor(sf::Color::Yellow);
 	}
-	else if (this->played) {
-		this->sprite->setColor(sf::Color::Green);
+	else if (this->played && this->hp > 0) {
+		//this->sprite->setColor(sf::Color::Green);
 	}
 	else if (this->hp <= 0) {
 		this->sprite->setColor(sf::Color::Black);

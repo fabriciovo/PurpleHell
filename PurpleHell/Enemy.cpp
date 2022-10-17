@@ -66,7 +66,8 @@ void Enemy::update(sf::Vector2f mousePos, const float& dt)
 		}
 	}
 	else {
-		this->selected = false;
+		this->selected = false;	
+		this->played = true;
 	}
 }
 
@@ -87,6 +88,8 @@ void Enemy::removeSelected()
 
 void Enemy::updateAnimation(const float & dt)
 {
-	this->animationComponent->play("IDLE_MONSTER", dt);
+	if(this->getHp() > 0){
+		this->animationComponent->play("IDLE_MONSTER", dt);
+	}
 }
 

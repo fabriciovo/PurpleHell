@@ -271,20 +271,13 @@ void BattleScene::renderTexts(sf::RenderTarget* target)
 
 void BattleScene::updateTexts()
 {
+	if (this->player->getHero()) {
+		this->battleTexts[0].setString(this->player->getHero()->getName());
+		this->battleTexts[2].setString("HP: " + std::to_string(this->player->getHero()->getHp()));
+		this->battleTexts[6].setString("POWER: " + std::to_string(this->player->getHero()->getPower()));
+	}
 
 	if(!this->ais.empty()){
-		if (turn && this->player->getHero()) {
-			this->battleTexts[0].setString(this->player->getHero()->getName());
-			this->battleTexts[2].setString("HP: " + std::to_string(this->player->getHero()->getHp()));
-			this->battleTexts[6].setString("POWER: " + std::to_string(this->player->getHero()->getPower()));
-		}
-		else
-		{
-			this->battleTexts[0].setString("");
-			this->battleTexts[2].setString("");
-			this->battleTexts[6].setString("");
-		}
-
 		if (this->ais.front()->selectedEnemy()) {
 			this->battleTexts[1].setString(this->ais.front()->getEnemy()->getName());
 			this->battleTexts[3].setString("HP: " + std::to_string(this->ais.front()->getEnemy()->getHp()));
@@ -324,29 +317,37 @@ void BattleScene::updateTexts()
 
 void BattleScene::enemyTurn()
 {
-	if (this->enemyTurnIndex == 0) {
-		//enemy Turn start
-		this->infoText.setString(" - Enemy Turn - \n -");
-		//this->enemyTurnIndex++;
+	int playerIndex = 0;
+	if (this->ais.front()->getTeam(this->enemyIndex)->getHp() <= 0) {
+		this->enemyIndex++;
 	}
-	else if (this->enemyTurnIndex == 1) {
-		this->infoText.setString(this->ais.front()->getTeam(this->enemyIndex)->getName() + " - Attack - \n -" + this->player->getTeam(0)->getName() + " -");
-		//this->enemyTurnIndex++;
-	}
-	else if (this->enemyTurnIndex == 2) { 
-		std::srand(time(NULL));
-		int num = rand() % 100;
-		if ((num > 33 && num < 66) && this->player->getTeam(0) != nullptr) {
-			this->infoText.setString(" - Enemy Attack - \n -" + this->player->getTeam(0)->getName() + " -");
-			this->ais.front()->getTeam(this->enemyIndex)->action(this->player->getTeam(0));
+	else {
+		if (this->enemyTurnIndex == 0) {
+			//enemy Turn start
+			this->infoText.setString(" - TURN - \n- ENEMY -");
+			this->enemyTurnIndex++;
 		}
-		else {
-			this->infoText.setString(" - Enemy - " + this->ais.front()->getTeam(this->enemyIndex)->getName() + " MISS - ");
+		else if (this->enemyTurnIndex == 1) {
+			this->infoText.setString(this->ais.front()->getTeam(this->enemyIndex)->getName() + " - Attack - \n -" + this->player->getTeam(playerIndex)->getName() + " -");
+			this->enemyTurnIndex++;
 		}
-		this->enemyTurnIndex =  0;
-		//this->enemyIndex++;
-	}
+		else if (this->enemyTurnIndex == 2) {
+			std::srand(time(NULL));
+			int num = rand() % 100;
 
+			if (this->player->getTeam(playerIndex) != nullptr && num > 33) {
+				this->infoText.setString(std::to_string(this->ais.front()->getTeam(this->enemyIndex)->getPower()) + " - Damage to -" + this->player->getTeam(playerIndex)->getName() + " -");
+				this->ais.front()->getTeam(this->enemyIndex)->action(this->player->getTeam(playerIndex));
+			}
+			else {
+				this->infoText.setString(" - Enemy - " + this->ais.front()->getTeam(this->enemyIndex)->getName() + " MISS - ");
+				this->ais.front()->getTeam(this->enemyIndex)->setPlayed(true);
+			}
+			this->enemyTurnIndex = 0;
+			this->enemyIndex++;
+		}
+		
+	}
 }
 
 void BattleScene::renderButtons(sf::RenderTarget * target)
@@ -372,13 +373,17 @@ void BattleScene::renderButtons(sf::RenderTarget * target)
 void BattleScene::battleSystem(const float& dt)
 {
 
-	bool attacking = false;
-	std::cout << this->timer << std::endl;
 
-	if (this->timer <= 0) {
+	if (this->timer <= 0 && this->ais.front()->enemyPlayed() == false) {
 		enemyTurn();
 		this->timer = 100;
-		this->enemyTurnIndex++;
+		
+	}
+
+	if (this->ais.front()->enemyPlayed() == true && this->timer <= 0) {
+		this->enemyIndex = 0;
+		this->player->setTeamToTrue();
+		turn = true;
 	}
 	//if (this->timer <= 0 && !this->ais.front()->enemyPlayed()) {
 	//	std::srand(time(NULL));
