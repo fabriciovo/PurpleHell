@@ -276,7 +276,6 @@ void BattleScene::updateTexts()
 		this->battleTexts[2].setString("HP: " + std::to_string(this->player->getHero()->getHp()));
 		this->battleTexts[6].setString("POWER: " + std::to_string(this->player->getHero()->getPower()));
 	}
-
 	if(!this->ais.empty()){
 		if (this->ais.front()->selectedEnemy()) {
 			this->battleTexts[1].setString(this->ais.front()->getEnemy()->getName());
