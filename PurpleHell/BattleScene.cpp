@@ -317,6 +317,9 @@ void BattleScene::updateTexts()
 void BattleScene::enemyTurn()
 {
 	int playerIndex = 0;
+
+	std::cout << this->player->getRandomHero()->getName() << std::endl;
+
 	if (this->ais.front()->getTeam(this->enemyIndex)->getHp() <= 0) {
 		this->enemyIndex++;
 	}

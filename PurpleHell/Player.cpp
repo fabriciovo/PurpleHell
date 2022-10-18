@@ -124,9 +124,16 @@ Entity* Player::getTeam(int i)
 Entity* Player::getRandomHero()
 {
 	int heroIndex = rand() % 3;
+	
+
+	if (this->team[heroIndex] != nullptr) {
+		if (this->team[heroIndex]->getHp() > 0) {
+			return this->team[heroIndex];
+		}
+	}
 
 
-	return this->team[heroIndex];
+	return getRandomHero();
 }
 
 void Player::setTeam(int i, Hero * hero)
