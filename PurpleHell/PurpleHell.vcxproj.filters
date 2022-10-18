@@ -71,6 +71,9 @@
     <Filter Include="Game\Entity\Especial">
       <UniqueIdentifier>{4b81d75e-bfe5-4c2c-b33b-472c3710643c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Effects">
+      <UniqueIdentifier>{e706af5f-1d99-44a3-b62c-169c460f2c96}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Potion.h">

@@ -53,7 +53,10 @@ Hero::~Hero()
 void Hero::special(Entity *entity)
 {
 	this->spell = new Especial(this->type, entity);
+	entity->setDamage(1);
 	this->setPlayed(true);
+	this->setPlayed(true);
+	this->setSelected(false);
 }
 
 void Hero::action(Entity * entity)
