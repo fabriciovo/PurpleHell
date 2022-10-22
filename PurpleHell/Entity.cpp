@@ -122,6 +122,11 @@ int Entity::getPower()
 	return this->power;
 }
 
+sf::Vector2f Entity::getPosition()
+{
+	return this->sprite->getPosition();
+}
+
 void Entity::setPlayed(bool value)
 {
 	this->played = value;

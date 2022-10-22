@@ -105,6 +105,30 @@ int AI::NumberOfEnemies()
 	return temp;
 }
 
+void AI::setTeamToPlay()
+{
+	for (int i = 0; i < this->maxUnits; i++) {
+		if (this->team[i] != nullptr) {
+			if (this->team[i]->getName() != "slot" && this->team[i]->getHp() > 0) {
+				this->team[i]->setPlayed(false);
+			}
+		}
+	}
+}
+
+bool AI::checkPlayed()
+{
+	for (int i = 0; i < this->maxUnits; i++) {
+		if (team[i]) {
+			if (!team[i]->getPlayed()) {
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+
 bool AI::enemyPlayed()
 {
 	for (int i = 0; i < this->maxUnits; i++) {

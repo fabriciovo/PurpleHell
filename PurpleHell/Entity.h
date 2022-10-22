@@ -66,14 +66,12 @@ public:
 	std::string getName();
 	int getHp();
 	int getPower();
+	sf::Vector2f getPosition();
 	void setPlayed(bool value);
 	void setSelected(bool value);
 	void setHp(int hp);
 	void setPower(int power);
 	int getType();
-
-
-
 
 
 };

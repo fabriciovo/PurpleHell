@@ -384,9 +384,11 @@ void BattleScene::battleSystem(const float& dt)
 
 	if (this->ais.front()->enemyPlayed() == true && this->timer <= 0) {
 		this->enemyIndex = 0;
+		this->ais.front()->setTeamToPlay();
 		this->player->setTeamToTrue();
 		turn = true;
 	}
+
 	//if (this->timer <= 0 && !this->ais.front()->enemyPlayed()) {
 	//	std::srand(time(NULL));
 	//	int num = rand() % 100;

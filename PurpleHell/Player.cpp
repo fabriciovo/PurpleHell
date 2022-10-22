@@ -52,7 +52,6 @@ void Player::render(sf::RenderTarget * target)
 	for (int i = 0; i < this->maxUnits; i++) {
 		if (this->team[i]) {
 			this->team[i]->render(target);
-
 			if(this->team[i]->getSpell()){
 				this->team[i]->getSpell()->render(target);
 			}
@@ -103,7 +102,6 @@ void Player::battlePosition()
 
 Entity* Player::getHero()
 {
-	
 	for (int i = 0; i < this->maxUnits; i++) {
 		if (this->team[i]){
 			if (team[i]->getSelected() ) {
@@ -112,8 +110,6 @@ Entity* Player::getHero()
 		}
 	}
 	return nullptr;
-
-
 }
 
 Entity* Player::getTeam(int i)
@@ -185,9 +181,7 @@ void Player::setTeamToTrue()
 	for (int i = 0; i < this->maxUnits; i++) {
 		if(this->team[i] && this->team[i]->getName() != "slot")
 			this->team[i]->setPlayed(false);
-		
 	}
-
 }
 
 bool Player::checkDeads()

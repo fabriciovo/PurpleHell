@@ -33,6 +33,9 @@ public:
 	Enemy* getTeam(int i);
 	bool checkDeads();
 	int NumberOfEnemies();
+	void setTeamToPlay();
+
+	bool checkPlayed();
 
 };
 #endif // !AI_H
