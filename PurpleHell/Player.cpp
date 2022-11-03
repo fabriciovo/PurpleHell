@@ -20,7 +20,6 @@ Player::Player(bool battle)
 	}
 }
 
-
 Player::~Player()
 {
 	for (int i = 0; i < this->maxUnits; i++) {
@@ -40,12 +39,10 @@ void Player::initHeroesBattle()
 
 }
 
-
 void Player::initEquipedItems()
 {
 	this->equipedItems = new EquipedItems();
 }
-
 
 void Player::render(sf::RenderTarget * target)
 {
@@ -181,6 +178,14 @@ void Player::setTeamToTrue()
 	for (int i = 0; i < this->maxUnits; i++) {
 		if(this->team[i] && this->team[i]->getName() != "slot")
 			this->team[i]->setPlayed(false);
+	}
+}
+
+void Player::setSpecialToTrue()
+{
+	for (int i = 0; i < this->maxUnits; i++) {
+		if (this->team[i] && this->team[i]->getName() != "slot")
+			this->team[i]->setEspecial(true);
 	}
 }
 

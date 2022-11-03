@@ -36,6 +36,7 @@ public:
 	Entity* getTeam(int i);
 	bool checkPlayed();
 	void setTeamToTrue();
+	void setSpecialToTrue();
 	bool checkDeads();
 	void checkDead();
 	int UnitNumber(Entity* hero);
