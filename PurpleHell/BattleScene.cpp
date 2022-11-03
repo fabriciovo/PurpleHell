@@ -161,16 +161,19 @@ void BattleScene::updateButtons()
 			}
 		}
 
-		if (turn && this->player->getHero() && this->ais.front()->selectedEnemy()) {
+
+		if (turn && this->player->getHero() && this->ais.front()->selectedEnemy() && this->player->getHero()->getEspecial()) {
 			if (this->player->getHero()->getSelected()) {
 				if (this->buttons[2]->isPressed()) {
 					if (!this->buttonPressed) {
 						this->player->getHero()->special(this->ais.front()->getEnemy());
+						
 						this->buttonPressed = true;
 					}
 				}
 			}
 		}
+		
 
 		if (turn && this->player->getEquipedItems()->getItem()) {
 			if (this->buttons[3]->isPressed()) {

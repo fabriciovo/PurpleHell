@@ -31,7 +31,7 @@ protected:
 	int hp;
 	int power;
 	int type;
-
+	bool canUseSpecial = true;
 	std::string name;
 
 	AnimationComponent *animationComponent;
@@ -66,6 +66,8 @@ public:
 	std::string getName();
 	int getHp();
 	int getPower();
+	bool getEspecial();
+	void setEspecial(bool value);
 	sf::Vector2f getPosition();
 	void setPlayed(bool value);
 	void setSelected(bool value);

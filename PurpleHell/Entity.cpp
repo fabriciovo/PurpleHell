@@ -7,6 +7,7 @@ void Entity::initVariables()
 	this->animationComponent = NULL;
 	this->selected = false;
 	this->played = false;
+
 }
 
 Entity::Entity()
@@ -120,6 +121,16 @@ int Entity::getHp()
 int Entity::getPower()
 {
 	return this->power;
+}
+
+bool Entity::getEspecial()
+{
+	return this->canUseSpecial;
+}
+
+void Entity::setEspecial(bool value)
+{
+	this->canUseSpecial = value;
 }
 
 sf::Vector2f Entity::getPosition()
