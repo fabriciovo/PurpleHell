@@ -24,6 +24,7 @@ protected:
 
 	sf::Font font;
 	sf::Text infoText;
+	sf::Text battleInfo;
 	sf::Sprite background;
 	sf::Texture textureBackground;
 	sf::Texture hudTexture;
@@ -66,6 +67,7 @@ public:
 	void renderTexts(sf::RenderTarget* target = NULL);
 	void updateTexts();
 	void enemyTurn();
+	void damageTexts(int playerIndex, int enemyIndex);
 
 
 };

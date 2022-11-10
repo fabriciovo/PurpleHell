@@ -72,10 +72,14 @@ void BattleScene::initTexts()
 	heroPower.setCharacterSize(18);
 	heroPower.setPosition(275,30);
 
-
 	enemyHP.setFont(this->font);
 	enemyHP.setCharacterSize(18);
 	enemyHP.setPosition(20, 30);
+
+
+	//BattleInfo
+	this->battleInfo.setFont(this->font);
+	this->battleInfo.setCharacterSize(16);
 
 	//player played
 	played.setFont(this->font);
@@ -89,7 +93,8 @@ void BattleScene::initTexts()
 	this->battleTexts.push_back(enemyHP);
 	this->battleTexts.push_back(enemyTitle);
 	this->battleTexts.push_back(played);
-	this->battleTexts.push_back(heroPower);;
+	this->battleTexts.push_back(heroPower);
+
 }
 
 void BattleScene::initPlayer()
@@ -260,7 +265,7 @@ void BattleScene::render(sf::RenderTarget* target)
 void BattleScene::renderTexts(sf::RenderTarget* target)
 {
 	target->draw(infoText);
-
+	target->draw(this->battleInfo);
 	for (int i = 0; i < battleTexts.size(); i++) {
 		target->draw(battleTexts[i]);
 	}
@@ -315,8 +320,6 @@ void BattleScene::enemyTurn()
 {
 	int playerIndex = 0;
 
-	std::cout << this->player->getRandomHero()->getName() << std::endl;
-
 	if (this->ais.front()->getTeam(this->enemyIndex)->getHp() <= 0) {
 		this->enemyIndex++;
 	}
@@ -337,7 +340,7 @@ void BattleScene::enemyTurn()
 			if (this->player->getTeam(playerIndex) != nullptr && num > 33) {
 				this->infoText.setString(std::to_string(this->ais.front()->getTeam(this->enemyIndex)->getPower()) + " - Damage to -" + this->player->getTeam(playerIndex)->getName() + " -");
 				this->ais.front()->getTeam(this->enemyIndex)->action(this->player->getTeam(playerIndex));
-			}
+							}
 			else {
 				this->infoText.setString(" - Enemy - " + this->ais.front()->getTeam(this->enemyIndex)->getName() + " MISS - ");
 				this->ais.front()->getTeam(this->enemyIndex)->setPlayed(true);
@@ -347,6 +350,15 @@ void BattleScene::enemyTurn()
 		}
 		
 	}
+}
+
+void BattleScene::damageTexts(int playerIndex, int enemyIndex)
+{
+	this->battleInfo.setString("opkafspaoks");
+	this->battleInfo.setColor(sf::Color::Red);
+	this->battleInfo.setPosition(this->player->getTeam(playerIndex)->getPosition().x, this->player->getTeam(playerIndex)->getPosition().y);
+
+
 }
 
 void BattleScene::renderButtons(sf::RenderTarget * target)
