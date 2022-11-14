@@ -42,15 +42,12 @@ Button::~Button()
 
 const bool Button::isPressed() const
 {
-
 	if (this->state == 2) {
 		return true;
 	}
 	else {
 		return false;
 	}
-
-
 }
 
 

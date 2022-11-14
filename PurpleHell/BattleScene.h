@@ -44,6 +44,8 @@ protected:
 	int timerToStart = 100;
 	int enemyTurnIndex = 0;
 	int enemyIndex = 0;
+	int timerDamageText = 20;
+	int playerIndex = 0;
 	void initTextures();
 	void initButtons();
 	void initFont();
@@ -67,8 +69,8 @@ public:
 	void renderTexts(sf::RenderTarget* target = NULL);
 	void updateTexts();
 	void enemyTurn();
-	void damageTexts(int playerIndex, int enemyIndex);
-
+	void damageTexts(int playerIndex, int enemyIndex, bool isPlayer, bool miss);
+	void updateDamageText(const float& dt);
 
 };
 
