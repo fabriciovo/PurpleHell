@@ -29,6 +29,7 @@ void AI::updateEnemies(sf::Vector2f mousePos, const float &dt)
 {
 	for (int i = 0; i < this->maxUnits; i++) {
 		if (this->team[i]){
+
 				this->team[i]->update(mousePos, dt);
 				this->team[i]->updateAnimation(dt);
 			}

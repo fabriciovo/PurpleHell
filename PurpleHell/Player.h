@@ -45,7 +45,8 @@ public:
 	bool getClear();
 	void setClear(bool value);
 	int teamSize();
-	Entity* getRandomHero();
+	Entity * getRandomHero();
+
 
 
 };

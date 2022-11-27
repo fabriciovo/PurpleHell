@@ -69,9 +69,8 @@ public:
 	void renderTexts(sf::RenderTarget* target = NULL);
 	void updateTexts();
 	void enemyTurn();
-	void damageTexts(int playerIndex, int enemyIndex, bool isPlayer, bool miss);
+	void damageTexts(Entity * hero, Enemy * enemy, bool isPlayer, bool miss = false);
 	void updateDamageText(const float& dt);
-
 };
 
 #endif // !BATTLESTATE_H
