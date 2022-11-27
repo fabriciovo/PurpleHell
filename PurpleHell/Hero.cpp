@@ -23,8 +23,6 @@ Hero::Hero(float x, float y, std::string name, int hp, int power,int type, sf::T
 	this->originalY = y;
 
 	this->animationComponent->addAnimation("IDLE", 90.f, 0, 0, 1, 0, 18, 18);
-
-
 }
 
 Hero::Hero(std::string name, int hp, int power)
@@ -39,14 +37,12 @@ Hero::Hero(std::string name, int hp, int power)
 
 Hero::Hero(Entity* hero)
 {
-
 	this->selected = false;
 	this->played = false;
 	this->name = hero->getName();
 	this->hp = hero->getHp();
 	this->power = hero->getPower();
 	this->canUseSpecial = true;
-
 }
 
 

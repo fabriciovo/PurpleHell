@@ -34,7 +34,6 @@ GameManager::~GameManager()
 		delete this->scenes.top();
 		this->scenes.pop();
 	}
-
 }
 
 

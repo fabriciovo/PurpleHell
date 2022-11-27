@@ -34,12 +34,9 @@ void GameScene::initButtons()
 	this->buttonsSlots.push_back(new Button(145, 84, 20,20, &this->font,"SLOT 2", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
 	this->buttonsSlots.push_back(new Button(195, 84, 20,20, &this->font,"SLOT 3", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
 
-	this->buttonsItems.push_back(new Button(91, 84,  2,5, &this->font, "SLOT 1", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
-	this->buttonsItems.push_back(new Button(134, 84, 2,5, &this->font, "SLOT 2", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
-	this->buttonsItems.push_back(new Button(177, 84, 2,5, &this->font, "SLOT 3", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
-	this->buttonsItems.push_back(new Button(222, 84, 2,5, &this->font, "SLOT 4", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
-	this->buttonsItems.push_back(new Button(253, 84, 2,5, &this->font, "SLOT 5", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
-	this->buttonsItems.push_back(new Button(289, 84, 2,5, &this->font, "SLOT 6", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
+	this->buttonsItems.push_back(new Button(91, 84,  2,5, &this->font, "Equip", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
+	this->buttonsItems.push_back(new Button(134, 84, 2,5, &this->font, "Remove", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
+
 
 	this->buttonStages.push_back(new Button(91, 20, 2, 5, &this->font, "STAGE 1", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
 	/*this->buttonStages.push_back(new Button(134, 20, 2, 5, &this->font, "STAGE 2", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
@@ -181,53 +178,20 @@ void GameScene::updateButtons()
 			this->buttonPressed = true;
 		}
 	}
-
 	//Inventory
 	if (this->texts[2].getString() == "INVENTORY" && this->inventory->getItem()){
 		if (this->buttonsItems[0]->isPressed() && !this->buttonPressed) {
-
 			this->ChangeItems(this->inventory->getItem(), this->player->getEquipedItems()->getItemById(0));
-
-			this->buttonPressed = true;
-		}
-		if (this->buttonsItems[1]->isPressed() && !this->buttonPressed) {
-	
-			this->ChangeItems(this->inventory->getItem(), this->player->getEquipedItems()->getItemById(1));
-			this->buttonPressed = true;
-		}
-		if (this->buttonsItems[2]->isPressed() && !this->buttonPressed) {
-
-			this->ChangeItems(this->inventory->getItem(), this->player->getEquipedItems()->getItemById(2));
-			this->buttonPressed = true;
-		}
-
-		if (this->buttonsItems[3]->isPressed() && !this->buttonPressed) {
-
-			this->ChangeItems(this->inventory->getItem(), this->player->getEquipedItems()->getItemById(3));
-
-			this->buttonPressed = true;
-		}
-		if (this->buttonsItems[4]->isPressed() && !this->buttonPressed) {
-			this->ChangeItems(this->inventory->getItem(), this->player->getEquipedItems()->getItemById(4));
-			this->buttonPressed = true;
-		}
-		if (this->buttonsItems[5]->isPressed() && !this->buttonPressed) {
-
-			this->ChangeItems(this->inventory->getItem(), this->player->getEquipedItems()->getItemById(5));
 			this->buttonPressed = true;
 		}
 	}
-
 	//Stages
 	if (this->texts[2].getString() == "STAGES") {
 		if (this->buttonStages[0]->isPressed() && !this->buttonPressed) {
 			this->scenes->push(new BattleScene(this->window, this->scenes, 0));
 			this->buttonPressed = true;
 		}
-		
 	}
-
-
 }
 
 void GameScene::updateInput(const float & dt)
@@ -236,8 +200,6 @@ void GameScene::updateInput(const float & dt)
 		//this->scenes->push(new BattleState(this->window, this->scenes));
 	}
 }
-
-
 
 //Renders
 
@@ -258,7 +220,6 @@ void GameScene::render(sf::RenderTarget * target)
 
 	if (this->texts[2].getString() == "INVENTORY") {
 		this->inventory->renderInventory(target);
-
 	}
 
 	renderFade(target);
@@ -285,7 +246,7 @@ void GameScene::renderButtons(sf::RenderTarget* target)
 		}
 	}
 
-	if (this->texts[2].getString() == "INVENTORY" /*&& this->inventory->getItem()*/) {
+	if (this->texts[2].getString() == "INVENTORY" && this->inventory->getItem()) {
 		for (auto& it : this->buttonsItems) {
 			it->render(target);
 		}

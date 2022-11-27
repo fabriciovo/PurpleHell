@@ -43,11 +43,9 @@ Inventory::~Inventory()
 
 void Inventory::updateInventory(sf::Vector2f mousePos, const float &dt)
 {
-
 	for (auto it = items.begin(); it != items.end(); it++) {
-		(*it)->update(mousePos,dt);
+		(*it)->update(mousePos,dt);	
 	}
-
 }
 
 void Inventory::renderInventory(sf::RenderTarget * target)
@@ -106,8 +104,6 @@ Entity * Inventory::getItemById(int i)
 
 
 }
-
-
 int Inventory::inventoryNumber()
 {
 
@@ -118,7 +114,5 @@ int Inventory::inventoryNumber()
 		}
 		i++;
 	}
-
-
 
 }

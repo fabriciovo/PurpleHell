@@ -86,15 +86,13 @@ void Entity::SetScale(const float x, const float y)
 void Entity::update(sf::Vector2f mousePos, const float &dt)
 {
 	if (this->selected ) {
-
 		this->sprite->setColor(sf::Color::Yellow);
 	}
 	else if (this->played && this->hp > 0) {
-		//this->sprite->setColor(sf::Color::Green);
+		this->sprite->setColor(sf::Color::Green);
 	}
 	else if (this->hp <= 0) {
 		this->sprite->setColor(sf::Color::Black);
-
 	}
 	else {
 		this->sprite->setColor(sf::Color::White);

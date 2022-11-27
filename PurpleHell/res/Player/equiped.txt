@@ -1,6 +1,7 @@
+axe 1 10 3
 slot 0 0 0
 slot 0 0 0
 slot 0 0 0
 slot 0 0 0
 slot 0 0 0
-slot 0 0 0
+
