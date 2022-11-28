@@ -77,10 +77,6 @@ void Player::update(sf::Vector2f mousePos,const float &dt)
 			this->team[i]->update(mousePos,dt);
 		}
 	}
-
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
-		selectedUnit = -1;
-	}
 }
 
 void Player::battlePosition()
