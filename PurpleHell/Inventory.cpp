@@ -44,8 +44,21 @@ Inventory::~Inventory()
 void Inventory::updateInventory(sf::Vector2f mousePos, const float &dt)
 {
 	for (auto it = items.begin(); it != items.end(); it++) {
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+			if ((*it)->getSprite()->getGlobalBounds().contains(mousePos)) {
+				(*it)->setSelected(true);
+			}
+			else {
+				(*it)->setSelected(false);
+			}
+		}
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
+			(*it)->setSelected(false);
+		}
 		(*it)->update(mousePos,dt);	
 	}
+
+
 }
 
 void Inventory::renderInventory(sf::RenderTarget * target)

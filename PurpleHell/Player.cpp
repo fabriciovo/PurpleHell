@@ -66,14 +66,6 @@ void Player::update(sf::Vector2f mousePos,const float &dt)
 					selectedUnit = i;
 				}
 			}
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
-					selectedUnit = -1;
-			}
-
-			if (this->team[i]->getSpell()) {
-				this->team[i]->getSpell()->updateAnimation(dt);
-			}
-			
 
 			if (i == selectedUnit) {
 				this->team[i]->setSelected(true);
@@ -82,9 +74,17 @@ void Player::update(sf::Vector2f mousePos,const float &dt)
 				this->team[i]->setSelected(false);
 			}
 
+			if (this->team[i]->getSpell()) {
+				this->team[i]->getSpell()->updateAnimation(dt);
+			}
+			
 			this->team[i]->updateAnimation(dt);
 			this->team[i]->update(mousePos,dt);
 		}
+	}
+
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
+		selectedUnit = -1;
 	}
 }
 

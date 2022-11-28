@@ -12,6 +12,7 @@ Item::Item(int x, int y, std::string name,int hp,int power, int type, sf::Textur
 	this->hp = hp;
 	this->power = power;
 	this->type = type;
+	this->selected = false;
 	this->CreateSprite(texture);
 	this->SetPosition(x, y);
 }

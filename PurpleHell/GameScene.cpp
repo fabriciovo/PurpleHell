@@ -118,8 +118,12 @@ void GameScene::update(const float & dt)
 	this->updateButtons();
 	this->player->update(this->mousePosView, dt);
 	this->units->updateUnits(this->mousePosView, dt);
-	this->inventory->updateInventory(this->mousePosView, dt);
 	this->player->getEquipedItems()->updateEquipedItems(this->mousePosView,dt);
+
+	if (this->texts[2].getString() == "INVENTORY") {
+		this->inventory->updateInventory(this->mousePosView, dt);
+	}
+
 
 }
 
