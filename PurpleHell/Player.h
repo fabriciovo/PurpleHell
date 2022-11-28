@@ -14,8 +14,6 @@ private:
 	bool selected;
 	bool clear;
 
-	int selectedUnit = -1;
-
 	//Init
 	void initHeroesMenu();
 	void initHeroesBattle();

@@ -52,9 +52,6 @@ void Inventory::updateInventory(sf::Vector2f mousePos, const float &dt)
 				(*it)->setSelected(false);
 			}
 		}
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
-			(*it)->setSelected(false);
-		}
 		(*it)->update(mousePos,dt);	
 	}
 

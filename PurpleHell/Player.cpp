@@ -63,17 +63,12 @@ void Player::update(sf::Vector2f mousePos,const float &dt)
 		if (this->team[i]) {
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 				if (this->team[i]->getSprite()->getGlobalBounds().contains(mousePos)) {
-					selectedUnit = i;
+					this->team[i]->setSelected(true);
+				}
+				else {
+					this->team[i]->setSelected(false);
 				}
 			}
-
-			if (i == selectedUnit) {
-				this->team[i]->setSelected(true);
-			}
-			else {
-				this->team[i]->setSelected(false);
-			}
-
 			if (this->team[i]->getSpell()) {
 				this->team[i]->getSpell()->updateAnimation(dt);
 			}

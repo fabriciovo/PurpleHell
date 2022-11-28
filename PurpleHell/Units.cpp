@@ -27,8 +27,18 @@ void Units::renderUnits(sf::RenderTarget* target)
 void Units::updateUnits(sf::Vector2f mousePos,const float &dt)
 {
 	for (int i = 0; i < this->maxUnitsInventory; i++) {
-		if (this->heroes[i])
+		if (this->heroes[i]) {
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+				if (this->heroes[i]->getSprite()->getGlobalBounds().contains(mousePos)) {
+					this->heroes[i]->setSelected(true);
+				}
+				else {
+					this->heroes[i]->setSelected(false);
+				}
+			}
+
 			this->heroes[i]->update(mousePos, dt);
+		}
 	}
 }
 
