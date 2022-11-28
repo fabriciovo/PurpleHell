@@ -340,7 +340,6 @@ void GameScene::ChangeHero(Entity* unit, Entity* hero)
 
 void GameScene::ChangeItems(Entity* inventoryItem , Entity* equipedItem)
 {
-
 	std::fstream ofsEquiped;
 	std::fstream ofsInventory;
 	Entity* tempEquiped;
@@ -364,6 +363,7 @@ void GameScene::ChangeItems(Entity* inventoryItem , Entity* equipedItem)
 	ofsEquiped.open("res/Player/equiped.txt");
 
 	for (int it = 0; it < 6; it++) {
+
 		ofsEquiped
 			<< this->player->getEquipedItems()->getItemById(it)->getName()
 			<< " " << this->player->getEquipedItems()->getItemById(it)->getHp()
@@ -377,8 +377,11 @@ void GameScene::ChangeItems(Entity* inventoryItem , Entity* equipedItem)
 	this->equipedT[inventoryNum].loadFromFile("res/img/items/" + equipName + ".png");
 	this->inventory->setItem(inventoryNum, new Item(10 + (40 * inventoryNum), 140, equipName, equipHp, equipPower, equipJob, &this->equipedT[inventoryNum]));
 	   
+
 	ofsInventory.open("res/Player/Inventory.txt");
+	//TODO 
 	for (int t = 0; t < 6; t++) {
+
 			ofsInventory
 			<< this->inventory->getItemById(t)->getName()
 			<< " " << this->inventory->getItemById(t)->getHp()

@@ -9,7 +9,7 @@ void Inventory::initInventory()
 
 	if (ifsInventory.is_open())
 	{
-		std::getline(ifsInventory, title);
+		//std::getline(ifsInventory, title);
 		while (ifsInventory.good())
 		{
 			ifsInventory >> name >> hp >> power >> type;
@@ -22,7 +22,7 @@ void Inventory::initInventory()
 			
 			it++;
 
-			if (it ==this->maxItems) {
+			if (it == this->maxItems) {
 				break;
 			}
 

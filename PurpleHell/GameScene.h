@@ -57,8 +57,7 @@ public:
 	void renderTexts(sf::RenderTarget* target = NULL);
 
 	
-
-
+	
 
 };
 
