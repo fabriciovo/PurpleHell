@@ -9,7 +9,6 @@
 #include "WorldScene.h"
 #include "Units.h"
 
-
 class GameScene :
 	public Scene
 {

@@ -55,7 +55,13 @@ Entity* EquipedItems::getItemById(int i)
 
 void EquipedItems::setItem(int i, Item * item)
 {
-	this->items[i] = item;
+
+	for (int i = 0; i < this->maxItems; i++) {
+		if (this->items[i]->getName() == "slot") {
+			this->items[i] = item;
+			break;
+		}
+	}
 }
 
 
@@ -80,6 +86,8 @@ void EquipedItems::ArquivoEquiped(std::ifstream &ifsEquipedItems, int i)
 		{
 
 			ifsEquipedItems >> name >> hp >> power >> type;
+
+			std::cout << "res/img/items/ " << name << hp << power << type << std::endl;
 
 			sf::Texture *tex;
 			tex = new sf::Texture();

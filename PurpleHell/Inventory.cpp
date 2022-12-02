@@ -96,8 +96,10 @@ void Inventory::setItem(int i, Item * item)
 
 		if(i == count){
 			(*it) = item;
+			break;
 		}
 		count++;
+
 	}
 }
 

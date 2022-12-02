@@ -364,30 +364,49 @@ void GameScene::ChangeItems(Entity* inventoryItem , Entity* equipedItem)
 
 	for (int it = 0; it < 6; it++) {
 
-		ofsEquiped
-			<< this->player->getEquipedItems()->getItemById(it)->getName()
-			<< " " << this->player->getEquipedItems()->getItemById(it)->getHp()
-			<< " " << this->player->getEquipedItems()->getItemById(it)->getPower()
-			<< " " << this->player->getEquipedItems()->getItemById(it)->getType()
-			<< std::endl;
+		if (it < 5) {
+			ofsEquiped
+				<< this->player->getEquipedItems()->getItemById(it)->getName()
+				<< " " << this->player->getEquipedItems()->getItemById(it)->getHp()
+				<< " " << this->player->getEquipedItems()->getItemById(it)->getPower()
+				<< " " << this->player->getEquipedItems()->getItemById(it)->getType()
+				<< std::endl;
+		}
+		else {
+			ofsEquiped
+				<< this->player->getEquipedItems()->getItemById(it)->getName()
+				<< " " << this->player->getEquipedItems()->getItemById(it)->getHp()
+				<< " " << this->player->getEquipedItems()->getItemById(it)->getPower()
+				<< " " << this->player->getEquipedItems()->getItemById(it)->getType();
+		}
+
+
 	}
 	ofsEquiped.close();
 
 	//Svaing Hero to unity
-	this->equipedT[inventoryNum].loadFromFile("res/img/items/" + equipName + ".png");
-	this->inventory->setItem(inventoryNum, new Item(10 + (40 * inventoryNum), 140, equipName, equipHp, equipPower, equipJob, &this->equipedT[inventoryNum]));
-	   
+	this->equipedT[inventoryNum].loadFromFile("res/img/items/slot.png");
+	this->inventory->setItem(inventoryNum, new Item(93 + (25  * inventoryNum), 23, "slot", 0, 0, 0, &this->equipedT[inventoryNum]));
 
-	ofsInventory.open("res/Player/Inventory.txt");
-	//TODO 
+	ofsInventory.open("res/Player/Inventory.txt",std::ofstream::out | std::ofstream::trunc);
+
 	for (int t = 0; t < 6; t++) {
-
-			ofsInventory
+		if (t < 5) {
+		ofsInventory
 			<< this->inventory->getItemById(t)->getName()
 			<< " " << this->inventory->getItemById(t)->getHp()
 			<< " " << this->inventory->getItemById(t)->getPower()
-			<< " " << this->inventory->getItemById(t)->getType()
-			<< std::endl;
+			<< " " << this->inventory->getItemById(t)->getType() << std::endl;
+		}
+		else {
+			ofsInventory
+				<< this->inventory->getItemById(t)->getName()
+				<< " " << this->inventory->getItemById(t)->getHp()
+				<< " " << this->inventory->getItemById(t)->getPower()
+				<< " " << this->inventory->getItemById(t)->getType();
+		}
+
+
 	}
 	ofsInventory.close();
 
