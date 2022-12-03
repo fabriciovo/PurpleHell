@@ -21,12 +21,12 @@ public:
 	void renderEquipedItems(sf::RenderTarget *target);
 	void updateEquipedItems(sf::Vector2f mousePos,const float &dt);
 	void useItem(Item *item);
-	void removeItem();
+	void removeItem(Item * equipedItem);
 	Item *getItem();
 	Entity *getItemById(int i);
 	void setItem(Item *item);
 	int UnitNumber(Entity *item);
-
+	bool canEquip();
 	void save();
 };
 

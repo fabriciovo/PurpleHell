@@ -120,6 +120,16 @@ Entity * Player::getRandomHero()
 	return getRandomHero();
 }
 
+int Player::getGold()
+{
+	return this->gold;
+}
+
+void Player::updateGold(int value)
+{
+	this->gold += value;
+}
+
 
 void Player::setTeam(int i, Hero * hero)
 {

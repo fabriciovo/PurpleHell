@@ -14,7 +14,6 @@ void GameScene::initPlayers()
 	this->player = new Player();
 	this->units = new Units();
 	this->inventory = new Inventory();
-
 }
 
 void GameScene::initButtons()
@@ -35,8 +34,8 @@ void GameScene::initButtons()
 	this->buttonsSlots.push_back(new Button(195, 84, 20,20, &this->font,"SLOT 3", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
 
 	this->buttonsItems.push_back(new Button(91, 84,  2,5, &this->font, "Equip", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
+	this->buttonsItems.push_back(new Button(134, 84, 2, 5, &this->font, "Sell", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
 	this->buttonsItems.push_back(new Button(134, 84, 2,5, &this->font, "Remove", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
-
 
 	this->buttonStages.push_back(new Button(91, 20, 2, 5, &this->font, "STAGE 1", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
 	/*this->buttonStages.push_back(new Button(134, 20, 2, 5, &this->font, "STAGE 2", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
@@ -57,7 +56,7 @@ void GameScene::initTexts()
 
 	goldText.setFont(this->font);
 	goldText.setString("Gold: ");
-	goldText.setCharacterSize(8);
+	goldText.setCharacterSize(16);
 	goldText.setPosition(5, 175);
 
 	unitText.setFont(this->font);
@@ -116,6 +115,8 @@ void GameScene::update(const float & dt)
 	this->updateFade(dt);
 	this->updateInput(dt);
 	this->updateButtons();
+	this->updateTexts();
+
 	this->player->update(this->mousePosView, dt);
 	this->units->updateUnits(this->mousePosView, dt);
 	this->player->getEquipedItems()->updateEquipedItems(this->mousePosView,dt);
@@ -123,6 +124,7 @@ void GameScene::update(const float & dt)
 	if (this->texts[2].getString() == "INVENTORY") {
 		this->inventory->updateInventory(this->mousePosView, dt);
 	}
+
 
 
 }
@@ -185,17 +187,24 @@ void GameScene::updateButtons()
 	//Inventory
 	if (this->texts[2].getString() == "INVENTORY" && this->inventory->getItem()){
 		if (this->buttonsItems[0]->isPressed() && !this->buttonPressed) {
-			this->ChangeItems(this->inventory->getItem(), this->player->getEquipedItems()->getItemById(0));
+			this->EquipItem(this->inventory->getItem());
+			this->buttonPressed = true;
+		}
+		if (this->buttonsItems[1]->isPressed() && !this->buttonPressed) {
+			this->SellItem(this->inventory->getItem());
+			
 			this->buttonPressed = true;
 		}
 	}
 
 	if (this->texts[2].getString() == "INVENTORY" && this->player->getEquipedItems()->getItem()) {
-		if (this->buttonsItems[1]->isPressed() && !this->buttonPressed) {
-			this->RemoveEquipedItem( this->player->getEquipedItems()->getItem());
+		if (this->buttonsItems[2]->isPressed() && !this->buttonPressed) {
+			this->RemoveEquipedItem(this->player->getEquipedItems()->getItem());
 			this->buttonPressed = true;
 		}
 	}
+
+
 
 	//Stages
 	if (this->texts[2].getString() == "STAGES") {
@@ -260,11 +269,12 @@ void GameScene::renderButtons(sf::RenderTarget* target)
 
 	if (this->texts[2].getString() == "INVENTORY" && this->inventory->getItem()) {
 		this->buttonsItems[0]->render(target);
+		this->buttonsItems[1]->render(target);
 
 	}
 
-	if (this->texts[2].getString() == "INVENTORY" && this->player->getEquipedItems()) {
-		this->buttonsItems[1]->render(target);
+	if (this->texts[2].getString() == "INVENTORY" && this->player->getEquipedItems()->getItem()) {
+		this->buttonsItems[2]->render(target);
 	}
 
 	if (this->texts[2].getString() == "STAGES") {
@@ -349,83 +359,35 @@ void GameScene::ChangeHero(Entity* unit, Entity* hero)
 	ofsUnits.close();
 }
 
-void GameScene::ChangeItems(Entity* inventoryItem , Entity* equipedItem)
+void GameScene::EquipItem(Item* inventoryItem)
 {
-	std::fstream ofsEquiped;
-	std::fstream ofsInventory;
-	Entity* tempEquiped;
-	tempEquiped = equipedItem;
+	if (!this->player->getEquipedItems()->canEquip()) return;
 
-	int inventoryNum = this->inventory->inventoryNumber();
-	int equipedNum = this->player->getEquipedItems()->UnitNumber(equipedItem);
-	//Inventory
-	std::string inventoryName = inventory->getItem()->getName();
-	int inventoryHp = inventoryItem->getHp(), inventoryPower = inventoryItem->getPower(), inventorySpell = inventoryItem->getType();
+	this->player->getEquipedItems()->setItem(inventoryItem);
+	this->inventory->removeItem(inventoryItem);
 
-	//Equiped Item
-	std::string equipName = tempEquiped->getName();
-	int equipHp = tempEquiped->getHp(), equipPower = tempEquiped->getPower(), equipJob = tempEquiped->getType();
-
-	//Svaing Equiped to inventory
-	this->inventoryT[equipedNum].loadFromFile("res/img/items/" + inventoryName + ".png");
-	this->player->getEquipedItems()->setItem(new Item(93 + (25 * equipedNum), 118, inventoryName, inventoryHp, inventoryPower, inventorySpell, &this->inventoryT[equipedNum]));
-
-	ofsEquiped.open("res/Player/equiped.txt");
-
-	for (int it = 0; it < 6; it++) {
-		if (it < 5) {
-			ofsEquiped
-				<< this->player->getEquipedItems()->getItemById(it)->getName()
-				<< " " << this->player->getEquipedItems()->getItemById(it)->getHp()
-				<< " " << this->player->getEquipedItems()->getItemById(it)->getPower()
-				<< " " << this->player->getEquipedItems()->getItemById(it)->getType()
-				<< std::endl;
-		}
-		else {
-			ofsEquiped
-				<< this->player->getEquipedItems()->getItemById(it)->getName()
-				<< " " << this->player->getEquipedItems()->getItemById(it)->getHp()
-				<< " " << this->player->getEquipedItems()->getItemById(it)->getPower()
-				<< " " << this->player->getEquipedItems()->getItemById(it)->getType();
-		}
-
-	}
-	ofsEquiped.close();
-
-	//Svaing Hero to unity
-	this->equipedT[inventoryNum].loadFromFile("res/img/items/slot.png");
-	this->inventory->setItem(inventoryNum, new Item(93 + (25  * inventoryNum), 23, "slot", 0, 0, 0, &this->equipedT[inventoryNum]));
-
-	ofsInventory.open("res/Player/Inventory.txt",std::ofstream::out | std::ofstream::trunc);
-
-	for (int t = 0; t < 6; t++) {
-		if (t < 5) {
-		ofsInventory
-			<< this->inventory->getItemById(t)->getName()
-			<< " " << this->inventory->getItemById(t)->getHp()
-			<< " " << this->inventory->getItemById(t)->getPower()
-			<< " " << this->inventory->getItemById(t)->getType() << std::endl;
-		}
-		else {
-			ofsInventory
-				<< this->inventory->getItemById(t)->getName()
-				<< " " << this->inventory->getItemById(t)->getHp()
-				<< " " << this->inventory->getItemById(t)->getPower()
-				<< " " << this->inventory->getItemById(t)->getType();
-		}
-
-
-	}
-	ofsInventory.close();
+	this->inventory->save();
+	this->player->getEquipedItems()->save(); 
 }
-
 
 void GameScene::RemoveEquipedItem(Item * equipedItem) {
 	if (!this->inventory->canPutItemInInventory()) return;
 	
 	this->inventory->setItem(equipedItem);
-	this->player->getEquipedItems()->removeItem();
+	this->player->getEquipedItems()->removeItem(equipedItem);
 
 	this->inventory->save();
 	this->player->getEquipedItems()->save();
+}
+
+void GameScene::SellItem(Item* inventoryItem)
+{
+	this->inventory->removeItem(inventoryItem);
+	this->player->updateGold(10);
+	this->inventory->save();
+}
+
+void GameScene::updateTexts()
+{
+	this->texts[0].setString("Gold: " + std::to_string(this->player->getGold()));
 }

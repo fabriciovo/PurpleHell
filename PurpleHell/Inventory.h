@@ -30,9 +30,9 @@ public:
 	bool canPutItemInInventory();
 	bool selectedItem();
 	int inventoryNumber();
-	Entity* getItem();
-	Entity* getItemById(int i);
-
+	Item* getItem();
+	Item* getItemById(int i);
+	void removeItem(Item* inventoryItem);
 };
 
 #endif

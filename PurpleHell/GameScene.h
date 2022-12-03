@@ -41,9 +41,10 @@ private:
 	void Shop();
 	void Stages();
 	void ChangeHero(Entity *unit, Entity * hero);
-	void ChangeItems(Entity *unit, Entity * hero);
+	void EquipItem(Item* inventoryItem);
 	void RemoveEquipedItem(Item* equipedItem);
-
+	void SellItem(Item* inventoryItem);
+	void updateTexts();
 public:
 	GameScene();
 	GameScene(sf::RenderWindow *window, std::stack<Scene*> *scenes);

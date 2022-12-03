@@ -43,6 +43,7 @@ Inventory::~Inventory()
 
 void Inventory::updateInventory(sf::Vector2f mousePos, const float &dt)
 {
+	int count = 0;
 	for (auto it = items.begin(); it != items.end(); it++) {
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 			if ((*it)->getSprite()->getGlobalBounds().contains(mousePos)) {
@@ -52,7 +53,11 @@ void Inventory::updateInventory(sf::Vector2f mousePos, const float &dt)
 				(*it)->setSelected(false);
 			}
 		}
+
+		(*it)->SetPosition(93 + (25 * count), 23);
+
 		(*it)->update(mousePos,dt);	
+		count++;
 	}
 
 
@@ -76,7 +81,7 @@ bool Inventory::selectedItem()
 	return false;
 }
 
-Entity * Inventory::getItem()
+Item * Inventory::getItem()
 {
 
 	for (auto it = items.begin(); it != items.end(); it++) {
@@ -140,7 +145,7 @@ bool Inventory::canPutItemInInventory()
 	return false;
 }
 
-Entity * Inventory::getItemById(int i)
+Item * Inventory::getItemById(int i)
 {
 	int count = 0;
 	for (auto it = items.begin(); it != items.end(); it++) {
@@ -152,6 +157,18 @@ Entity * Inventory::getItemById(int i)
 	}
 
 
+}
+void Inventory::removeItem(Item* inventoryItem)
+{
+	sf::Texture emptyTex;
+	emptyTex.loadFromFile("res/img/items/slot.png");
+	Item* empty = new Item(0, 0, "slot", 0, 0, 0, &emptyTex);
+	for (auto it = items.begin(); it != items.end(); it++) {
+		if ((*it) == inventoryItem) {
+			(*it) = empty;
+			break;
+		}
+	}
 }
 int Inventory::inventoryNumber()
 {

@@ -10,7 +10,7 @@ private:
 	static const int maxUnits = 3;
 	Hero* team[maxUnits];
 	EquipedItems *equipedItems;
-	
+	int gold = 0;
 	bool selected;
 	bool clear;
 
@@ -44,7 +44,8 @@ public:
 	void setClear(bool value);
 	int teamSize();
 	Entity * getRandomHero();
-
+	int getGold();
+	void updateGold(int value);
 
 
 };

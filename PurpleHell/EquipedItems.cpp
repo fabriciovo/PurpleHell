@@ -37,20 +37,21 @@ void EquipedItems::updateEquipedItems(sf::Vector2f mousePos,const float &dt)
 				this->items[i]->setSelected(false);
 			}
 		}
-
-		if (this->items[i])
+		if (this->items[i]) {
+			this->items[i]->SetPosition(93 + (25 * i), 118);
 			this->items[i]->update(mousePos, dt);
+		}
 	}
 }
 
 
-void EquipedItems::removeItem()
+void EquipedItems::removeItem(Item * equipedItem)
 {
 	sf::Texture emptyTex;
 	emptyTex.loadFromFile("res/img/items/slot.png");
 	Item* empty = new Item(0, 0, "slot", 0, 0, 0, &emptyTex);
 	for (int i = 0; i < this->maxItems; i++) {
-		if (this->items[i]) {
+		if (this->items[i] == equipedItem) {
 			this->items[i] = empty;
 			break;
 		}
@@ -95,6 +96,16 @@ int EquipedItems::UnitNumber(Entity *item)
 			return i;
 		}
 	}
+}
+bool EquipedItems::canEquip()
+{
+
+	for (int i = 0; i < this->maxItems; i++) {
+		if (this->items[i]->getName() == "slot") {
+			return true;
+		}
+	}
+	return false;
 }
 void EquipedItems::save()
 {
