@@ -11,7 +11,7 @@
 class Inventory
 {
 private:
-	static const int maxItems = 6;
+	static const int maxItems = 20;
 	sf::Texture* texture;
 	sf::Sprite* sprite;
 

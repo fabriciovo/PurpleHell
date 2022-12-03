@@ -44,6 +44,7 @@ Inventory::~Inventory()
 void Inventory::updateInventory(sf::Vector2f mousePos, const float &dt)
 {
 	int count = 0;
+	int countSecondLine = 0;
 	for (auto it = items.begin(); it != items.end(); it++) {
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 			if ((*it)->getSprite()->getGlobalBounds().contains(mousePos)) {
@@ -53,11 +54,17 @@ void Inventory::updateInventory(sf::Vector2f mousePos, const float &dt)
 				(*it)->setSelected(false);
 			}
 		}
+		if (count < 10) {
+			(*it)->SetPosition(92 + (25 * count), 22);
 
-		(*it)->SetPosition(93 + (25 * count), 23);
+			count++;
+		}
+		else {
+			(*it)->SetPosition(92 + (25 * countSecondLine), 48);
+			countSecondLine++;
+		}
 
 		(*it)->update(mousePos,dt);	
-		count++;
 	}
 
 
