@@ -30,11 +30,11 @@ void EquipedItems::updateEquipedItems(sf::Vector2f mousePos,const float &dt)
 
 	for (int i = 0; i < this->maxItems; i++) {
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-			if (this->items[i]->getSprite()->getGlobalBounds().contains(mousePos)) {
+			if (this->items[i]->getSprite()->getGlobalBounds().contains(mousePos) && this->items[i]->getName() != "slot") {
 				this->items[i]->setSelected(true);
 			}
 			else {
-				this->items[i]->setSelected(false);
+				//this->items[i]->setSelected(false);
 			}
 		}
 		if (this->items[i]) {

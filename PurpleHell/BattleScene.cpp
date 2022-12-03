@@ -174,11 +174,15 @@ void BattleScene::updateButtons()
 		}
 		
 
-		if (turn && this->player->getEquipedItems()->getItem()) {
+		if (turn && this->player->getEquipedItems()->getItem() && this->player->getTeam(playerIndex)) {
+			std::cout << "PASFKOJPOAFSKFOSAPKsadas" << std::endl;
+
 			if (this->buttons[3]->isPressed()) {
-				if (!this->buttonPressed && this->player->getHero()) {
-					this->player->getEquipedItems()->getItem()->action(this->player->getHero());
+				std::cout << "PASFKOJPOAFSKFOSAPK" << std::endl;
+				if (!this->buttonPressed) {
 					this->buttonPressed = true;
+					this->player->getEquipedItems()->getItem()->action(this->player->getTeam(playerIndex));
+					playerIndex++;
 				}
 			}
 		}
@@ -263,14 +267,14 @@ void BattleScene::render(sf::RenderTarget* target)
 		target = this->window;
 
 	target->draw(this->background);
-	this->player->getEquipedItems()->renderEquipedItems(target);
 	target->draw(this->hudSprite);
 	this->renderTexts(target);
 	this->player->render(target);
+	this->player->getEquipedItems()->renderEquipedItems(target);
 	this->renderFade(target);
 	if (!this->ais.empty()) {
-			this->renderButtons(target);
-			this->ais.front()->renderEnemies(target);
+		this->renderButtons(target);
+		this->ais.front()->renderEnemies(target);
 	}
 
 }
@@ -413,15 +417,12 @@ void BattleScene::renderButtons(sf::RenderTarget * target)
 	}*/
 	this->buttons[0]->render(target);
 
-	if (turn && this->player->getHero() && this->ais.front()->selectedEnemy()) {
-		if (!this->player->getHero()->getPlayed()) {
+	if (turn && this->player->getHero() && this->ais.front()->selectedEnemy() && !this->player->getHero()->getPlayed()) {
 			this->buttons[1]->render(target);
 			this->buttons[2]->render(target);
-			this->buttons[3]->render(target);
-		}
 	}
 
-	if (turn && this->player->getEquipedItems()->getItem()) {
+	if (turn && this->player->getEquipedItems()->getItem() && !this->player->getHero()->getPlayed()) {
 		this->buttons[3]->render(target);
 	}
 }
