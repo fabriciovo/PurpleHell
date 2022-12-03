@@ -103,6 +103,43 @@ void Inventory::setItem(int i, Item * item)
 	}
 }
 
+void Inventory::setItem(Item* item)
+{
+	for (auto it = items.begin(); it != items.end(); it++) {
+		if ((*it)->getName() == "slot") {
+			(*it) = item;
+			break;
+		}
+	}
+}
+
+void Inventory::save()
+{
+	std::fstream ofsInventory;
+	ofsInventory.open("res/Player/Inventory.txt", std::ofstream::out | std::ofstream::trunc);
+
+	for (auto it = items.begin(); it != items.end(); it++) {
+			ofsInventory
+				<< (*it)->getName()
+				<< " " << (*it)->getHp()
+				<< " " << (*it)->getPower()
+				<< " " << (*it)->getType() << std::endl;
+	}
+
+	
+	ofsInventory.close();
+}
+
+bool Inventory::canPutItemInInventory()
+{
+	for (auto it = items.begin(); it != items.end(); it++) {
+		if ((*it)->getName() == "slot") {
+			return true;
+		}
+	}
+	return false;
+}
+
 Entity * Inventory::getItemById(int i)
 {
 	int count = 0;

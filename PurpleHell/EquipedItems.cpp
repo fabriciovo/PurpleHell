@@ -27,14 +27,37 @@ void EquipedItems::renderEquipedItems(sf::RenderTarget * target)
 
 void EquipedItems::updateEquipedItems(sf::Vector2f mousePos,const float &dt)
 {
+
 	for (int i = 0; i < this->maxItems; i++) {
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+			if (this->items[i]->getSprite()->getGlobalBounds().contains(mousePos)) {
+				this->items[i]->setSelected(true);
+			}
+			else {
+				this->items[i]->setSelected(false);
+			}
+		}
+
 		if (this->items[i])
 			this->items[i]->update(mousePos, dt);
 	}
 }
 
 
-Entity* EquipedItems::getItem()
+void EquipedItems::removeItem()
+{
+	sf::Texture emptyTex;
+	emptyTex.loadFromFile("res/img/items/slot.png");
+	Item* empty = new Item(0, 0, "slot", 0, 0, 0, &emptyTex);
+	for (int i = 0; i < this->maxItems; i++) {
+		if (this->items[i]) {
+			this->items[i] = empty;
+			break;
+		}
+	}
+}
+
+Item* EquipedItems::getItem()
 {
 	for (int i = 0; i < this->maxItems; i++) {
 		if (this->items[i]) {
@@ -53,7 +76,7 @@ Entity* EquipedItems::getItemById(int i)
 	return this->items[i];
 }
 
-void EquipedItems::setItem(int i, Item * item)
+void EquipedItems::setItem(Item * item)
 {
 
 	for (int i = 0; i < this->maxItems; i++) {
@@ -72,6 +95,28 @@ int EquipedItems::UnitNumber(Entity *item)
 			return i;
 		}
 	}
+}
+void EquipedItems::save()
+{
+	std::fstream ofsEquiped;
+	ofsEquiped.open("res/Player/equiped.txt", std::ofstream::out | std::ofstream::trunc);
+	for (int t = 0; t < this->maxItems; t++) {
+		if (t < this->maxItems-1) {
+			ofsEquiped
+				<< this->items[t]->getName()
+				<< " " << this->items[t]->getHp()
+				<< " " << this->items[t]->getPower()
+				<< " " << this->items[t]->getType() << std::endl;
+		}
+		else {
+			ofsEquiped
+				<< this->items[t]->getName()
+				<< " " << this->items[t]->getHp()
+				<< " " << this->items[t]->getPower()
+				<< " " << this->items[t]->getType();
+		}
+	}
+	ofsEquiped.close();
 }
 //Arquivos
 void EquipedItems::ArquivoEquiped(std::ifstream &ifsEquipedItems, int i)

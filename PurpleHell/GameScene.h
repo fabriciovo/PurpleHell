@@ -42,6 +42,7 @@ private:
 	void Stages();
 	void ChangeHero(Entity *unit, Entity * hero);
 	void ChangeItems(Entity *unit, Entity * hero);
+	void RemoveEquipedItem(Item* equipedItem);
 
 public:
 	GameScene();
@@ -54,10 +55,6 @@ public:
 	void update(const float& dt);
 	void render(sf::RenderTarget *target = NULL);
 	void renderTexts(sf::RenderTarget* target = NULL);
-
-	
-	
-
 };
 
 #endif

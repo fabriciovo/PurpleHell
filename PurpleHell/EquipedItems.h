@@ -21,11 +21,13 @@ public:
 	void renderEquipedItems(sf::RenderTarget *target);
 	void updateEquipedItems(sf::Vector2f mousePos,const float &dt);
 	void useItem(Item *item);
-
-	Entity *getItem();
+	void removeItem();
+	Item *getItem();
 	Entity *getItemById(int i);
-	void setItem(int i, Item *item);
+	void setItem(Item *item);
 	int UnitNumber(Entity *item);
+
+	void save();
 };
 
 #endif // !EQUIPEITEMS_H

@@ -189,6 +189,14 @@ void GameScene::updateButtons()
 			this->buttonPressed = true;
 		}
 	}
+
+	if (this->texts[2].getString() == "INVENTORY" && this->player->getEquipedItems()->getItem()) {
+		if (this->buttonsItems[1]->isPressed() && !this->buttonPressed) {
+			this->RemoveEquipedItem( this->player->getEquipedItems()->getItem());
+			this->buttonPressed = true;
+		}
+	}
+
 	//Stages
 	if (this->texts[2].getString() == "STAGES") {
 		if (this->buttonStages[0]->isPressed() && !this->buttonPressed) {
@@ -251,9 +259,12 @@ void GameScene::renderButtons(sf::RenderTarget* target)
 	}
 
 	if (this->texts[2].getString() == "INVENTORY" && this->inventory->getItem()) {
-		for (auto& it : this->buttonsItems) {
-			it->render(target);
-		}
+		this->buttonsItems[0]->render(target);
+
+	}
+
+	if (this->texts[2].getString() == "INVENTORY" && this->player->getEquipedItems()) {
+		this->buttonsItems[1]->render(target);
 	}
 
 	if (this->texts[2].getString() == "STAGES") {
@@ -357,13 +368,11 @@ void GameScene::ChangeItems(Entity* inventoryItem , Entity* equipedItem)
 
 	//Svaing Equiped to inventory
 	this->inventoryT[equipedNum].loadFromFile("res/img/items/" + inventoryName + ".png");
-	this->player->getEquipedItems()->setItem(equipedNum, new Item(93 + (25 * equipedNum), 118, inventoryName, inventoryHp, inventoryPower, inventorySpell, &this->inventoryT[equipedNum]));
-	std::cout << "EQUIP NAME " << equipName << std::endl;
+	this->player->getEquipedItems()->setItem(new Item(93 + (25 * equipedNum), 118, inventoryName, inventoryHp, inventoryPower, inventorySpell, &this->inventoryT[equipedNum]));
 
 	ofsEquiped.open("res/Player/equiped.txt");
 
 	for (int it = 0; it < 6; it++) {
-
 		if (it < 5) {
 			ofsEquiped
 				<< this->player->getEquipedItems()->getItemById(it)->getName()
@@ -379,7 +388,6 @@ void GameScene::ChangeItems(Entity* inventoryItem , Entity* equipedItem)
 				<< " " << this->player->getEquipedItems()->getItemById(it)->getPower()
 				<< " " << this->player->getEquipedItems()->getItemById(it)->getType();
 		}
-
 
 	}
 	ofsEquiped.close();
@@ -409,9 +417,15 @@ void GameScene::ChangeItems(Entity* inventoryItem , Entity* equipedItem)
 
 	}
 	ofsInventory.close();
+}
 
 
+void GameScene::RemoveEquipedItem(Item * equipedItem) {
+	if (!this->inventory->canPutItemInInventory()) return;
+	
+	this->inventory->setItem(equipedItem);
+	this->player->getEquipedItems()->removeItem();
 
-
-
+	this->inventory->save();
+	this->player->getEquipedItems()->save();
 }

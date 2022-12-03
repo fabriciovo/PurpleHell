@@ -1,4 +1,4 @@
-slot 0 0 0
+magicAxe 1 20 5
 slot 0 0 0
 slot 0 0 0
 slot 0 0 0

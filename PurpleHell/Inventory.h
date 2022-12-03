@@ -25,10 +25,11 @@ public:
 	void renderInventory(sf::RenderTarget *target);
 	void updateInventory(sf::Vector2f mousePos, const float &dt);
 	void setItem(int i, Item* item);
-
+	void setItem(Item* item);
+	void save();
+	bool canPutItemInInventory();
 	bool selectedItem();
 	int inventoryNumber();
-
 	Entity* getItem();
 	Entity* getItemById(int i);
 
