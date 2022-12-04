@@ -94,7 +94,6 @@ void BattleScene::initTexts()
 	this->battleTexts.push_back(enemyTitle);
 	this->battleTexts.push_back(played);
 	this->battleTexts.push_back(heroPower);
-
 }
 
 void BattleScene::initPlayer()
@@ -118,7 +117,6 @@ BattleScene::BattleScene()
 }
 BattleScene::BattleScene(sf::RenderWindow* window, std::stack<Scene*>* scenes, int wave) : Scene(window, scenes)
 {
-
 	this->wave = wave;
 	this->maxWave = wave*2;
 	this->initPlayer();
@@ -408,8 +406,9 @@ void BattleScene::updateDamageText(const float& dt)
 
 void BattleScene::useItem()
 {
+	int itemId = this->player->getEquipedItems()->getItemId();
 	this->player->getEquipedItems()->getItem()->action(this->player->getTeam(playerIndex));
-	this->player->getEquipedItems()->removeItem(this->player->getEquipedItems()->getItem());
+	this->player->getEquipedItems()->removeItem(itemId);
 	this->player->getEquipedItems()->save();
 	playerIndex++;
 }
@@ -447,8 +446,6 @@ void BattleScene::battleSystem(const float& dt)
 
 	this->timer -= dt;
 }
-
-
 
 void BattleScene::playerReward()
 {

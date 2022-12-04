@@ -22,12 +22,14 @@ public:
 	void updateEquipedItems(sf::Vector2f mousePos,const float &dt);
 	void useItem(Item *item);
 	void removeItem(Item * equipedItem);
+	void removeItem(int equipedItemId);
 	Item *getItem();
 	Entity *getItemById(int i);
 	void setItem(Item *item);
 	int UnitNumber(Entity *item);
 	bool canEquip();
 	void save();
+	int getItemId();
 };
 
 #endif // !EQUIPEITEMS_H

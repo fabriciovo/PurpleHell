@@ -45,6 +45,14 @@ void EquipedItems::updateEquipedItems(sf::Vector2f mousePos,const float &dt)
 }
 
 
+void EquipedItems::removeItem(int id)
+{
+	sf::Texture emptyTex;
+	emptyTex.loadFromFile("res/img/items/slot.png");
+	Item* empty = new Item(0, 0, "slot", 0, 0, 0, &emptyTex);
+	this->items[id] = empty;
+}
+
 void EquipedItems::removeItem(Item * equipedItem)
 {
 	sf::Texture emptyTex;
@@ -88,7 +96,6 @@ void EquipedItems::setItem(Item * item)
 	}
 }
 
-
 int EquipedItems::UnitNumber(Entity *item)
 {
 	for (int i = 0; i < this->maxItems; i++) {
@@ -99,7 +106,6 @@ int EquipedItems::UnitNumber(Entity *item)
 }
 bool EquipedItems::canEquip()
 {
-
 	for (int i = 0; i < this->maxItems; i++) {
 		if (this->items[i]->getName() == "slot") {
 			return true;
@@ -129,6 +135,16 @@ void EquipedItems::save()
 	}
 	ofsEquiped.close();
 }
+int EquipedItems::getItemId()
+{
+	for (int i = 0; i < this->maxItems; i++) {
+		if (this->items[i]) {
+			if (items[i]->getSelected()) {
+				return i;
+			}
+		}
+	}
+}
 //Arquivos
 void EquipedItems::ArquivoEquiped(std::ifstream &ifsEquipedItems, int i)
 {
@@ -137,18 +153,14 @@ void EquipedItems::ArquivoEquiped(std::ifstream &ifsEquipedItems, int i)
 
 	if (ifsEquipedItems.is_open())
 	{
-
 		if (!ifsEquipedItems.eof())
 		{
-
 			ifsEquipedItems >> name >> hp >> power >> type;
-
 			sf::Texture *tex;
 			tex = new sf::Texture();
 			tex->loadFromFile("res/img/items/" + name + ".png");
 			this->items[i] = (new Item(93 + (25 * i), 118, name, hp, power, type, tex));
 			i++;
-
 			ArquivoEquiped(ifsEquipedItems, i);
 		}
 		else {

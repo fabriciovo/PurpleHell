@@ -118,14 +118,11 @@ void GameScene::update(const float & dt)
 
 	this->player->update(this->mousePosView, dt);
 	this->units->updateUnits(this->mousePosView, dt);
+
+
+	this->inventory->updateInventory(this->mousePosView, dt);
 	this->player->getEquipedItems()->updateEquipedItems(this->mousePosView,dt);
-
-	if (this->texts[2].getString() == "INVENTORY") {
-		this->inventory->updateInventory(this->mousePosView, dt);
-	}
-
-
-
+	
 }
 
 void GameScene::updateButtons()
@@ -202,9 +199,6 @@ void GameScene::updateButtons()
 			this->buttonPressed = true;
 		}
 	}
-
-
-
 	//Stages
 	if (this->texts[2].getString() == "STAGES") {
 		if (this->buttonStages[0]->isPressed() && !this->buttonPressed) {
@@ -241,9 +235,7 @@ void GameScene::render(sf::RenderTarget * target)
 	if (this->texts[2].getString() == "INVENTORY") {
 		this->inventory->renderInventory(target);
 	}
-
 	renderFade(target);
-
 }
 
 void GameScene::renderTexts(sf::RenderTarget* target)
