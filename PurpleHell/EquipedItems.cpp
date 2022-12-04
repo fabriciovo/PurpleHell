@@ -143,8 +143,6 @@ void EquipedItems::ArquivoEquiped(std::ifstream &ifsEquipedItems, int i)
 
 			ifsEquipedItems >> name >> hp >> power >> type;
 
-			std::cout << "res/img/items/ " << name << hp << power << type << std::endl;
-
 			sf::Texture *tex;
 			tex = new sf::Texture();
 			tex->loadFromFile("res/img/items/" + name + ".png");

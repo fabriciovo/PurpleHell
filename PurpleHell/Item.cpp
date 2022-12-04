@@ -58,6 +58,8 @@ void Item::useItem(int i, Entity * entity)
 	default:
 		break;
 	}
+	entity->setPlayed(true);
+	entity->setSelected(false);
 }
 
 void Item::Potion(Entity *entity)

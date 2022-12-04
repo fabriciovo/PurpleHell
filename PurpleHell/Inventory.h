@@ -15,7 +15,7 @@ private:
 	sf::Texture* texture;
 	sf::Sprite* sprite;
 
-	std::list<Item*> items;
+	Item * items[maxItems];
 	
 	void initInventory();
 public:

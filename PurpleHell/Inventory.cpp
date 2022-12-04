@@ -18,7 +18,7 @@ void Inventory::initInventory()
 			tx = new sf::Texture();
 			tx->loadFromFile("res/img/items/" + name + ".png");
 
-			this->items.push_back(new Item(93 + (25 * it), 23, name, hp, power, type, tx));
+			this->items[it] = new Item(93 + (25 * it), 23, name, hp, power, type, tx);
 			
 			it++;
 
@@ -41,30 +41,29 @@ Inventory::~Inventory()
 {
 }
 
-void Inventory::updateInventory(sf::Vector2f mousePos, const float &dt)
-{
+void Inventory::updateInventory(sf::Vector2f mousePos, const float &dt) {
 	int count = 0;
 	int countSecondLine = 0;
-	for (auto it = items.begin(); it != items.end(); it++) {
+	for (int i = 0; i < this->maxItems; i++) {
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-			if ((*it)->getSprite()->getGlobalBounds().contains(mousePos)) {
-				(*it)->setSelected(true);
+			if (this->items[i]->getSprite()->getGlobalBounds().contains(mousePos)) {
+				this->items[i]->setSelected(true);
 			}
 			else {
-				(*it)->setSelected(false);
+				this->items[i]->setSelected(false);
 			}
 		}
 		if (count < 10) {
-			(*it)->SetPosition(92 + (25 * count), 22);
+			this->items[i]->SetPosition(92 + (25 * count), 22);
 
 			count++;
 		}
 		else {
-			(*it)->SetPosition(92 + (25 * countSecondLine), 48);
+			this->items[i]->SetPosition(92 + (25 * countSecondLine), 48);
 			countSecondLine++;
 		}
 
-		(*it)->update(mousePos,dt);	
+		this->items[i]->update(mousePos,dt);
 	}
 
 
@@ -72,16 +71,15 @@ void Inventory::updateInventory(sf::Vector2f mousePos, const float &dt)
 
 void Inventory::renderInventory(sf::RenderTarget * target)
 {
-	for (auto it = items.begin(); it != items.end(); it++){
-		(*it)->render(target);
+	for (int i = 0; i < this->maxItems; i++){
+		this->items[i]->render(target);
 	}
 }
 
 bool Inventory::selectedItem()
 {
-	for (auto it = items.begin(); it != items.end(); it++) {
-		
-		if ((*it)->getSelected()) {
+	for (auto i = 0; i < this->maxItems; i++) {
+		if (this->items[i]->getSelected()) {
 			return true;
 		}
 	}
@@ -90,36 +88,31 @@ bool Inventory::selectedItem()
 
 Item * Inventory::getItem()
 {
-
-	for (auto it = items.begin(); it != items.end(); it++) {
-		if ((*it)->getName() != "slot") {
-			if ((*it)->getSelected()) {
-				return (*it);
+	for (int i = 0; i < this->maxItems; i++) {
+		if (this->items[i]->getName() != "slot") {
+			if (this->items[i]->getSelected()) {
+				return this->items[i];
 			}
 		}
 	}
 	return nullptr;
 }
 
-void Inventory::setItem(int i, Item * item)
+void Inventory::setItem(int count, Item * item)
 {
-	int count = 0;
-	for (auto it = items.begin(); it != items.end(); it++) {
-
+	for (int i = 0; i < this->maxItems; i++) {
 		if(i == count){
-			(*it) = item;
+			this->items[i] = item;
 			break;
 		}
-		count++;
-
 	}
 }
 
 void Inventory::setItem(Item* item)
 {
-	for (auto it = items.begin(); it != items.end(); it++) {
-		if ((*it)->getName() == "slot") {
-			(*it) = item;
+	for (int i = 0; i < this->maxItems; i++) {
+		if (this->items[i]->getName() == "slot") {
+			this->items[i] = item;
 			break;
 		}
 	}
@@ -130,62 +123,55 @@ void Inventory::save()
 	std::fstream ofsInventory;
 	ofsInventory.open("res/Player/Inventory.txt", std::ofstream::out | std::ofstream::trunc);
 
-	for (auto it = items.begin(); it != items.end(); it++) {
-			ofsInventory
-				<< (*it)->getName()
-				<< " " << (*it)->getHp()
-				<< " " << (*it)->getPower()
-				<< " " << (*it)->getType() << std::endl;
+	for (int i = 0; i < this->maxItems; i++) {
+		ofsInventory
+			<< this->items[i]->getName()
+			<< " " << this->items[i]->getHp()
+			<< " " << this->items[i]->getPower()
+			<< " " << this->items[i]->getType() << std::endl;
 	}
-
-	
 	ofsInventory.close();
 }
 
 bool Inventory::canPutItemInInventory()
 {
-	for (auto it = items.begin(); it != items.end(); it++) {
-		if ((*it)->getName() == "slot") {
+	for (int i = 0; i < this->maxItems; i++) {
+		if (this->items[i]->getName() == "slot") {
 			return true;
 		}
 	}
 	return false;
 }
 
-Item * Inventory::getItemById(int i)
+Item * Inventory::getItemById(int count)
 {
-	int count = 0;
-	for (auto it = items.begin(); it != items.end(); it++) {
+	for (int i = 0; i < this->maxItems; i++) {
 
 		if (i == count) {
-			return (*it);
+			return this->items[i];
 		}
-		count++;
 	}
-
-
 }
 void Inventory::removeItem(Item* inventoryItem)
 {
 	sf::Texture emptyTex;
 	emptyTex.loadFromFile("res/img/items/slot.png");
 	Item* empty = new Item(0, 0, "slot", 0, 0, 0, &emptyTex);
-	for (auto it = items.begin(); it != items.end(); it++) {
-		if ((*it) == inventoryItem) {
-			(*it) = empty;
+	for (int i = 0; i < this->maxItems; i++) {
+		if (this->items[i] == inventoryItem) {
+			this->items[i] = empty;
 			break;
 		}
 	}
 }
 int Inventory::inventoryNumber()
 {
-
-	int i = 0;
-	for (auto it = items.begin(); it != items.end(); it++) {
-		if ((*it)->getSelected()) {
+	int count = 0;
+	for (int i = 0; i < this->maxItems; i++) {
+		if (this->items[i]->getSelected()) {
 			return i;
 		}
-		i++;
+		count++;
 	}
 
 }

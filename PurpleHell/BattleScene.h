@@ -71,6 +71,7 @@ public:
 	void enemyTurn();
 	void damageTexts(Entity * hero, Enemy * enemy, bool isPlayer, bool miss = false);
 	void updateDamageText(const float& dt);
+	void useItem();
 };
 
 #endif // !BATTLESTATE_H

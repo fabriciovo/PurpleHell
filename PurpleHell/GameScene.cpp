@@ -92,7 +92,6 @@ GameScene::GameScene()
 
 GameScene::GameScene(sf::RenderWindow *window, std::stack<Scene*> *scenes) : Scene(window, scenes)
 {
-
 	this->initFont();
 	this->initPlayers();
 	this->initButtons();

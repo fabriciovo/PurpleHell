@@ -175,14 +175,10 @@ void BattleScene::updateButtons()
 		
 
 		if (turn && this->player->getEquipedItems()->getItem() && this->player->getTeam(playerIndex)) {
-			std::cout << "PASFKOJPOAFSKFOSAPKsadas" << std::endl;
-
 			if (this->buttons[3]->isPressed()) {
-				std::cout << "PASFKOJPOAFSKFOSAPK" << std::endl;
 				if (!this->buttonPressed) {
 					this->buttonPressed = true;
-					this->player->getEquipedItems()->getItem()->action(this->player->getTeam(playerIndex));
-					playerIndex++;
+					this->useItem();
 				}
 			}
 		}
@@ -408,6 +404,14 @@ void BattleScene::updateDamageText(const float& dt)
 		}
 		this->timerDamageText -= dt;
 	}
+}
+
+void BattleScene::useItem()
+{
+	this->player->getEquipedItems()->getItem()->action(this->player->getTeam(playerIndex));
+	this->player->getEquipedItems()->removeItem(this->player->getEquipedItems()->getItem());
+	this->player->getEquipedItems()->save();
+	playerIndex++;
 }
 
 void BattleScene::renderButtons(sf::RenderTarget * target)
