@@ -8,6 +8,7 @@ Item::Item()
 
 Item::Item(int x, int y, std::string name,int hp,int power, int type, sf::Texture* texture)
 {
+
 	this->name = name;
 	this->hp = hp;
 	this->power = power;
@@ -16,6 +17,10 @@ Item::Item(int x, int y, std::string name,int hp,int power, int type, sf::Textur
 	this->CreateSprite(texture);
 	this->SetPosition(x, y);
 	this->createAnimationComponent(*texture);
+
+	std::cout << "-----------------" << std::endl;
+	std::cout << this->name << std::endl;
+	std::cout << "-----------------" << std::endl;
 }
 
 

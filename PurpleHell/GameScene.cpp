@@ -226,7 +226,6 @@ void GameScene::render(sf::RenderTarget * target)
 	this->renderButtons(target);
 	this->renderTexts(target);
 	this->player->render(target);
-	this->player->getEquipedItems()->renderEquipedItems(target);
 
 	if (this->texts[2].getString() == "UNITS") {
 		this->units->renderUnits(target);
@@ -235,6 +234,7 @@ void GameScene::render(sf::RenderTarget * target)
 	if (this->texts[2].getString() == "INVENTORY") {
 		this->inventory->renderInventory(target);
 	}
+	this->player->getEquipedItems()->renderEquipedItems(target);
 	renderFade(target);
 }
 
@@ -318,7 +318,7 @@ void GameScene::ChangeHero(Entity* unit, Entity* hero)
 
 	//Svaing Hero to team
 	this->unitsT[heroNum].loadFromFile("res/img/Player/" + unitName + ".png");
-	this->player->setTeam(heroNum, new Hero(200 + (23 * heroNum), 148, unitName, unitHp, unitPower,unitSpell ,&this->unitsT[heroNum]));
+	this->player->setTeam(heroNum, new Hero(200.0f + (23.0f * heroNum), 148.0f, unitName, unitHp, unitPower,unitSpell ,&this->unitsT[heroNum]));
 
 	ofsHeroes.open("res/Player/Team.txt");
 	for (int it = 0; it < 3; it++) {
@@ -335,7 +335,6 @@ void GameScene::ChangeHero(Entity* unit, Entity* hero)
 	//Svaing Hero to unity
 	this->heroesT[unitNum].loadFromFile("res/img/Player/" + heroName + ".png");
 	this->units->setUnits(unitNum, new Hero(93 + (25 * unitNum), 23, heroName, heroHp, heroPower,heroSpell, &this->heroesT[unitNum]));
-	std::cout << "HERO NAME "<< heroName << std::endl;
 
 	ofsUnits.open("res/Player/Units.txt");
 	for (int iz = 0; iz < 3; iz++) {
@@ -344,7 +343,6 @@ void GameScene::ChangeHero(Entity* unit, Entity* hero)
 			<< " " << this->units->getTeam(iz)->getPower() 
 			<< " " << this->units->getTeam(iz)->getType() 
 			<< std::endl;
-		std::cout << units->getTeam(iz)->getName() << std::endl;
 
 	}
 	ofsUnits.close();

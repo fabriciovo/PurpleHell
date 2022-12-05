@@ -48,10 +48,13 @@ Hero::Hero(Entity* hero)
 
 Hero::~Hero()
 {
-
+	delete this->spell;
+	delete this->sprite;
+	delete this->texture;
+	delete this->animationComponent;
 }
 void Hero::special(Entity *entity)
-{
+{ 
 	this->spell = new Especial(this->type, entity);
 	entity->setDamage(6);
 	this->setEspecial(false);

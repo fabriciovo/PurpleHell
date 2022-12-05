@@ -149,7 +149,6 @@ void AI::ArquivoEnemies(std::ifstream &ifsEnemies, int i)
 		{
 
 			ifsEnemies >> name >> hp >> power;
-			std::cout << name << hp << power << std::endl;
 			sf::Texture *tex;
 			tex = new sf::Texture();
 			tex->loadFromFile("res/img/AI/" + name + ".png");

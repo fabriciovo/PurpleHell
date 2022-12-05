@@ -264,13 +264,12 @@ void BattleScene::render(sf::RenderTarget* target)
 	target->draw(this->hudSprite);
 	this->renderTexts(target);
 	this->player->render(target);
-	this->player->getEquipedItems()->renderEquipedItems(target);
 	this->renderFade(target);
 	if (!this->ais.empty()) {
 		this->renderButtons(target);
 		this->ais.front()->renderEnemies(target);
 	}
-
+	this->player->getEquipedItems()->renderEquipedItems(target);
 }
 
 void BattleScene::renderTexts(sf::RenderTarget* target)

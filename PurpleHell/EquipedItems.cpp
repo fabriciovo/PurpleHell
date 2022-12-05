@@ -25,7 +25,6 @@ EquipedItems::~EquipedItems()
 void EquipedItems::renderEquipedItems(sf::RenderTarget * target)
 {
 	for (int i = 0; i < this->maxItems; i++) {
-		std::cout << this->items[i]->getName() << std::endl;
 		if(this->items[i]) this->items[i]->render(target);
 	}
 }
