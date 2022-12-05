@@ -25,7 +25,8 @@ EquipedItems::~EquipedItems()
 void EquipedItems::renderEquipedItems(sf::RenderTarget * target)
 {
 	for (int i = 0; i < this->maxItems; i++) {
-		this->items[i]->render(target);
+		std::cout << this->items[i]->getName() << std::endl;
+		if(this->items[i]) this->items[i]->render(target);
 	}
 }
 
@@ -33,25 +34,26 @@ void EquipedItems::updateEquipedItems(sf::Vector2f mousePos,const float &dt)
 {
 
 	for (int i = 0; i < this->maxItems; i++) {
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-			if (this->items[i]->getSprite()->getGlobalBounds().contains(mousePos) && this->items[i]->getName() != "slot") {
-				this->items[i]->setSelected(true);
-			}
-			else {
-				//this->items[i]->setSelected(false);
-			}
-		}
+
 		if (this->items[i]) {
-			this->items[i]->SetPosition(93 + (25 * i), 118);
-			this->items[i]->update(mousePos, dt);
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+				if (this->items[i]->getSprite()->getGlobalBounds().contains(mousePos) && this->items[i]->getName() != "slot") {
+				this->items[i]->setSelected(true);
+				}
+				else {
+				//this->items[i]->setSelected(false);
+				}
+			}
+		this->items[i]->SetPosition(93 + (25 * i), 118);
+		this->items[i]->update(mousePos, dt);
 		}
 	}
 
-	std::cout << "-----------------" << std::endl;
-	for (int i = 0; i < this->maxItems; i++) {
-			std::cout << this->items[i]->getName() << std::endl;
-	}
-	std::cout << "-----------------" << std::endl;
+	//std::cout << "-----------------" << std::endl;
+	//for (int i = 0; i < this->maxItems; i++) {
+	//		std::cout << this->items[i]->getName() << std::endl;
+	//}
+	//std::cout << "-----------------" << std::endl;
 
 }
 
@@ -169,8 +171,7 @@ void EquipedItems::ArquivoEquiped(std::ifstream &ifsEquipedItems, int i)
 		if (!ifsEquipedItems.eof())
 		{
 			ifsEquipedItems >> name >> hp >> power >> type;
-			sf::Texture *tex;
-			tex = new sf::Texture();
+			sf::Texture *tex = new sf::Texture();
 			tex->loadFromFile("res/img/items/" + name + ".png");
 			this->items[i] = (new Item(93 + (25 * i), 118, name, hp, power, type, tex));
 			i++;

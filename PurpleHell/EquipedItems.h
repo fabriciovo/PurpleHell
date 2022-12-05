@@ -17,16 +17,18 @@ public:
 
 	void renderEquipedItems(sf::RenderTarget *target);
 	void updateEquipedItems(sf::Vector2f mousePos,const float &dt);
-	void useItem(Item *item);
 	void removeItem(Item * equipedItem);
 	void removeItem(int equipedItemId);
+	void setItem(Item *item);
+	void save();
+
+	bool canEquip();
+	
+	int UnitNumber(Entity *item);
+	int getItemId();
+
 	Item *getItem();
 	Entity *getItemById(int i);
-	void setItem(Item *item);
-	int UnitNumber(Entity *item);
-	bool canEquip();
-	void save();
-	int getItemId();
 };
 
 #endif // !EQUIPEITEMS_H

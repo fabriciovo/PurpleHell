@@ -15,6 +15,7 @@ Item::Item(int x, int y, std::string name,int hp,int power, int type, sf::Textur
 	this->selected = false;
 	this->CreateSprite(texture);
 	this->SetPosition(x, y);
+	this->createAnimationComponent(*texture);
 }
 
 
@@ -22,6 +23,7 @@ Item::~Item()
 {
 	delete this->sprite;
 	delete this->texture;
+	delete this->animationComponent;
 }
 
 void Item::action(Entity * entity)

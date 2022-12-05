@@ -20,11 +20,6 @@ void MainMenuScene::initButtons()
 	this->buttonsMap["QUIT"] = (new Button(135, 110, 75, 20, &this->font, "QUIT", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture1));
 	this->buttonsMap["CREDITS"] = (new Button(135, 140, 75, 20, &this->font, "Credits", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture1));
 
-	//Vectors
-	/*this->buttons.push_back(new Button(135,80,75,20,&this->font,"Start Game", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture1));
-	this->buttons.push_back(new Button(135,110, 75, 20, &this->font, "QUIT", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture1));
-	this->buttons.push_back(new Button(135,140, 75, 20, &this->font, "Credits", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture1));
-	*/
 }
 
 void MainMenuScene::initTexts()
