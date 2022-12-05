@@ -9,6 +9,8 @@ Especial::Especial()
 
 Especial::~Especial()
 {
+	delete this->sprite;
+	delete this->texture;
 	delete this->animationComponent;
 }
 

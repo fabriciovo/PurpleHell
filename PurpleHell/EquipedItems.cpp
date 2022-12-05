@@ -16,6 +16,10 @@ EquipedItems::EquipedItems()
 
 EquipedItems::~EquipedItems()
 {
+
+	for (int i = 0; i < this->maxItems; i++) {
+		delete this->items[i];
+	}
 }
 
 void EquipedItems::renderEquipedItems(sf::RenderTarget * target)
@@ -42,7 +46,16 @@ void EquipedItems::updateEquipedItems(sf::Vector2f mousePos,const float &dt)
 			this->items[i]->update(mousePos, dt);
 		}
 	}
+
+	std::cout << "-----------------" << std::endl;
+	for (int i = 0; i < this->maxItems; i++) {
+			std::cout << this->items[i]->getName() << std::endl;
+	}
+	std::cout << "-----------------" << std::endl;
+
 }
+
+
 
 
 void EquipedItems::removeItem(int id)

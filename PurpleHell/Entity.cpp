@@ -18,8 +18,9 @@ Entity::Entity()
 
 Entity::~Entity()
 {
-
-
+	delete this->sprite;
+	delete this->texture;
+	delete this->animationComponent;
 }
 
 void Entity::CreateSprite(sf::Texture* texture)

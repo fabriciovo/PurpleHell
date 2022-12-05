@@ -31,6 +31,8 @@ Enemy::Enemy(std::string name, int hp, int power, sf::Texture* texture)
 
 Enemy::~Enemy()
 {
+	delete this->sprite;
+	delete this->texture;
 }
 
 void Enemy::action(Entity* entity)

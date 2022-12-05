@@ -10,17 +10,12 @@ AI::AI(int i)
 {
 	std::ifstream ifsEnemies("res/AI/"+std::to_string(i)+".txt");
 	ArquivoEnemies(ifsEnemies, 0);
-
-
 }
-
 
 AI::~AI()
 {
 	for (int i = 0; i < this->maxUnits; i++) {
 		delete this->team[i];
-		delete this->texture;
-		delete this->sprite;
 	}
 }
 
@@ -40,7 +35,7 @@ void AI::updateEnemies(sf::Vector2f mousePos, const float &dt)
 void AI::renderEnemies(sf::RenderTarget * target)
 {
 	for (int i = 0; i < this->maxUnits; i++) {
-		if (this->team[i]) {
+		if (this->team[i]->getHp() > 0) {
 			this->team[i]->render(target);
 		}
 	}
@@ -155,13 +150,12 @@ void AI::ArquivoEnemies(std::ifstream &ifsEnemies, int i)
 
 			ifsEnemies >> name >> hp >> power;
 			std::cout << name << hp << power << std::endl;
-			if (name != "slot") {
-				sf::Texture *tex;
-				tex = new sf::Texture();
-				tex->loadFromFile("res/img/AI/" + name + ".png");
-				this->team[i] = (new Enemy(0, 0, name, hp, power, tex));
-				i++;
-			}
+			sf::Texture *tex;
+			tex = new sf::Texture();
+			tex->loadFromFile("res/img/AI/" + name + ".png");
+			this->team[i] = (new Enemy(0, 0, name, hp, power, tex));
+			i++;
+		
 			ArquivoEnemies(ifsEnemies, i);
 		}
 		else {

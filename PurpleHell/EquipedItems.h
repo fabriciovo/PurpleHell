@@ -7,10 +7,7 @@ class EquipedItems
 {
 
 private:
-	sf::Texture* texture;
-	sf::Sprite* sprite;
 	static const int maxItems = 6;
-	sf::Texture textures[maxItems];
 	Item *items[maxItems];
 	void initEquipedItems();
 	void ArquivoEquiped(std::ifstream &ifsEquipedItems, int i);

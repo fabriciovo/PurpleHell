@@ -20,6 +20,8 @@ Item::Item(int x, int y, std::string name,int hp,int power, int type, sf::Textur
 
 Item::~Item()
 {
+	delete this->sprite;
+	delete this->texture;
 }
 
 void Item::action(Entity * entity)
