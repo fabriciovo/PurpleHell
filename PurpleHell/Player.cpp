@@ -25,6 +25,8 @@ Player::~Player()
 	for (int i = 0; i < this->maxUnits; i++) {
 		delete this->team[i];
 	}
+	delete this->equipedItems;
+
 }
 void Player::initHeroesMenu()
 {
@@ -36,7 +38,6 @@ void Player::initHeroesBattle()
 {
 	std::ifstream ifsHeroes("res/Player/Team.txt");
 	this->ArquivoHeroesBattle(ifsHeroes, 0);
-
 }
 
 void Player::initEquipedItems()
@@ -88,7 +89,7 @@ void Player::battlePosition()
 }
 
 
-Entity* Player::getHero()
+Hero* Player::getHero()
 {
 	for (int i = 0; i < this->maxUnits; i++) {
 		if (this->team[i]){
@@ -145,6 +146,15 @@ bool Player::getClear()
 {
 	return this->clear;
 }
+bool Player::canEquipHero()
+{
+	for (int i = 0; i < this->maxUnits; i++) {
+		if (this->team[i]) {
+			if (this->team[i]->getName() != "slot") return true;
+		}
+	}
+	return false;
+}
 void Player::setClear(bool value)
 {
 	this->clear = value;
@@ -189,6 +199,36 @@ void Player::setSpecialToTrue()
 		if (this->team[i] && this->team[i]->getName() != "slot")
 			this->team[i]->setEspecial(true);
 	}
+}
+
+void Player::RemoveHero(Hero* hero)
+{
+	sf::Texture emptyTex;
+	emptyTex.loadFromFile("res/img/items/slot.png");
+	Hero* empty = new Hero(0, 0, "slot", 0, 0, 0, &emptyTex);
+	for (int i = 0; i < this->maxUnits; i++) {
+		if (this->team[i] == hero) {
+			this->team[i] = empty;
+			break;
+		}
+	}
+}
+
+void Player::Save()
+{				  
+
+	std::fstream ofsTeam;
+	ofsTeam.open("res/Player/Team.txt", std::ofstream::out | std::ofstream::trunc);
+
+	for (int i = 0; i < this->maxUnits; i++) {
+		ofsTeam
+			<< this->team[i]->getName()
+			<< " " << this->team[i]->getHp()
+			<< " " << this->team[i]->getPower()
+			<< " " << this->team[i]->getType() << std::endl;
+	}
+	ofsTeam.close();
+	
 }
 
 bool Player::checkDeads()

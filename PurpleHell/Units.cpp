@@ -4,7 +4,7 @@
 void Units::initUnits()
 {
 	std::ifstream ifsUnits("res/Player/Units.txt");
-	ArquivoUnits(ifsUnits, 0);
+	this->ArquivoUnits(ifsUnits, 0);
 }
 
 Units::Units()
@@ -36,7 +36,6 @@ void Units::updateUnits(sf::Vector2f mousePos,const float &dt)
 					this->heroes[i]->setSelected(false);
 				}
 			}
-
 			this->heroes[i]->update(mousePos, dt);
 		}
 	}
@@ -47,7 +46,7 @@ bool Units::selectedHero()
 
 	for (int i = 0; i < this->maxUnitsInventory; i++) {
 		if (this->heroes[i]) {
-			if (heroes[i]->getSelected()) {
+			if (this->heroes[i]->getSelected()) {
 				return true;
 			}
 		}
@@ -55,12 +54,24 @@ bool Units::selectedHero()
 	return false;
 }
 
-Entity* Units::getHero()
+bool Units::canRemoveHero()
 {
 	for (int i = 0; i < this->maxUnitsInventory; i++) {
 		if (this->heroes[i]) {
-			if(this->heroes[i]->getName() != "slot" && !this->heroes[i]->getSelected()){
-				if (heroes[i]->getSelected()) {
+			if (this->heroes[i]->getName() == "slot") {
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+Hero* Units::getHero()
+{
+	for (int i = 0; i < this->maxUnitsInventory; i++) {
+		if (this->heroes[i]) {
+			if(this->heroes[i]->getName() != "slot"){
+				if (this->heroes[i]->getSelected()) {
 					return this->heroes[i];
 				}
 			}
@@ -70,12 +81,55 @@ Entity* Units::getHero()
 }
 
 
-void Units::setUnits(int i, Hero* hero)
+void Units::setUnits(Hero* hero)
 {
-	this->heroes[i] = hero;
+	for (int i = 0; i < this->maxUnitsInventory; i++) {
+		if (this->heroes[i]->getName() == "slot") {
+			this->heroes[i] = hero;
+			break;
+		}
+	}
 }
 
-Entity* Units::getTeam(int i)
+void Units::removeHero(Hero* hero)
+{
+	sf::Texture emptyTex;
+	emptyTex.loadFromFile("res/img/items/slot.png");
+	Hero* empty = new Hero(0, 0, "slot", 0, 0, 0, &emptyTex);
+	for (int i = 0; i < this->maxUnitsInventory; i++) {
+		if (this->heroes[i] == hero) {
+			this->heroes[i] = empty;
+			break;
+		}
+	}
+}
+
+void Units::equipHero(Hero* hero)
+{
+	for (int i = 0; i < this->maxUnitsInventory; i++) {
+		if (this->heroes[i]->getName() == "slot") {
+			this->heroes[i] = hero;
+			break;
+		}
+	}
+}
+
+void Units::Save()
+{
+	std::fstream ofsHeroes;
+	ofsHeroes.open("res/Player/Units.txt", std::ofstream::out | std::ofstream::trunc);
+
+	for (int i = 0; i < this->maxUnitsInventory; i++) {
+		ofsHeroes
+			<< this->heroes[i]->getName()
+			<< " " << this->heroes[i]->getHp()
+			<< " " << this->heroes[i]->getPower()
+			<< " " << this->heroes[i]->getType() << std::endl;
+	}
+	ofsHeroes.close();
+}
+
+Hero* Units::getTeam(int i)
 {
 	return this->heroes[i];
 }
@@ -84,7 +138,7 @@ int Units::UnitNumber()
 {
 	for (int i = 0; i < this->maxUnitsInventory; i++) {
 		if (this->heroes[i]) {
-				if (heroes[i]->getSelected()) {
+				if (this->heroes[i]->getSelected()) {
 					return i;
 				}
 		}

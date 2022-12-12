@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include "Hero.h"
+#include "Units.h"
 #include "EquipedItems.h"
 #include <vector>
 class Player
@@ -9,7 +10,8 @@ class Player
 private:
 	static const int maxUnits = 3;
 	Hero* team[maxUnits];
-	EquipedItems *equipedItems;
+	EquipedItems* equipedItems;
+	Units* units;
 	int gold = 0;
 	bool selected;
 	bool clear;
@@ -29,24 +31,27 @@ public:
 	void render(sf::RenderTarget* target);
 	void update(sf::Vector2f mousePos,const float &dt);
 	void battlePosition();
-
-	Entity* getHero();
-	Entity* getTeam(int i);
-	bool checkPlayed();
 	void setTeamToTrue();
-	void setSpecialToTrue();
-	bool checkDeads();
 	void checkDead();
-	int UnitNumber(Entity* hero);
 	void setTeam(int i, Hero* hero);
-	EquipedItems *getEquipedItems();
-	bool getClear();
 	void setClear(bool value);
-	int teamSize();
-	Entity * getRandomHero();
-	int getGold();
 	void updateGold(int value);
+	void setSpecialToTrue();
+	void RemoveHero(Hero* hero);
+	void Save();
 
-
+	int UnitNumber(Entity* hero);
+	int teamSize();
+	int getGold();
+	
+	bool checkPlayed();
+	bool checkDeads();
+	bool getClear();
+	bool canEquipHero();
+	
+	Hero* getHero();
+	Entity* getTeam(int i);
+	EquipedItems *getEquipedItems();
+	Entity * getRandomHero();
 };
 #endif // !PLAYER_H

@@ -131,6 +131,11 @@ BattleScene::BattleScene(sf::RenderWindow* window, std::stack<Scene*>* scenes, i
 }
 BattleScene::~BattleScene()
 {
+	//delete this->player;
+	delete this->ai;
+	for (auto& it : this->buttons) {
+		delete it;
+	}
 
 }
 
@@ -208,7 +213,6 @@ void BattleScene::update(const float& dt)
 			this->player->setSpecialToTrue();
 			this->playerIndex = 0;
 			this->ais.pop();
-
 		}
 	}
 
@@ -348,7 +352,7 @@ void BattleScene::enemyTurn()
 
 			if (player != nullptr && num > 23) {
 				this->infoText.setString(std::to_string(this->ais.front()->getTeam(this->enemyIndex)->getPower()) + " - Damage to -" + player->getName() + " -");
-				this->ais.front()->getTeam(this->enemyIndex)->action(this->player->getTeam(playerIndex));
+				this->ais.front()->getTeam(this->enemyIndex)->action(player);
 					damageTexts(player, this->ais.front()->getTeam(this->enemyIndex), true, false);
 			}
 			else {
@@ -414,9 +418,6 @@ void BattleScene::useItem()
 
 void BattleScene::renderButtons(sf::RenderTarget * target)
 {
-	/*for (auto& it : this->buttons) {
-	it->render(target);
-	}*/
 	this->buttons[0]->render(target);
 
 	if (turn && this->player->getHero() && this->ais.front()->selectedEnemy() && !this->player->getHero()->getPlayed()) {

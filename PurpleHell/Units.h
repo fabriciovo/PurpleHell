@@ -1,15 +1,17 @@
 #ifndef UNITS_H
-#define UNITS_h
+#define UNITS_H
 // !UNITS_h
 
-#include "Player.h"
+#include "Hero.h"
+#include <fstream>
+#include <sstream>
+#include <list> 
+#include <iterator> 
 
 class Units
 {
 private:
-	sf::Texture* texture;
-	sf::Sprite* sprite;
-	static const int maxUnitsInventory = 3;
+	static const int maxUnitsInventory = 10;
 	Hero *heroes[maxUnitsInventory];
 
 	void initUnits();
@@ -21,12 +23,18 @@ public:
 
 	void renderUnits(sf::RenderTarget* target);
 	void updateUnits(sf::Vector2f mousePos,const float &dt);
+	void setUnits(Hero* hero);
+	void removeHero(Hero* hero);
+	void equipHero(Hero* hero);
+	void Save();
+	int UnitNumber();
 
 	bool selectedHero();
-	Entity* getHero();
-	void setUnits(int i, Hero* hero);
-	Entity* getTeam(int i);
-	int UnitNumber();
+	bool canRemoveHero();
+
+	Hero* getTeam(int i);
+	Hero* getHero();
+
 
 };
 #endif 

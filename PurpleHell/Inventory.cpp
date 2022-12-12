@@ -98,14 +98,9 @@ Item * Inventory::getItem()
 	return nullptr;
 }
 
-void Inventory::setItem(int count, Item * item)
+void Inventory::setItem(int i, Item * item)
 {
-	for (int i = 0; i < this->maxItems; i++) {
-		if(i == count){
-			this->items[i] = item;
-			break;
-		}
-	}
+	this->items[i] = item;
 }
 
 void Inventory::setItem(Item* item)

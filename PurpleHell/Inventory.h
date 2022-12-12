@@ -2,10 +2,10 @@
 #define INVENTORY_H
 
 #include "SFML\Graphics.hpp"
+
+#include "Item.h"
 #include <fstream>
 #include <sstream>
-#include "Item.h"
-
 #include <list> 
 #include <iterator> 
 class Inventory

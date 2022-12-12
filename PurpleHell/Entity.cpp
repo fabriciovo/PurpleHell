@@ -18,8 +18,8 @@ Entity::Entity()
 
 Entity::~Entity()
 {
-	delete this->sprite;
 	delete this->texture;
+	delete this->sprite;
 	delete this->animationComponent;
 }
 

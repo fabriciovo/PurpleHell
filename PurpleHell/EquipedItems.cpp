@@ -47,17 +47,7 @@ void EquipedItems::updateEquipedItems(sf::Vector2f mousePos,const float &dt)
 		this->items[i]->update(mousePos, dt);
 		}
 	}
-
-	//std::cout << "-----------------" << std::endl;
-	//for (int i = 0; i < this->maxItems; i++) {
-	//		std::cout << this->items[i]->getName() << std::endl;
-	//}
-	//std::cout << "-----------------" << std::endl;
-
 }
-
-
-
 
 void EquipedItems::removeItem(int id)
 {
@@ -175,6 +165,9 @@ void EquipedItems::ArquivoEquiped(std::ifstream &ifsEquipedItems, int i)
 			this->items[i] = (new Item(93 + (25 * i), 118, name, hp, power, type, tex));
 			i++;
 			ArquivoEquiped(ifsEquipedItems, i);
+			std::cout << name  << hp << power << type << std::endl;
+
+
 		}
 		else {
 			ifsEquipedItems.close();

@@ -28,7 +28,7 @@ private:
 	sf::Text texts[4];
 
 	std::vector <Button*> buttons;
-	std::vector <Button*> buttonsSlots;
+	std::vector <Button*> buttonsUnits;
 	std::vector <Button*> buttonsItems;
 	std::vector <Button*> buttonStages;
 
@@ -40,11 +40,14 @@ private:
 	void listInventory();
 	void Shop();
 	void Stages();
-	void ChangeHero(Entity *unit, Entity * hero);
+	void EquipHero(Units *unit, Hero * hero);
+	void RemoveHero(Hero* hero);
+
 	void EquipItem(Item* inventoryItem);
 	void RemoveEquipedItem(Item* equipedItem);
 	void SellItem(Item* inventoryItem);
 	void updateTexts();
+
 public:
 	GameScene();
 	GameScene(sf::RenderWindow *window, std::stack<Scene*> *scenes);
