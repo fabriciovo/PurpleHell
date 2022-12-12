@@ -76,9 +76,18 @@ void Player::update(sf::Vector2f mousePos,const float &dt)
 			
 			this->team[i]->updateAnimation(dt);
 			this->team[i]->update(mousePos,dt);
+
 		}
 	}
 }
+
+void Player::MenuPosition()
+{
+	for (int i = 0; i < this->maxUnits; i++) {
+		this->team[i]->SetPosition(200 + (23 * i), 148);
+	}
+}
+
 
 void Player::battlePosition()
 {

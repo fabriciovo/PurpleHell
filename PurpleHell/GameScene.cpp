@@ -121,6 +121,7 @@ void GameScene::update(const float & dt)
 
 	this->inventory->updateInventory(this->mousePosView, dt);
 	this->player->getEquipedItems()->updateEquipedItems(this->mousePosView,dt);
+	this->player->MenuPosition();
 	this->updateTexts();
 	
 }

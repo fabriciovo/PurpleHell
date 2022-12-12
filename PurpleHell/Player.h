@@ -39,6 +39,7 @@ public:
 	void setSpecialToTrue();
 	void RemoveHero(Hero* hero);
 	void Save();
+	void MenuPosition();
 
 	int UnitNumber(Entity* hero);
 	int teamSize();

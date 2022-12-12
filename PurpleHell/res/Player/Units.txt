@@ -2,9 +2,9 @@ knight 25 5 2
 knight 25 5 2
 knight 25 5 2
 mage 20 10 2
-slot 0 0 0
-slot 0 0 0
-slot 0 0 0
-slot 0 0 0
+archer 35 6 2
+knight 25 5 2
+knight 25 5 2
+knight 25 5 2
 slot 0 0 0
 slot 0 0 0
