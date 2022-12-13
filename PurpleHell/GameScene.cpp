@@ -163,6 +163,7 @@ void GameScene::updateButtons()
 	//Units
 	if (this->texts[2].getString() == "UNITS" && this->units->getHero()) {
 		if (this->buttonsUnits[0]->isPressed() && !this->buttonPressed) {
+			this->EquipHero(this->units->getHero());
 			this->buttonPressed = true;
 		}
 		if (this->buttonsUnits[1]->isPressed() && !this->buttonPressed) {
@@ -295,16 +296,16 @@ void GameScene::Stages()
 	this->texts[2].setString("STAGES");
 }
 
-void GameScene::EquipHero(Units *  unit, Hero * hero)
+void GameScene::EquipHero(Hero * hero)
 {
 
-	//if (!this->units->canEquipUnit()) return;
+	if (!this->player->canEquipHero()) return;
 
-	//this->units->setUnits();
-	//this->inventory->removeItem(inventoryItem);
+	this->player->AddHeroToTeam(hero);
+	this->units->removeHero(hero);
 
-	//this->inventory->save();
-	//this->player->getEquipedItems()->save();
+	this->units->Save();
+	this->player->Save();
 
 }
 
@@ -353,5 +354,4 @@ void GameScene::updateTexts()
 {
 	this->texts[0].setString("Gold: " + std::to_string(this->player->getGold()));
 }
-
 

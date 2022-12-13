@@ -40,7 +40,7 @@ private:
 	void listInventory();
 	void Shop();
 	void Stages();
-	void EquipHero(Units *unit, Hero * hero);
+	void EquipHero(Hero * hero);
 	void RemoveHero(Hero* hero);
 
 	void EquipItem(Item* inventoryItem);

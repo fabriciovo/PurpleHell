@@ -40,6 +40,7 @@ public:
 	void RemoveHero(Hero* hero);
 	void Save();
 	void MenuPosition();
+	void AddHeroToTeam(Hero* hero);
 
 	int UnitNumber(Entity* hero);
 	int teamSize();

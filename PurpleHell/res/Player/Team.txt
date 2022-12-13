@@ -1,3 +1,4 @@
+id/name/life/class/level/xp
+archer 35 6 2
 slot 0 0 0
-knight 25 5 2
-slot 0 0 0
+mage 25 5 2

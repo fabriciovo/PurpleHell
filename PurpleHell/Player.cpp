@@ -88,6 +88,16 @@ void Player::MenuPosition()
 	}
 }
 
+void Player::AddHeroToTeam(Hero* hero)
+{
+	for (int i = 0; i < this->maxUnits; i++) {
+		if (this->team[i]->getName() == "slot") {
+			this->team[i] = hero;
+			break;
+		}
+	}
+}
+
 
 void Player::battlePosition()
 {
@@ -159,7 +169,7 @@ bool Player::canEquipHero()
 {
 	for (int i = 0; i < this->maxUnits; i++) {
 		if (this->team[i]) {
-			if (this->team[i]->getName() != "slot") return true;
+			if (this->team[i]->getName() == "slot") return true;
 		}
 	}
 	return false;
