@@ -74,6 +74,9 @@
     <Filter Include="Game\Effects">
       <UniqueIdentifier>{e706af5f-1d99-44a3-b62c-169c460f2c96}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Shop">
+      <UniqueIdentifier>{8ec49340-d6eb-47c1-b421-ed545cb884ce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Potion.h">
@@ -129,6 +132,9 @@
     </ClInclude>
     <ClInclude Include="AnimationComponent.h">
       <Filter>Game\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Shop.h">
+      <Filter>Game\Shop</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -188,6 +194,9 @@
     </ClCompile>
     <ClCompile Include="Hero.cpp">
       <Filter>Game\Entity\Hero</Filter>
+    </ClCompile>
+    <ClCompile Include="Shop.cpp">
+      <Filter>Game\Shop</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
