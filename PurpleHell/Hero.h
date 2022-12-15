@@ -15,14 +15,14 @@ private:
 
 public:
 	Hero();
-	Hero(float x, float y, std::string name, int hp, int power, int type, sf::Texture* texture);
-	Hero(std::string name, int hp, int power);
+	Hero(float x, float y, std::string name, std::string job, int hp, int power, int special, sf::Texture* texture);
+	Hero(std::string name, std::string job, int hp, int power, int special);
 	Hero(Entity *hero);
 	virtual ~Hero();
-	void special(Entity *entity);
-	void action(Entity * entity);
-	Especial * getSpell();
-	void updateAnimation(const float &dt);
+	void Special(Entity *entity);
+	void Action(Entity * entity);
+	Especial * GetSpell();
+	void UpdateAnimation(const float &dt);
 
 };
 

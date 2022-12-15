@@ -70,7 +70,7 @@ void Entity::setPower(int power)
 
 int Entity::getType()
 {
-	return this->type;
+	return this->special;
 }
 
 void Entity::SetPosition(const float x, const float y)

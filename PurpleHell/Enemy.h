@@ -11,8 +11,8 @@ public:
 	Enemy(std::string name, int hp, int power, sf::Texture* texture);
 	virtual ~Enemy();
 
-	void action(Entity* entity);
-	void special(Entity *entity);
+	void Action(Entity* entity);
+	void Special(Entity *entity);
 	void update(sf::Vector2f mousePos, const float& dt);
 	int getHp();
 	std::string getName();

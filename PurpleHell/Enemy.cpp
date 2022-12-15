@@ -28,14 +28,13 @@ Enemy::Enemy(std::string name, int hp, int power, sf::Texture* texture)
 
 }
 
-
 Enemy::~Enemy()
 {
 	delete this->sprite;
 	delete this->texture;
 }
 
-void Enemy::action(Entity* entity)
+void Enemy::Action(Entity* entity)
 {
 	if(this->hp > 0){
 		entity->setDamage(this->power);
@@ -45,11 +44,9 @@ void Enemy::action(Entity* entity)
 	}
 }
 
-void Enemy::special(Entity *entity)
+void Enemy::Special(Entity *entity)
 {
 }
-
-
 
 void Enemy::update(sf::Vector2f mousePos, const float& dt)
 {	

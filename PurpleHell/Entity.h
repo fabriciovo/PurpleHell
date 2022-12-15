@@ -26,13 +26,17 @@ protected:
 
 	sf::Texture* texture;
 	sf::Sprite* sprite;
-	bool selected;
-	bool played;
+
+	std::string name;
+	std::string job;
+
 	int hp;
 	int power;
-	int type;
+	int special;
+
+	bool selected = false;
+	bool played = false;
 	bool canUseSpecial = true;
-	std::string name;
 
 	AnimationComponent *animationComponent;
 
@@ -46,8 +50,8 @@ public:
 
 	virtual void SetPosition(const float x, const float y);
 	virtual void SetScale(const float x, const float y);
-	virtual void action(Entity* entity) = 0;
-	virtual void special(Entity *entity) = 0;
+	virtual void Action(Entity* entity) = 0;
+	virtual void Special(Entity *entity) = 0;
 
 	virtual void update(sf::Vector2f mousePos, const float &dt);
 

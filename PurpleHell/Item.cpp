@@ -12,7 +12,7 @@ Item::Item(int x, int y, std::string name,int hp,int power, int type, sf::Textur
 	this->name = name;
 	this->hp = hp;
 	this->power = power;
-	this->type = type;
+	this->special = special;
 	this->selected = false;
 	this->CreateSprite(texture);
 	this->SetPosition(x, y);
@@ -28,12 +28,12 @@ Item::~Item()
 	delete this->animationComponent;
 }
 
-void Item::action(Entity * entity)
+void Item::Action(Entity * entity)
 {
-	useItem(this->type,entity);
+	useItem(this->special,entity);
 }
 
-void Item::special(Entity *entity)
+void Item::Special(Entity *entity)
 {
 }
 

@@ -155,7 +155,7 @@ void BattleScene::updateButtons()
 			if (this->player->getHero()->getSelected()) {
 				if (this->buttons[1]->isPressed()) {
 					if (!this->buttonPressed) {
-						this->player->getHero()->action(this->ais.front()->getEnemy());
+						this->player->getHero()->Action(this->ais.front()->getEnemy());
 						this->buttonPressed = true;
 						damageTexts(this->player->getTeam(playerIndex) , this->ais.front()->getEnemy(), false, false);
 						playerIndex++;
@@ -169,7 +169,7 @@ void BattleScene::updateButtons()
 			if (this->player->getHero()->getSelected()) {
 				if (this->buttons[2]->isPressed()) {
 					if (!this->buttonPressed) {
-						this->player->getHero()->special(this->ais.front()->getEnemy());
+						this->player->getHero()->Special(this->ais.front()->getEnemy());
 						this->buttonPressed = true;
 					}
 				}
@@ -352,7 +352,7 @@ void BattleScene::enemyTurn()
 
 			if (player != nullptr && num > 23) {
 				this->infoText.setString(std::to_string(this->ais.front()->getTeam(this->enemyIndex)->getPower()) + " - Damage to -" + player->getName() + " -");
-				this->ais.front()->getTeam(this->enemyIndex)->action(player);
+				this->ais.front()->getTeam(this->enemyIndex)->Action(player);
 					damageTexts(player, this->ais.front()->getTeam(this->enemyIndex), true, false);
 			}
 			else {
@@ -410,7 +410,7 @@ void BattleScene::updateDamageText(const float& dt)
 void BattleScene::useItem()
 {
 	int itemId = this->player->getEquipedItems()->getItemId();
-	this->player->getEquipedItems()->getItem()->action(this->player->getTeam(playerIndex));
+	this->player->getEquipedItems()->getItem()->Action(this->player->getTeam(playerIndex));
 	this->player->getEquipedItems()->removeItem(itemId);
 	this->player->getEquipedItems()->save();
 	playerIndex++;

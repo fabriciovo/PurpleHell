@@ -98,7 +98,7 @@ void Units::removeHero(Hero* hero)
 {
 	sf::Texture emptyTex;
 	emptyTex.loadFromFile("res/img/items/slot.png");
-	Hero* empty = new Hero(0, 0, "slot", 0, 0, 0, &emptyTex);
+	Hero* empty = new Hero(0, 0,"slot", "slot", 0, 0, 0, &emptyTex);
 	for (int i = 0; i < this->maxUnitsInventory; i++) {
 		if (this->heroes[i] == hero) {
 			this->heroes[i] = empty;
@@ -150,7 +150,7 @@ int Units::UnitNumber()
 //Arquivos
 void Units::ArquivoUnits(std::ifstream &ifsUnits, int i)
 {
-	std::string name = " ";
+	std::string name = " ", job = " ";
 	int hp = 0, power = 0, spell = 0;
 
 	if (ifsUnits.is_open())
@@ -159,13 +159,13 @@ void Units::ArquivoUnits(std::ifstream &ifsUnits, int i)
 		if (!ifsUnits.eof())
 		{
 
-			ifsUnits >> name >> hp >> power >> spell;
+			ifsUnits >> name >> job >> hp >> power >> spell;
 
 			if (name != " ") {
 				sf::Texture *tex;
 				tex = new sf::Texture();
 				tex->loadFromFile("res/img/Player/" + name + ".png");
-				this->heroes[i] = new Hero(93 + (25 * i), 23, name, hp, power, spell, tex);
+				this->heroes[i] = new Hero(93 + (25 * i), 23, name, job, hp, power, spell, tex);
 				i++;
 			}
 			ArquivoUnits(ifsUnits, i);

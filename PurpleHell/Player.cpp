@@ -50,8 +50,8 @@ void Player::render(sf::RenderTarget * target)
 	for (int i = 0; i < this->maxUnits; i++) {
 		if (this->team[i]) {
 			this->team[i]->render(target);
-			if(this->team[i]->getSpell()){
-				this->team[i]->getSpell()->render(target);
+			if(this->team[i]->GetSpell()){
+				this->team[i]->GetSpell()->render(target);
 			}
 		}
 	}
@@ -70,11 +70,11 @@ void Player::update(sf::Vector2f mousePos,const float &dt)
 					this->team[i]->setSelected(false);
 				}
 			}
-			if (this->team[i]->getSpell()) {
-				this->team[i]->getSpell()->updateAnimation(dt);
+			if (this->team[i]->GetSpell()) {
+				this->team[i]->GetSpell()->updateAnimation(dt);
 			}
 			
-			this->team[i]->updateAnimation(dt);
+			this->team[i]->UpdateAnimation(dt);
 			this->team[i]->update(mousePos,dt);
 
 		}
@@ -224,7 +224,7 @@ void Player::RemoveHero(Hero* hero)
 {
 	sf::Texture emptyTex;
 	emptyTex.loadFromFile("res/img/items/slot.png");
-	Hero* empty = new Hero(0, 0, "slot", 0, 0, 0, &emptyTex);
+	Hero* empty = new Hero(0, 0,"slot", "slot", 0, 0, 0, &emptyTex);
 	for (int i = 0; i < this->maxUnits; i++) {
 		if (this->team[i] == hero) {
 			this->team[i] = empty;
@@ -284,20 +284,20 @@ int Player::UnitNumber(Entity *hero)
 void Player::ArquivoHeroesMenu(std::ifstream &ifsHeroes,int i)
 {
 
-	std::string name = " ";
-	int hp = 0, power = 0, job = 0;
+	std::string name = " ", job = " ";
+	int hp = 0, power = 0, special = 0;
 
 	if (ifsHeroes.is_open())
 	{
 		if (!ifsHeroes.eof())
 		{
 
-			ifsHeroes >> name >> hp >> power >> job;
+			ifsHeroes >> name >> job >> hp >> power >> special;
 				if(name != " "){
 					sf::Texture *tex;
 					tex = new sf::Texture();
-					tex->loadFromFile("res/img/Player/" + name + ".png");
-					this->team[i] = (new Hero(200 + (23 * i), 148, name, hp, power, job, tex));
+					tex->loadFromFile("res/img/Player/" + job + ".png");
+					this->team[i] = (new Hero(200 + (23 * i), 148, name, job, hp, power, special, tex));
 					i++;
 				}
 			ArquivoHeroesMenu(ifsHeroes,i);
@@ -311,7 +311,7 @@ void Player::ArquivoHeroesMenu(std::ifstream &ifsHeroes,int i)
 
 void Player::ArquivoHeroesBattle(std::ifstream &ifsHeroes, int i)
 {
-	std::string name = " ";
+	std::string name = " ", job = " ";
 	int hp = 0, power = 0, spell = 0;
 
 	if (ifsHeroes.is_open())
@@ -323,8 +323,8 @@ void Player::ArquivoHeroesBattle(std::ifstream &ifsHeroes, int i)
 			if (name != "slot") {
 				sf::Texture *tex;
 				tex = new sf::Texture();
-				tex->loadFromFile("res/img/Player/" + name + ".png");
-				this->team[i] = (new Hero(0, 0, name, hp, power, spell, tex));
+				tex->loadFromFile("res/img/Player/" + job + ".png");
+				this->team[i] = (new Hero(0, 0, name, job, hp, power, spell, tex));
 				i++;
 			}
 			ArquivoHeroesBattle(ifsHeroes,i);

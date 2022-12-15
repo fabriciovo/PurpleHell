@@ -7,10 +7,10 @@ class Item : public Entity
 {
 public:
 	Item();
-	Item(int x, int y, std::string name, int hp,int power, int type, sf::Texture* texture);
+	Item(int x, int y, std::string name, int hp, int power, int type, sf::Texture* texture);
 	virtual ~Item();
-	void action(Entity* entity);
-	void special(Entity *entity);
+	void Action(Entity* entity);
+	void Special(Entity *entity);
 	void useItem(int i, Entity *entity);
 	
 	void Potion(Entity *entity);

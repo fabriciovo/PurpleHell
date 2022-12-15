@@ -15,8 +15,8 @@ public:
 	void Fireball(Entity *entity);
 	void MegaSlash(Entity *entity);
 
-	void action(Entity* entity);
-	void special(Entity *entity);
+	void Action(Entity* entity);
+	void Special(Entity *entity);
 	void updateAnimation(const float &dt);
 
 	enum Especials
