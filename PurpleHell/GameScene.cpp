@@ -39,6 +39,8 @@ void GameScene::initButtons()
 	this->buttonsItems.push_back(new Button(134, 84, 2, 5, &this->font, "Sell", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
 	this->buttonsItems.push_back(new Button(134, 84, 2,5, &this->font, "Remove", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
 
+	this->buttonsShop.push_back(new Button(91, 84, 2, 5, &this->font, "Buy", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
+
 	this->buttonStages.push_back(new Button(91, 20, 2, 5, &this->font, "STAGE 1", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
 	/*this->buttonStages.push_back(new Button(134, 20, 2, 5, &this->font, "STAGE 2", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
 	this->buttonStages.push_back(new Button(177, 20, 2, 5, &this->font, "STAGE 3", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
@@ -123,6 +125,10 @@ GameScene::~GameScene()
 	for (auto& it : this->buttonStages) {
 		delete it;
 	}
+
+	for (auto& it : this->buttonsShop) {
+		delete it;
+	}
 }
 
 //Updates
@@ -193,6 +199,7 @@ void GameScene::updateButtons()
 			this->buttonPressed = true;
 		}
 		if (this->buttonsUnits[1]->isPressed() && !this->buttonPressed) {
+			this->sellHero();
 			this->buttonPressed = true;
 		}
 	}
@@ -211,11 +218,9 @@ void GameScene::updateButtons()
 		}
 		if (this->buttonsItems[1]->isPressed() && !this->buttonPressed) {
 			this->SellItem(this->inventory->getItem());
-			
 			this->buttonPressed = true;
 		}
 	}
-
 	if (this->texts[2].getString() == "INVENTORY" && this->player->getEquipedItems()->getItem()) {
 		if (this->buttonsItems[2]->isPressed() && !this->buttonPressed) {
 			this->RemoveEquipedItem(this->player->getEquipedItems()->getItem());
@@ -227,6 +232,12 @@ void GameScene::updateButtons()
 		if (this->buttonStages[0]->isPressed() && !this->buttonPressed) {
 			this->scenes->push(new BattleScene(this->window, this->scenes, 0));
 			this->buttonPressed = true;
+		}
+	}
+	//Shop
+	if (this->texts[2].getString() == "SHOP") {
+		if (this->buttonsShop[0]->isPressed() && !this->buttonPressed) {
+			this->buy();
 		}
 	}
 }
@@ -255,7 +266,7 @@ void GameScene::render(sf::RenderTarget * target)
 	}
 
 	if (this->texts[2].getString() == "INVENTORY") {
-		this->inventory->renderInventory(target);
+		this->inventory->renderInventory (target);
 	}
 	if (this->texts[2].getString() == "SHOP") {
 		this->shop->Render(target);
@@ -281,7 +292,6 @@ void GameScene::renderButtons(sf::RenderTarget* target)
 		this->buttonsUnits[1]->render(target);
 	}
 
-
 	if (this->texts[2].getString() == "UNITS" && this->player->getHero()) {
 		this->buttonsUnits[2]->render(target);
 	}
@@ -297,6 +307,11 @@ void GameScene::renderButtons(sf::RenderTarget* target)
 
 	if (this->texts[2].getString() == "STAGES") {
 		for (auto& it : this->buttonStages) {
+			it->render(target);
+		}
+	}
+	if (this->texts[2].getString() == "SHOP") {
+		for (auto& it : this->buttonsShop) {
 			it->render(target);
 		}
 	}
@@ -379,5 +394,17 @@ void GameScene::SellItem(Item* inventoryItem)
 void GameScene::updateTexts()
 {
 	this->texts[0].setString("Gold: " + std::to_string(this->player->getGold()));
+}
+
+void GameScene::buy()
+{
+}
+
+void GameScene::sellHero()
+{
+	Hero* hero = this->units->getHero();
+	this->units->removeHero(hero);
+	this->player->updateGold(10);
+	this->units->Save();
 }
 

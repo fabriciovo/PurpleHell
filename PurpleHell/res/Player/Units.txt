@@ -1,9 +1,9 @@
-name knight 25 5 2
-name knight 25 5 2
-name mage 25 5 2
 slot slot 0 0 0
 slot slot 0 0 0
-name knight 25 5 2
+slot slot 0 0 0
+slot slot 0 0 0
+slot slot 0 0 0
+slot slot 0 0 0
 slot slot 0 0 0
 name knight 25 5 2
 name knight 25 5 2

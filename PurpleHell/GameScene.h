@@ -31,6 +31,7 @@ private:
 	std::vector <Button*> buttonsUnits;
 	std::vector <Button*> buttonsItems;
 	std::vector <Button*> buttonStages;
+	std::vector <Button*> buttonsShop;
 
 	void init();
 	void initButtons();
@@ -42,12 +43,12 @@ private:
 	void Stages();
 	void EquipHero(Hero * hero);
 	void RemoveHero(Hero* hero);
-
 	void EquipItem(Item* inventoryItem);
 	void RemoveEquipedItem(Item* equipedItem);
 	void SellItem(Item* inventoryItem);
 	void updateTexts();
-
+	void buy();
+	void sellHero();
 public:
 	GameScene();
 	GameScene(sf::RenderWindow *window, std::stack<Scene*> *scenes);
