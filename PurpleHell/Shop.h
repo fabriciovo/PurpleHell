@@ -7,8 +7,8 @@ class Shop
 public:
 	Shop();
 
-	void ShopRender(sf::RenderTarget* target);
-	void ShopUpdate(sf::Vector2f mousePos, const float& dt);
+	void Render(sf::RenderTarget* target);
+	void Update(sf::Vector2f mousePos, const float& dt);
 
 	~Shop();
 private:
@@ -95,7 +95,7 @@ private:
 				"Vyncis",
 				"Centwy" };
 
-	static const int maxArrayValues = 9;
+	static const int maxArrayValues = 10;
 	Hero* heroes[maxArrayValues];
 	Item* items[maxArrayValues];
 };

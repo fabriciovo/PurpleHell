@@ -145,6 +145,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Especial.h" />
     <ClInclude Include="Potion.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shop.h" />
     <ClInclude Include="Units.h" />
@@ -181,6 +182,15 @@
     <Text Include="res\Player\Inventory.txt" />
     <Text Include="res\Player\Team.txt" />
     <Text Include="res\Player\Units.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="PurpleHell.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\Downloads\Group 13.png" />
+    <Image Include="..\..\..\Downloads\Group-13.ico" />
+    <Image Include="..\..\..\downloads\icon3.ico" />
+    <Image Include="icon1.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

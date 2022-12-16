@@ -52,34 +52,31 @@ public:
 	virtual void SetScale(const float x, const float y);
 	virtual void Action(Entity* entity) = 0;
 	virtual void Special(Entity *entity) = 0;
-
 	virtual void update(sf::Vector2f mousePos, const float &dt);
-
-
-	//virtual void equip(Item item,Inventory inventory);
-	//virtual void useItem(Item item,Inventory inventory);
-
 	virtual void render(sf::RenderTarget* target);
 
-	const bool &getSelected() const;
-	const bool &getPlayed() const;
 	sf::Sprite *getSprite();
-
-	void setDamage(int hp);
-
+	sf::Vector2f getPosition();
+	
 	std::string getName();
+	std::string GetJob();
+
+	int getType();
 	int getHp();
 	int getPower();
+
+	const bool &getSelected() const;
+	const bool &getPlayed() const;		
 	bool getEspecial();
+
+
+
+	void setDamage(int hp);	 
 	void setEspecial(bool value);
-	sf::Vector2f getPosition();
 	void setPlayed(bool value);
 	void setSelected(bool value);
 	void setHp(int hp);
 	void setPower(int power);
-	int getType();
-
-
 };
 
 #endif // ! ENTITY_H

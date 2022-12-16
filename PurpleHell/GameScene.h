@@ -1,13 +1,12 @@
 #ifndef GAMESCENE_H
 #define GAMESCENE_H
 
-
-
 #include "Scene.h"
 #include "Button.h"
 #include "Player.h"
 #include "WorldScene.h"
 #include "Units.h"
+#include "Shop.h"
 
 class GameScene :
 	public Scene
@@ -17,6 +16,7 @@ private:
 	Player *player;
 	Units*units;
 	Inventory *inventory;
+	Shop* shop;
 
 	sf::Font font;
 	sf::Sprite background;
@@ -32,13 +32,13 @@ private:
 	std::vector <Button*> buttonsItems;
 	std::vector <Button*> buttonStages;
 
-	void initPlayers();
+	void init();
 	void initButtons();
 	void initFont();
 	void initTexts();
 	void listUnits();
 	void listInventory();
-	void Shop();
+	void listShop();
 	void Stages();
 	void EquipHero(Hero * hero);
 	void RemoveHero(Hero* hero);

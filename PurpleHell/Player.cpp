@@ -22,10 +22,12 @@ Player::Player(bool battle)
 
 Player::~Player()
 {
+	delete this->equipedItems;
+	delete this->units;
+
 	for (int i = 0; i < this->maxUnits; i++) {
 		delete this->team[i];
 	}
-	delete this->equipedItems;
 
 }
 void Player::initHeroesMenu()
@@ -242,6 +244,7 @@ void Player::Save()
 	for (int i = 0; i < this->maxUnits; i++) {
 		ofsTeam
 			<< this->team[i]->getName()
+			<< " " << this->team[i]->GetJob()
 			<< " " << this->team[i]->getHp()
 			<< " " << this->team[i]->getPower()
 			<< " " << this->team[i]->getType() << std::endl;
@@ -319,7 +322,7 @@ void Player::ArquivoHeroesBattle(std::ifstream &ifsHeroes, int i)
 
 		if (!ifsHeroes.eof())
 		{
-			ifsHeroes >> name >> hp >> power >> spell;
+			ifsHeroes >> name >> job >> hp >> power >> spell;
 			if (name != "slot") {
 				sf::Texture *tex;
 				tex = new sf::Texture();

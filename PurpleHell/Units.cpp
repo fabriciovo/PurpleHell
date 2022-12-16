@@ -14,7 +14,9 @@ Units::Units()
 
 Units::~Units()
 {
-
+	for (int i = 0; i < this->maxUnitsInventory; i++) {
+		delete this->heroes[i];
+	}
 }
 
 void Units::renderUnits(sf::RenderTarget* target)
@@ -124,7 +126,8 @@ void Units::Save()
 
 	for (int i = 0; i < this->maxUnitsInventory; i++) {
 		ofsHeroes
-			<< this->heroes[i]->getName()
+			<< this->heroes[i]->getName() 
+			<< " " << this->heroes[i]->GetJob()
 			<< " " << this->heroes[i]->getHp()
 			<< " " << this->heroes[i]->getPower()
 			<< " " << this->heroes[i]->getType() << std::endl;
@@ -164,7 +167,7 @@ void Units::ArquivoUnits(std::ifstream &ifsUnits, int i)
 			if (name != " ") {
 				sf::Texture *tex;
 				tex = new sf::Texture();
-				tex->loadFromFile("res/img/Player/" + name + ".png");
+				tex->loadFromFile("res/img/Player/" + job + ".png");
 				this->heroes[i] = new Hero(93 + (25 * i), 23, name, job, hp, power, spell, tex);
 				i++;
 			}

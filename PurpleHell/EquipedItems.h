@@ -13,7 +13,6 @@ private:
 	void ArquivoEquiped(std::ifstream &ifsEquipedItems, int i);
 public:
 	EquipedItems();
-	virtual ~EquipedItems();
 
 	void renderEquipedItems(sf::RenderTarget *target);
 	void updateEquipedItems(sf::Vector2f mousePos,const float &dt);
@@ -29,6 +28,8 @@ public:
 
 	Item *getItem();
 	Entity *getItemById(int i);
+
+	virtual ~EquipedItems();
 };
 
 #endif // !EQUIPEITEMS_H

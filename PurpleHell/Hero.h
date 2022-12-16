@@ -18,12 +18,13 @@ public:
 	Hero(float x, float y, std::string name, std::string job, int hp, int power, int special, sf::Texture* texture);
 	Hero(std::string name, std::string job, int hp, int power, int special);
 	Hero(Entity *hero);
-	virtual ~Hero();
 	void Special(Entity *entity);
 	void Action(Entity * entity);
-	Especial * GetSpell();
 	void UpdateAnimation(const float &dt);
 
+	Especial * GetSpell();
+
+	virtual ~Hero();
 };
 
 #endif // !HERO_H

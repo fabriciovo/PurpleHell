@@ -50,12 +50,7 @@ Hero::Hero(Entity* hero)
 
 Hero::~Hero()
 {
-	//delete this->sprite;
-	//delete this->texture;
 	delete this->spell;
-	delete this->sprite;
-	delete this->texture;
-	//delete this->animationComponent;
 }
 void Hero::Special(Entity *entity)
 { 

@@ -111,7 +111,10 @@ std::string Entity::getName()
 {
 	return this->name;
 }
-
+std::string Entity::GetJob()
+{
+	return this->job;
+}
 int Entity::getHp()
 {
 	return this->hp;

@@ -39,6 +39,9 @@ Inventory::Inventory()
 
 Inventory::~Inventory()
 {
+	for (int i = 0; i < this->maxItems; i++) {
+		delete this->items[i];
+	}
 }
 
 void Inventory::updateInventory(sf::Vector2f mousePos, const float &dt) {
@@ -55,7 +58,6 @@ void Inventory::updateInventory(sf::Vector2f mousePos, const float &dt) {
 		}
 		if (count < 10) {
 			this->items[i]->SetPosition(92 + (25 * count), 22);
-
 			count++;
 		}
 		else {
@@ -138,14 +140,9 @@ bool Inventory::canPutItemInInventory()
 	return false;
 }
 
-Item * Inventory::getItemById(int count)
+Item * Inventory::getItemById(int i)
 {
-	for (int i = 0; i < this->maxItems; i++) {
-
-		if (i == count) {
-			return this->items[i];
-		}
-	}
+	return this->items[i];
 }
 void Inventory::removeItem(Item* inventoryItem)
 {

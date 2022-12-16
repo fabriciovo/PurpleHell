@@ -9,11 +9,12 @@ void GameScene::initFont()
 	}
 }
 
-void GameScene::initPlayers()
+void GameScene::init()
 {
 	this->player = new Player();
 	this->units = new Units();
 	this->inventory = new Inventory();
+	this->shop = new Shop();
 }
 
 void GameScene::initButtons()
@@ -94,7 +95,7 @@ GameScene::GameScene()
 GameScene::GameScene(sf::RenderWindow *window, std::stack<Scene*> *scenes) : Scene(window, scenes)
 {
 	this->initFont();
-	this->initPlayers();
+	this->init();
 	this->initButtons();
 	this->initTexts();
 	this->textureBackground.loadFromFile("res/backgrounds/game.png");
@@ -104,7 +105,24 @@ GameScene::GameScene(sf::RenderWindow *window, std::stack<Scene*> *scenes) : Sce
 
 GameScene::~GameScene()
 {
+	delete this->player;
+	delete this->units;
+	delete this->inventory;
+	delete this->shop;
+	for (auto& it : this->buttons) {
+		delete it;
+	}
+	for (auto& it : this->buttonsUnits) {
+		delete it;
+	}
 
+	for (auto& it : this->buttonsItems) {
+		delete it;
+	}
+
+	for (auto& it : this->buttonStages) {
+		delete it;
+	}
 }
 
 //Updates
@@ -116,12 +134,21 @@ void GameScene::update(const float & dt)
 	this->updateButtons();
 
 	this->player->update(this->mousePosView, dt);
-	this->units->updateUnits(this->mousePosView, dt);
-
-
-	this->inventory->updateInventory(this->mousePosView, dt);
 	this->player->getEquipedItems()->updateEquipedItems(this->mousePosView,dt);
 	this->player->MenuPosition();
+
+	if (this->texts[2].getString() == "SHOP") {
+		this->shop->Update(this->mousePosView, dt);
+	}
+
+	if (this->texts[2].getString() == "INVENTORY") {
+		this->inventory->updateInventory(this->mousePosView, dt);
+	}
+
+	if (this->texts[2].getString() == "UNITS") {
+		this->units->updateUnits(this->mousePosView, dt);
+	}
+
 	this->updateTexts();
 	
 }
@@ -144,11 +171,10 @@ void GameScene::updateButtons()
 	}
 	//Menu
 	if (this->buttons[0]->isPressed()) {
-		//this->scenes->push(new BattleScene(this->window, this->scenes, 0));
 		this->Stages();
 	}
 	if (this->buttons[1]->isPressed()) {
-		this->Shop();
+		this->listShop();
 	}
 	if (this->buttons[2]->isPressed()) {
 		this->listInventory();
@@ -231,6 +257,9 @@ void GameScene::render(sf::RenderTarget * target)
 	if (this->texts[2].getString() == "INVENTORY") {
 		this->inventory->renderInventory(target);
 	}
+	if (this->texts[2].getString() == "SHOP") {
+		this->shop->Render(target);
+	}
 	renderFade(target);
 }
 
@@ -277,16 +306,14 @@ void GameScene::renderButtons(sf::RenderTarget* target)
 void GameScene::listUnits()
 {
 	this->texts[2].setString("UNITS");
-
 }
 
 void GameScene::listInventory()
 {
 	this->texts[2].setString("INVENTORY");
-	
 }
 
-void GameScene::Shop()
+void GameScene::listShop()
 {
 	this->texts[2].setString("SHOP");
 }
@@ -341,7 +368,6 @@ void GameScene::RemoveEquipedItem(Item * equipedItem) {
 	this->inventory->save();
 	this->player->getEquipedItems()->save();
 }
-
 
 void GameScene::SellItem(Item* inventoryItem)
 {

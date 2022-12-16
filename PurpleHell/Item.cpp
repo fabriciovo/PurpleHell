@@ -8,7 +8,6 @@ Item::Item()
 
 Item::Item(int x, int y, std::string name,int hp,int power, int type, sf::Texture* texture)
 {
-
 	this->name = name;
 	this->hp = hp;
 	this->power = power;
@@ -17,15 +16,11 @@ Item::Item(int x, int y, std::string name,int hp,int power, int type, sf::Textur
 	this->CreateSprite(texture);
 	this->SetPosition(x, y);
 	this->createAnimationComponent(*texture);
-
 }
 
 
 Item::~Item()
 {
-	delete this->sprite;
-	delete this->texture;
-	delete this->animationComponent;
 }
 
 void Item::Action(Entity * entity)
