@@ -98,7 +98,7 @@ void BattleScene::initTexts()
 
 void BattleScene::initPlayer()
 {
-	this->player = new Player(true);
+	this->player = new Player();
 	this->player->battlePosition();
 }
 
@@ -170,7 +170,10 @@ void BattleScene::updateButtons()
 				if (this->buttons[2]->isPressed()) {
 					if (!this->buttonPressed) {
 						this->player->getHero()->Special(this->ais.front()->getEnemy());
+						damageTexts(this->player->getTeam(playerIndex), this->ais.front()->getEnemy(), false, false);
+
 						this->buttonPressed = true;
+						playerIndex++;
 					}
 				}
 			}
@@ -266,23 +269,25 @@ void BattleScene::render(sf::RenderTarget* target)
 
 	target->draw(this->background);
 	target->draw(this->hudSprite);
+	this->player->getEquipedItems()->renderEquipedItems(target);
 	this->renderTexts(target);
 	this->player->render(target);
-	this->renderFade(target);
 	if (!this->ais.empty()) {
 		this->renderButtons(target);
 		this->ais.front()->renderEnemies(target);
 	}
-	this->player->getEquipedItems()->renderEquipedItems(target);
+	this->renderFade(target);
+
 }
 
 void BattleScene::renderTexts(sf::RenderTarget* target)
 {
 	target->draw(infoText);
-	target->draw(this->battleInfo);
 	for (int i = 0; i < battleTexts.size(); i++) {
 		target->draw(battleTexts[i]);
 	}
+	target->draw(this->battleInfo);
+
 }
 
 void BattleScene::updateTexts()

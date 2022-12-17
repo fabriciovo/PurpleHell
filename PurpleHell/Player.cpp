@@ -4,20 +4,9 @@
 
 Player::Player()
 {
-	this->initHeroesMenu();
+	this->initPlayerInfo();
+	this->initHeroes();
 	this->initEquipedItems();
-}
-
-Player::Player(bool battle)
-{
-	if (battle) {
-		this->initHeroesBattle();
-		this->initEquipedItems();
-	}
-	else {
-		this->initHeroesMenu();
-		this->initEquipedItems();
-	}
 }
 
 Player::~Player()
@@ -30,16 +19,13 @@ Player::~Player()
 	}
 
 }
-void Player::initHeroesMenu()
+void Player::initPlayerInfo()
 {
-	std::ifstream ifsHeroes("res/Player/Team.txt");
-	this->ArquivoHeroesMenu(ifsHeroes, 0);
 }
-
-void Player::initHeroesBattle()
+void Player::initHeroes()
 {
 	std::ifstream ifsHeroes("res/Player/Team.txt");
-	this->ArquivoHeroesBattle(ifsHeroes, 0);
+	this->heroesFile(ifsHeroes, 0);
 }
 
 void Player::initEquipedItems()
@@ -47,19 +33,19 @@ void Player::initEquipedItems()
 	this->equipedItems = new EquipedItems();
 }
 
-void Player::render(sf::RenderTarget * target)
+void Player::render(sf::RenderTarget* target)
 {
 	for (int i = 0; i < this->maxUnits; i++) {
 		if (this->team[i]) {
 			this->team[i]->render(target);
-			if(this->team[i]->GetSpell()){
+			if (this->team[i]->GetSpell()) {
 				this->team[i]->GetSpell()->render(target);
 			}
 		}
 	}
 }
 
-void Player::update(sf::Vector2f mousePos,const float &dt)
+void Player::update(sf::Vector2f mousePos, const float& dt)
 {
 
 	for (int i = 0; i < this->maxUnits; i++) {
@@ -75,9 +61,9 @@ void Player::update(sf::Vector2f mousePos,const float &dt)
 			if (this->team[i]->GetSpell()) {
 				this->team[i]->GetSpell()->updateAnimation(dt);
 			}
-			
+
 			this->team[i]->UpdateAnimation(dt);
-			this->team[i]->update(mousePos,dt);
+			this->team[i]->update(mousePos, dt);
 
 		}
 	}
@@ -113,8 +99,8 @@ void Player::battlePosition()
 Hero* Player::getHero()
 {
 	for (int i = 0; i < this->maxUnits; i++) {
-		if (this->team[i]){
-			if (team[i]->getSelected() ) {
+		if (this->team[i]) {
+			if (team[i]->getSelected()) {
 				return this->team[i];
 			}
 		}
@@ -127,10 +113,10 @@ Entity* Player::getTeam(int i)
 	return this->team[i];
 }
 
-Entity * Player::getRandomHero()
+Entity* Player::getRandomHero()
 {
 	int heroIndex = rand() % 3;
-	
+
 
 	if (this->team[heroIndex] != nullptr) {
 		if (this->team[heroIndex]->getHp() > 0) {
@@ -153,12 +139,12 @@ void Player::updateGold(int value)
 }
 
 
-void Player::setTeam(int i, Hero * hero)
+void Player::setTeam(int i, Hero* hero)
 {
 	this->team[i] = hero;
 }
 
-EquipedItems * Player::getEquipedItems()
+EquipedItems* Player::getEquipedItems()
 {
 	return this->equipedItems;
 }
@@ -219,7 +205,7 @@ int Player::teamSize()
 bool Player::checkPlayed()
 {
 	for (int i = 0; i < this->maxUnits; i++) {
-		if(team[i]){
+		if (team[i]) {
 			if (!team[i]->getPlayed()) {
 				return true;
 			}
@@ -231,7 +217,7 @@ bool Player::checkPlayed()
 void Player::setTeamToTrue()
 {
 	for (int i = 0; i < this->maxUnits; i++) {
-		if(this->team[i] && this->team[i]->getName() != "slot")
+		if (this->team[i] && this->team[i]->getName() != "slot")
 			this->team[i]->setPlayed(false);
 	}
 }
@@ -248,7 +234,7 @@ void Player::RemoveHero(Hero* hero)
 {
 	sf::Texture emptyTex;
 	emptyTex.loadFromFile("res/img/items/slot.png");
-	Hero* empty = new Hero(0, 0,"slot", "slot", 0, 0, 0, &emptyTex);
+	Hero* empty = new Hero(0, 0, "slot", "slot", 0, 0, 0, &emptyTex);
 	for (int i = 0; i < this->maxUnits; i++) {
 		if (this->team[i] == hero) {
 			this->team[i] = empty;
@@ -258,7 +244,7 @@ void Player::RemoveHero(Hero* hero)
 }
 
 void Player::Save()
-{				  
+{
 
 	std::fstream ofsTeam;
 	ofsTeam.open("res/Player/Team.txt", std::ofstream::out | std::ofstream::trunc);
@@ -272,7 +258,7 @@ void Player::Save()
 			<< " " << this->team[i]->getType() << std::endl;
 	}
 	ofsTeam.close();
-	
+
 }
 
 bool Player::checkDeads()
@@ -292,49 +278,22 @@ void Player::checkDead()
 	for (int i = 0; i < this->maxUnits; i++) {
 		if (this->team[i])
 			if (this->team[i]->getHp() <= 0 && this->team[i]->getPlayed() == false) {
-					this->team[i]->setPlayed(true);
+				this->team[i]->setPlayed(true);
 			}
 	}
 }
 
-int Player::UnitNumber(Entity *hero)
+int Player::UnitNumber(Entity* hero)
 {
 	for (int i = 0; i < this->maxUnits; i++) {
 		if (this->team[i]->getName() == hero->getName()) {
-				return i;
+			return i;
 		}
 	}
 }
 //Arquivos
-void Player::ArquivoHeroesMenu(std::ifstream &ifsHeroes,int i)
-{
 
-	std::string name = " ", job = " ";
-	int hp = 0, power = 0, special = 0;
-
-	if (ifsHeroes.is_open())
-	{
-		if (!ifsHeroes.eof())
-		{
-
-			ifsHeroes >> name >> job >> hp >> power >> special;
-				if(name != " "){
-					sf::Texture *tex;
-					tex = new sf::Texture();
-					tex->loadFromFile("res/img/Player/" + job + ".png");
-					this->team[i] = (new Hero(200 + (23 * i), 148, name, job, hp, power, special, tex));
-					i++;
-				}
-			ArquivoHeroesMenu(ifsHeroes,i);
-		}
-		else {
-			ifsHeroes.close();
-		}
-	}
-
-}
-
-void Player::ArquivoHeroesBattle(std::ifstream &ifsHeroes, int i)
+void Player::heroesFile(std::ifstream& ifsHeroes, int i)
 {
 	std::string name = " ", job = " ";
 	int hp = 0, power = 0, spell = 0;
@@ -346,17 +305,45 @@ void Player::ArquivoHeroesBattle(std::ifstream &ifsHeroes, int i)
 		{
 			ifsHeroes >> name >> job >> hp >> power >> spell;
 			if (name != "slot") {
-				sf::Texture *tex;
+				sf::Texture* tex;
 				tex = new sf::Texture();
 				tex->loadFromFile("res/img/Player/" + job + ".png");
 				this->team[i] = (new Hero(0, 0, name, job, hp, power, spell, tex));
 				i++;
 			}
-			ArquivoHeroesBattle(ifsHeroes,i);
+			heroesFile(ifsHeroes, i);
 		}
 		else {
 			ifsHeroes.close();
 		}
 	}
+}
 
+void Player::infoFile(std::ifstream& ifs, int i)
+{
+	std::string name = " ";
+	int value = 0;
+
+	if (ifs.is_open())
+	{
+
+		if (!ifs.eof())
+		{
+			ifs >> name >> value;
+			if (name == "gold") {
+				this->gold = value;
+			}
+			else if (name == "run") {
+				this->run = value;
+			}
+			else if (name == "level") {
+				this->level = value;
+			}
+			i++;
+			infoFile(ifs, i);
+		}
+		else {
+			ifs.close();
+		}
+	}
 }

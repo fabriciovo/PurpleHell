@@ -12,21 +12,26 @@ private:
 	Hero* team[maxUnits];
 	EquipedItems* equipedItems;
 	Units* units;
-	int gold = 10;
 	bool selected;
 	bool clear;
 
+	//player info
+	int gold = 0;
+	int run = 1;
+	int level = 1;
+
+
 	//Init
-	void initHeroesMenu();
-	void initHeroesBattle();
+	void initPlayerInfo();
+	void initHeroes();
 	void initEquipedItems();
 	//Arquivos
-	void ArquivoHeroesBattle(std::ifstream& ifsHeroes, int i);
-	void ArquivoHeroesMenu(std::ifstream& ifsHeroes, int i);
+	void heroesFile(std::ifstream& ifsHeroes, int i);
+	void infoFile(std::ifstream& ifsHeroes, int i);
+
 
 public:
 	Player();
-	Player(bool battle);
 	virtual ~Player();
 	void render(sf::RenderTarget* target);
 	void update(sf::Vector2f mousePos, const float& dt);
@@ -53,8 +58,8 @@ public:
 	bool CanBuy(Item* item, Hero* hero);
 
 	Hero* getHero();
-	Entity* getTeam(int i);
 	EquipedItems* getEquipedItems();
+	Entity* getTeam(int i);
 	Entity* getRandomHero();
 };
 #endif // !PLAYER_H

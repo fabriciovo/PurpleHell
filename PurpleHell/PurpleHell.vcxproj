@@ -173,6 +173,7 @@
     <ClCompile Include="Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Info.txt" />
     <Text Include="res\AI\0.txt" />
     <Text Include="res\AI\1.txt" />
     <Text Include="res\AI\2.txt" />
