@@ -4,7 +4,7 @@ void Inventory::initInventory()
 {
 	std::ifstream ifsInventory("res/Player/Inventory.txt");
 	std::string title = " ", name = " ";
-	int type = 0,hp = 0, power = 0, it = 0;
+	int type = 0, hp = 0, power = 0, it = 0;
 
 
 	if (ifsInventory.is_open())
@@ -14,12 +14,12 @@ void Inventory::initInventory()
 		{
 			ifsInventory >> name >> hp >> power >> type;
 
-			sf::Texture *tx;
+			sf::Texture* tx;
 			tx = new sf::Texture();
 			tx->loadFromFile("res/img/items/" + name + ".png");
 
 			this->items[it] = new Item(93 + (25 * it), 23, name, hp, power, type, tx);
-			
+
 			it++;
 
 			if (it == this->maxItems) {
@@ -44,12 +44,12 @@ Inventory::~Inventory()
 	}
 }
 
-void Inventory::updateInventory(sf::Vector2f mousePos, const float &dt) {
+void Inventory::updateInventory(sf::Vector2f mousePos, const float& dt) {
 	int count = 0;
 	int countSecondLine = 0;
 	for (int i = 0; i < this->maxItems; i++) {
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-			if (this->items[i]->getSprite()->getGlobalBounds().contains(mousePos)) {
+			if (this->items[i]->getSprite()->getGlobalBounds().contains(mousePos) && this->items[i]->getName() != "slot") {
 				this->items[i]->setSelected(true);
 			}
 			else {
@@ -65,15 +65,15 @@ void Inventory::updateInventory(sf::Vector2f mousePos, const float &dt) {
 			countSecondLine++;
 		}
 
-		this->items[i]->update(mousePos,dt);
+		this->items[i]->update(mousePos, dt);
 	}
 
 
 }
 
-void Inventory::renderInventory(sf::RenderTarget * target)
+void Inventory::renderInventory(sf::RenderTarget* target)
 {
-	for (int i = 0; i < this->maxItems; i++){
+	for (int i = 0; i < this->maxItems; i++) {
 		this->items[i]->render(target);
 	}
 }
@@ -88,7 +88,7 @@ bool Inventory::selectedItem()
 	return false;
 }
 
-Item * Inventory::getItem()
+Item* Inventory::getItem()
 {
 	for (int i = 0; i < this->maxItems; i++) {
 		if (this->items[i]->getName() != "slot") {
@@ -100,7 +100,7 @@ Item * Inventory::getItem()
 	return nullptr;
 }
 
-void Inventory::setItem(int i, Item * item)
+void Inventory::setItem(int i, Item* item)
 {
 	this->items[i] = item;
 }
@@ -140,7 +140,7 @@ bool Inventory::canPutItemInInventory()
 	return false;
 }
 
-Item * Inventory::getItemById(int i)
+Item* Inventory::getItemById(int i)
 {
 	return this->items[i];
 }

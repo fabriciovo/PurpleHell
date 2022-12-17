@@ -12,7 +12,7 @@ private:
 	Hero* team[maxUnits];
 	EquipedItems* equipedItems;
 	Units* units;
-	int gold = 0;
+	int gold = 10;
 	bool selected;
 	bool clear;
 

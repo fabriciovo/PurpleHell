@@ -39,7 +39,7 @@ void Shop::Update(sf::Vector2f mousePos, const float& dt)
 	for (int i = 0; i < this->maxArrayValues; i++) {
 		if (this->heroes[i]) {
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-				if (this->heroes[i]->getSprite()->getGlobalBounds().contains(mousePos)) {
+				if (this->heroes[i]->getSprite()->getGlobalBounds().contains(mousePos) && this->heroes[i]->getName() != "slot") {
 					this->heroes[i]->setSelected(true);
 				}
 				else {
@@ -51,7 +51,7 @@ void Shop::Update(sf::Vector2f mousePos, const float& dt)
 		}
 		if (this->items[i]) {
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-				if (this->items[i]->getSprite()->getGlobalBounds().contains(mousePos)) {
+				if (this->items[i]->getSprite()->getGlobalBounds().contains(mousePos) && this->items[i]->getName() != "slot") {
 					this->items[i]->setSelected(true);
 				}
 				else {
@@ -93,7 +93,7 @@ void Shop::RemoveItem()
 		for (int i = 0; i < this->maxArrayValues; i++) {
 			if (this->heroes[i] == hero) {
 				sf::Texture* tex = new sf::Texture();
-				tex->loadFromFile("res/img/Player/mage.png");
+				tex->loadFromFile("res/img/Player/slot.png");
 				this->heroes[i] = new Hero(0.0, 0.0, "slot", "slot", 0, 0, 0, tex);
 			}
 		}

@@ -414,6 +414,9 @@ void GameScene::buy()
 	if (hero && this->units->canRemoveHero()) {
 		this->units->setUnits(hero);
 
+		this->shop->RemoveItem();
+
+		this->units->Save();
 	}
 
 }

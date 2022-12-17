@@ -186,9 +186,10 @@ bool Player::CanBuy(Item* item, Hero* hero)
 	if (hero) {
 		tempGold += 20;
 	}
-	totalGold = tempGold - this->gold;
+	totalGold = this->gold - tempGold;
 
 	if (totalGold >= 0) {
+		this->gold = totalGold;
 		return true;
 	}
 	else {
