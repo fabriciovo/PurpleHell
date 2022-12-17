@@ -9,7 +9,9 @@ public:
 
 	void Render(sf::RenderTarget* target);
 	void Update(sf::Vector2f mousePos, const float& dt);
-
+	Item * GetSelectedItem();
+	Hero * GetSelectedHero();
+	void RemoveItem();
 	~Shop();
 private:
 	std::string names[82] = 

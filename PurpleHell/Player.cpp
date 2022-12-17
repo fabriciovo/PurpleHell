@@ -176,6 +176,27 @@ bool Player::canEquipHero()
 	}
 	return false;
 }
+bool Player::CanBuy(Item* item, Hero* hero)
+{
+	int tempGold = 0;
+	int totalGold = 0;
+	if (item) {
+		tempGold += 10;
+	}
+	if (hero) {
+		tempGold += 20;
+	}
+	totalGold = tempGold - this->gold;
+
+	if (totalGold >= 0) {
+		return true;
+	}
+	else {
+		return false;
+	}
+
+
+}
 void Player::setClear(bool value)
 {
 	this->clear = value;

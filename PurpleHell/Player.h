@@ -21,15 +21,15 @@ private:
 	void initHeroesBattle();
 	void initEquipedItems();
 	//Arquivos
-	void ArquivoHeroesBattle(std::ifstream &ifsHeroes, int i);
-	void ArquivoHeroesMenu(std::ifstream &ifsHeroes, int i);
+	void ArquivoHeroesBattle(std::ifstream& ifsHeroes, int i);
+	void ArquivoHeroesMenu(std::ifstream& ifsHeroes, int i);
 
 public:
 	Player();
 	Player(bool battle);
 	virtual ~Player();
 	void render(sf::RenderTarget* target);
-	void update(sf::Vector2f mousePos,const float &dt);
+	void update(sf::Vector2f mousePos, const float& dt);
 	void battlePosition();
 	void setTeamToTrue();
 	void checkDead();
@@ -45,15 +45,16 @@ public:
 	int UnitNumber(Entity* hero);
 	int teamSize();
 	int getGold();
-	
+
 	bool checkPlayed();
 	bool checkDeads();
 	bool getClear();
 	bool canEquipHero();
-	
+	bool CanBuy(Item* item, Hero* hero);
+
 	Hero* getHero();
 	Entity* getTeam(int i);
-	EquipedItems *getEquipedItems();
-	Entity * getRandomHero();
+	EquipedItems* getEquipedItems();
+	Entity* getRandomHero();
 };
 #endif // !PLAYER_H

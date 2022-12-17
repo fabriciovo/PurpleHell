@@ -159,6 +159,11 @@ void GameScene::update(const float & dt)
 	
 }
 
+void GameScene::updateTexts()
+{
+	this->texts[0].setString("Gold: " + std::to_string(this->player->getGold()));
+}
+
 void GameScene::updateButtons()
 {
 	for (auto& it : this->buttons) {
@@ -173,6 +178,9 @@ void GameScene::updateButtons()
 	}
 
 	for (auto& it : this->buttonStages) {
+		it->update(this->mousePosView);
+	}
+	for (auto& it : this->buttonsShop) {
 		it->update(this->mousePosView);
 	}
 	//Menu
@@ -237,6 +245,7 @@ void GameScene::updateButtons()
 	//Shop
 	if (this->texts[2].getString() == "SHOP") {
 		if (this->buttonsShop[0]->isPressed() && !this->buttonPressed) {
+			this->buttonPressed = true;
 			this->buy();
 		}
 	}
@@ -316,8 +325,6 @@ void GameScene::renderButtons(sf::RenderTarget* target)
 		}
 	}
 }
-
-//Lists
 void GameScene::listUnits()
 {
 	this->texts[2].setString("UNITS");
@@ -391,13 +398,24 @@ void GameScene::SellItem(Item* inventoryItem)
 	this->inventory->save();
 }
 
-void GameScene::updateTexts()
-{
-	this->texts[0].setString("Gold: " + std::to_string(this->player->getGold()));
-}
-
 void GameScene::buy()
 {
+	Item * item = this->shop->GetSelectedItem();
+	Hero * hero = this->shop->GetSelectedHero();
+
+	if (!this->player->CanBuy(item, hero)) return;
+
+
+	if (item && this->inventory->canPutItemInInventory()) {
+		this->inventory->setItem(item);
+		this->shop->RemoveItem();
+		this->inventory->save();
+	}
+	if (hero && this->units->canRemoveHero()) {
+		this->units->setUnits(hero);
+
+	}
+
 }
 
 void GameScene::sellHero()

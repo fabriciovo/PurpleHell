@@ -30,7 +30,6 @@ void Shop::Render(sf::RenderTarget* target)
 		if (this->items[i]) {
 			this->items[i]->render(target);
 			this->items[i]->SetPosition(92 + (25 * i), 48);
-
 		}
 	}
 }
@@ -64,6 +63,53 @@ void Shop::Update(sf::Vector2f mousePos, const float& dt)
 	}
 }
 
+Item* Shop::GetSelectedItem()
+{
+	for (int i = 0; i < this->maxArrayValues; i++) {
+		if (this->items[i] && this->items[i]->getSelected()) {
+			return this->items[i];
+		}
+	}
+	return nullptr;
+}
+
+
+Hero* Shop::GetSelectedHero()
+{
+	for (int i = 0; i < this->maxArrayValues; i++) {
+		if (this->heroes[i] && this->heroes[i]->getSelected()) {
+			return this->heroes[i];
+		}
+	}
+	return nullptr;
+}
+
+void Shop::RemoveItem()
+{
+	Hero* hero = this->GetSelectedHero();
+	Item* item = this->GetSelectedItem();
+
+	if (hero) {
+		for (int i = 0; i < this->maxArrayValues; i++) {
+			if (this->heroes[i] == hero) {
+				sf::Texture* tex = new sf::Texture();
+				tex->loadFromFile("res/img/Player/mage.png");
+				this->heroes[i] = new Hero(0.0, 0.0, "slot", "slot", 0, 0, 0, tex);
+			}
+		}
+	}
+
+	if (item) {
+		for (int i = 0; i < this->maxArrayValues; i++) {
+			if (this->items[i] == item) {
+				sf::Texture* tex = new sf::Texture();
+				tex->loadFromFile("res/img/Player/mage.png");
+				this->items[i] = new Item(0.0, 0.0, "slot", 0, 0, 0, tex);
+			}
+		}
+	}
+
+}
 
 Shop::~Shop()
 {
