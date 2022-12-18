@@ -7,7 +7,6 @@ void Entity::initVariables()
 	this->animationComponent = NULL;
 	this->selected = false;
 	this->played = false;
-
 }
 
 Entity::Entity()
@@ -67,6 +66,33 @@ void Entity::setPower(int power)
 {
 	this->power = power;
 }
+
+void Entity::ApplyEffect()
+{
+	switch (battleStatus)
+	{
+	case poison:
+		std::cout << "poison" << std::endl;
+		break;
+	case fire:
+		std::cout << "fire" << std::endl;
+		break;
+	case stun:
+		std::cout << "stun" << std::endl;
+		break;
+	case shield:
+		std::cout << "shield" << std::endl;
+		break;
+	default:
+		std::cout << "No effect" << std::endl;
+		break;
+	}
+}
+ENUM_STATUS Entity::GetEffect()
+{
+	return this->battleStatus;
+}
+
 
 int Entity::getType()
 {

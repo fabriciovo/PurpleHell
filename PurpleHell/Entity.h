@@ -14,6 +14,13 @@
 #include "SFML/Audio.hpp"
 #include "SFML/Network.hpp"
 
+enum ENUM_STATUS {
+	poison,
+	fire,
+	stun,
+	shield
+};
+
 
 #include "AnimationComponent.h"
 class Job;
@@ -34,6 +41,8 @@ protected:
 	int power;
 	int special;
 
+	ENUM_STATUS battleStatus;
+
 	bool selected = false;
 	bool played = false;
 	bool canUseSpecial = true;
@@ -41,6 +50,8 @@ protected:
 	AnimationComponent *animationComponent;
 
 public:
+
+
 	Entity();
 	virtual ~Entity();
 
@@ -77,6 +88,8 @@ public:
 	void setSelected(bool value);
 	void setHp(int hp);
 	void setPower(int power);
+	void ApplyEffect();
+	ENUM_STATUS GetEffect();
 };
 
 #endif // ! ENTITY_H

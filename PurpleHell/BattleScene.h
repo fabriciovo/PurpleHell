@@ -24,7 +24,6 @@ protected:
 
 	sf::Font font;
 	sf::Text infoText;
-	sf::Text battleInfo;
 	sf::Sprite background;
 	sf::Texture textureBackground;
 	sf::Texture hudTexture;
@@ -32,6 +31,7 @@ protected:
 
 	std::vector <Button*> buttons;
 	std::vector <sf::Text> battleTexts;
+	std::map <std::string, sf::Text> battleInfo;
 	std::queue<AI*> ais;
 
 	bool turn;
@@ -70,7 +70,7 @@ public:
 	void updateTexts();
 	void enemyTurn();
 	void damageTexts(Entity * hero, Enemy * enemy, bool isPlayer, bool miss = false);
-	void updateDamageText(const float& dt);
+	void updateDamageText(const float& dt, std::string key);
 	void useItem();
 };
 
