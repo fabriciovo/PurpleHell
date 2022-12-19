@@ -168,7 +168,7 @@ void BattleScene::updateButtons()
 					if (!this->buttonPressed) {
 						this->player->getHero()->Action(this->ais.front()->getEnemy());
 						this->buttonPressed = true;
-						damageTexts(this->player->getTeam(playerIndex), this->ais.front()->getEnemy(), false, false);
+						//damageTexts(this->player->getTeam(playerIndex), this->ais.front()->getEnemy(), false, false);
 						playerIndex++;
 					}
 				}
@@ -181,7 +181,7 @@ void BattleScene::updateButtons()
 				if (this->buttons[2]->isPressed()) {
 					if (!this->buttonPressed) {
 						this->player->getHero()->Special(this->ais.front()->getEnemy());
-						damageTexts(this->player->getTeam(playerIndex), this->ais.front()->getEnemy(), false, false);
+						//damageTexts(this->player->getTeam(playerIndex), this->ais.front()->getEnemy(), false, false);
 
 						this->buttonPressed = true;
 						playerIndex++;
@@ -363,23 +363,15 @@ void BattleScene::enemyTurn()
 			this->enemyTurnIndex++;
 		}
 		else if (this->enemyTurnIndex == 1) {
-			this->infoText.setString(this->ais.front()->getTeam(this->enemyIndex)->getName() + " - Attack - \n -" + player->getName() + " -");
+			this->infoText.setString(" - TURN - \n- ENEMY -");
 			this->enemyTurnIndex++;
 		}
 		else if (this->enemyTurnIndex == 2) {
 			std::srand(time(NULL));
-			int num = rand() % 100;
-
-			if (player != nullptr && num > 23) {
-				this->infoText.setString(std::to_string(this->ais.front()->getTeam(this->enemyIndex)->getPower()) + " - Damage to -" + player->getName() + " -");
-				this->ais.front()->getTeam(this->enemyIndex)->Action(player);
-				damageTexts(player, this->ais.front()->getTeam(this->enemyIndex), true, false);
-			}
-			else {
-				this->infoText.setString(" - Enemy - " + this->ais.front()->getTeam(this->enemyIndex)->getName() + " MISS - ");
-				this->ais.front()->getTeam(this->enemyIndex)->setPlayed(true);
-				damageTexts(player, this->ais.front()->getTeam(this->enemyIndex), true, true);
-			}
+			//this->infoText.setString(std::to_string(this->ais.front()->getTeam(this->enemyIndex)->getPower()) + " - Damage to -" + player->getName() + " -");
+			//this->ais.front()->getTeam(this->enemyIndex)->Action(player);
+			//damageTexts(player, this->ais.front()->getTeam(this->enemyIndex), true, false);
+			this->enemyAttack();
 			this->enemyTurnIndex = 0;
 			this->enemyIndex++;
 		}
@@ -390,31 +382,9 @@ void BattleScene::enemyTurn()
 
 void BattleScene::damageTexts(std::string key, Entity *entity)
 {
-	//this->battleInfo.setFillColor(sf::Color(0, 0, 0, 255));
-	/*if (isPlayer) {
-		this->battleInfo.setPosition(hero->getPosition().x, hero->getPosition().y - 18);
-		if (miss) {
-			this->battleInfo.setString("MISS");
-
-		}
-		else {
-			this->battleInfo.setString("- " + std::to_string(enemy->getPower()));
-		}
-	}
-	else {
-		this->battleInfo.setPosition(enemy->getPosition().x, enemy->getPosition().y - 18);
-		if (miss) {
-			this->battleInfo.setString("MISS");
-		}
-		else {
-			this->battleInfo.setString("- " + std::to_string(hero->getPower()));
-		}
-	}*/
 	this->battleInfo.at(key).setString("- " + std::to_string(entity->getPower()));
 	this->battleInfo.at(key).setPosition(entity->getPosition().x, entity->getPosition().y - 18);
 	this->timerDamageText = 30;
-
-
 }
 
 void BattleScene::updateDamageText(const float& dt, std::string key)
@@ -509,6 +479,14 @@ void BattleScene::playerReward()
 
 		this->player->setClear(true);
 	}
+}
+
+void BattleScene::enemyAttack()
+{
+}
+
+void BattleScene::playerAttack()
+{
 }
 
 

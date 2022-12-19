@@ -54,7 +54,8 @@ protected:
 	void initAI();
 	void battleSystem(const float& dt);
 	void playerReward();
-
+	void enemyAttack();
+	void playerAttack();
 
 public:
 	BattleScene();
@@ -69,7 +70,7 @@ public:
 	void renderTexts(sf::RenderTarget* target = NULL);
 	void updateTexts();
 	void enemyTurn();
-	void damageTexts(Entity * hero, Enemy * enemy, bool isPlayer, bool miss = false);
+	void damageTexts(std::string key, Entity* entity);
 	void updateDamageText(const float& dt, std::string key);
 	void useItem();
 };

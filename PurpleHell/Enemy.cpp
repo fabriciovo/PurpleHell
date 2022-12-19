@@ -36,6 +36,9 @@ Enemy::~Enemy()
 
 void Enemy::Action(Entity* entity)
 {
+	int num = rand() % 100;
+
+
 	if(this->hp > 0){
 		entity->setDamage(this->power);
 		this->setPlayed(true);
