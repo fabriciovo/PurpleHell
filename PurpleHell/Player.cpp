@@ -113,7 +113,7 @@ Entity* Player::getTeam(int i)
 	return this->team[i];
 }
 
-Entity* Player::getRandomHero()
+Hero * Player::getRandomHero()
 {
 	int heroIndex = rand() % 3;
 
@@ -304,13 +304,12 @@ void Player::heroesFile(std::ifstream& ifsHeroes, int i)
 		if (!ifsHeroes.eof())
 		{
 			ifsHeroes >> name >> job >> hp >> power >> spell;
-			if (name != "slot") {
-				sf::Texture* tex;
-				tex = new sf::Texture();
-				tex->loadFromFile("res/img/Player/" + job + ".png");
-				this->team[i] = (new Hero(0, 0, name, job, hp, power, spell, tex));
-				i++;
-			}
+			sf::Texture* tex;
+			tex = new sf::Texture();
+			tex->loadFromFile("res/img/Player/" + job + ".png");
+			this->team[i] = (new Hero(0, 0, name, job, hp, power, spell, tex));
+			i++;
+			
 			heroesFile(ifsHeroes, i);
 		}
 		else {

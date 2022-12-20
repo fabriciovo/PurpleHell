@@ -15,6 +15,7 @@
 #include "SFML/Network.hpp"
 
 enum ENUM_STATUS {
+	normal,
 	poison,
 	fire,
 	stun,
@@ -89,6 +90,7 @@ public:
 	void setHp(int hp);
 	void setPower(int power);
 	void ApplyEffect();
+	void SetEffect(ENUM_STATUS effect);
 	ENUM_STATUS GetEffect();
 };
 

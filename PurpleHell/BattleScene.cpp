@@ -82,15 +82,14 @@ void BattleScene::initTexts()
 	genericBattleTextSetting.setFont(this->font);
 	genericBattleTextSetting.setCharacterSize(16);
 
-	this->battleInfo["PLAYER_1"] = genericBattleTextSetting;
-	this->battleInfo["PLAYER_2"] = genericBattleTextSetting;
-	this->battleInfo["PLAYER_3"] = genericBattleTextSetting;
-
-	this->battleInfo["ENEMY_1"] = genericBattleTextSetting;
-	this->battleInfo["ENEMY_2"] = genericBattleTextSetting;
-	this->battleInfo["ENEMY_3"] = genericBattleTextSetting;
-	this->battleInfo["ENEMY_4"] = genericBattleTextSetting;
-	this->battleInfo["ENEMY_5"] = genericBattleTextSetting;
+	this->battleInfo.push_back(genericBattleTextSetting);
+	this->battleInfo.push_back(genericBattleTextSetting);
+	this->battleInfo.push_back(genericBattleTextSetting);
+	this->battleInfo.push_back(genericBattleTextSetting);
+	this->battleInfo.push_back(genericBattleTextSetting);
+	this->battleInfo.push_back(genericBattleTextSetting);
+	this->battleInfo.push_back(genericBattleTextSetting);
+	this->battleInfo.push_back(genericBattleTextSetting);
 
 	//player played
 	played.setFont(this->font);
@@ -166,10 +165,11 @@ void BattleScene::updateButtons()
 			if (this->player->getHero()->getSelected()) {
 				if (this->buttons[1]->isPressed()) {
 					if (!this->buttonPressed) {
-						this->player->getHero()->Action(this->ais.front()->getEnemy());
-						this->buttonPressed = true;
+						/*this->player->getHero()->Action(this->ais.front()->getEnemy());*/
 						//damageTexts(this->player->getTeam(playerIndex), this->ais.front()->getEnemy(), false, false);
-						playerIndex++;
+						this->buttonPressed = true;
+						this->playerAttack();
+						this->playerIndex++;
 					}
 				}
 			}
@@ -182,9 +182,8 @@ void BattleScene::updateButtons()
 					if (!this->buttonPressed) {
 						this->player->getHero()->Special(this->ais.front()->getEnemy());
 						//damageTexts(this->player->getTeam(playerIndex), this->ais.front()->getEnemy(), false, false);
-
 						this->buttonPressed = true;
-						playerIndex++;
+						this->playerIndex++;
 					}
 				}
 			}
@@ -268,8 +267,10 @@ void BattleScene::update(const float& dt)
 		this->endScene();
 
 	}
-	this->updateDamageText(dt);
 
+	for (int key = 0; key < 7; key++) {
+		this->updateDamageText(dt, key);
+	}
 }
 
 //Renders
@@ -298,7 +299,7 @@ void BattleScene::renderTexts(sf::RenderTarget* target)
 		target->draw(battleTexts[i]);
 	}
 	for (auto& it : this->battleInfo) {
-		target->draw(it.second);
+		target->draw(it);
 	}
 
 
@@ -351,7 +352,6 @@ void BattleScene::updateTexts()
 
 void BattleScene::enemyTurn()
 {
-	Entity* player = this->player->getRandomHero();
 
 	if (this->ais.front()->getTeam(this->enemyIndex)->getHp() <= 0) {
 		this->enemyIndex++;
@@ -367,10 +367,6 @@ void BattleScene::enemyTurn()
 			this->enemyTurnIndex++;
 		}
 		else if (this->enemyTurnIndex == 2) {
-			std::srand(time(NULL));
-			//this->infoText.setString(std::to_string(this->ais.front()->getTeam(this->enemyIndex)->getPower()) + " - Damage to -" + player->getName() + " -");
-			//this->ais.front()->getTeam(this->enemyIndex)->Action(player);
-			//damageTexts(player, this->ais.front()->getTeam(this->enemyIndex), true, false);
 			this->enemyAttack();
 			this->enemyTurnIndex = 0;
 			this->enemyIndex++;
@@ -380,30 +376,23 @@ void BattleScene::enemyTurn()
 
 }
 
-void BattleScene::damageTexts(std::string key, Entity *entity)
+void BattleScene::damageTexts(int key, Entity* entity, std::string text)
 {
-	this->battleInfo.at(key).setString("- " + std::to_string(entity->getPower()));
-	this->battleInfo.at(key).setPosition(entity->getPosition().x, entity->getPosition().y - 18);
+	this->battleInfo[key].setString(text);
+	this->battleInfo[key].setPosition(entity->getPosition().x, entity->getPosition().y - 18);
 	this->timerDamageText = 30;
 }
 
-void BattleScene::updateDamageText(const float& dt, std::string key)
+void BattleScene::updateDamageText(const float& dt, int key)
 {
-	if(this->battleInfo.at(key).getString() != ""){
-		int y = this->battleInfo.at(key).getPosition().y;
-		this->battleInfo.at(key).setPosition(this->battleInfo.at(key).getPosition().x, y -= 1);
+	if (this->battleInfo[key].getString() != "") {
+		int y = this->battleInfo[key].getPosition().y;
+		this->battleInfo[key].setPosition(this->battleInfo[key].getPosition().x, y -= 1);
 		if (this->timerDamageText <= 0) {
-			this->battleInfo.at(key).setString("");
+			this->battleInfo[key].setString("");
 		}
 		this->timerDamageText -= dt;
 	}
-	
-
-
-
-
-
-
 }
 
 void BattleScene::useItem()
@@ -483,10 +472,41 @@ void BattleScene::playerReward()
 
 void BattleScene::enemyAttack()
 {
+	//this->ais.front()->getTeam(this->enemyIndex)->Action(player);
+	Hero* player = this->player->getRandomHero();
+	Enemy* enemy = this->ais.front()->getTeam(this->enemyIndex);
+
+	if (enemy->GetEffect() == stun) {
+		this->damageTexts(this->enemyIndex + 3, enemy, "STUNNED");
+		return;
+	}else if (player->GetEffect() == shield)
+	{
+		this->damageTexts(0, player, "Shield Break");
+		player->SetEffect(normal);
+		return;
+	}
+	else {
+		std::srand(time(NULL));
+		int r = rand() % 100;
+		if (r < 33) {
+			this->damageTexts(0, player, "MISS");
+			return;
+		}
+		else {
+			enemy->Action(player);
+			this->damageTexts(0, player, "- " + std::to_string( enemy->getPower()));
+			return;
+		}
+	}
+
 }
 
 void BattleScene::playerAttack()
 {
+	Hero* player = this->player->getRandomHero();
+	Enemy* enemy = this->ais.front()->getTeam(this->enemyIndex);
+	player->SetEffect(shield);
+	player->Action(enemy);
 }
 
 

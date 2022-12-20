@@ -7,4 +7,4 @@ Centwy mage 43 11 0
 Centwy mage 43 11 0
 Centwy mage 43 11 0
 name mage 25 2 5
-slot slot 0 0 0
+name mage 25 5 2

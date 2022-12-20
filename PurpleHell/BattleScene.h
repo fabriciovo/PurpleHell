@@ -14,9 +14,19 @@
 #include <stdlib.h> 
 #include <time.h>
 #include <queue>
+
+
+
 class BattleScene :
 	public Scene
 {
+private:
+	enum BATTLE_STATUS {
+		damage,
+		areaDamage,
+		heal,
+		miss,
+	};
 protected:
 
 	Player * player;
@@ -31,7 +41,7 @@ protected:
 
 	std::vector <Button*> buttons;
 	std::vector <sf::Text> battleTexts;
-	std::map <std::string, sf::Text> battleInfo;
+	std::vector <sf::Text> battleInfo;
 	std::queue<AI*> ais;
 
 	bool turn;
@@ -70,8 +80,8 @@ public:
 	void renderTexts(sf::RenderTarget* target = NULL);
 	void updateTexts();
 	void enemyTurn();
-	void damageTexts(std::string key, Entity* entity);
-	void updateDamageText(const float& dt, std::string key);
+	void damageTexts(int key, Entity* entity, std::string text);
+	void updateDamageText(const float& dt, int key);
 	void useItem();
 };
 

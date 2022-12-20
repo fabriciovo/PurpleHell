@@ -88,6 +88,10 @@ void Entity::ApplyEffect()
 		break;
 	}
 }
+void Entity::SetEffect(ENUM_STATUS effect)
+{
+	this->battleStatus = effect;
+}
 ENUM_STATUS Entity::GetEffect()
 {
 	return this->battleStatus;
