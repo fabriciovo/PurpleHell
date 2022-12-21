@@ -371,7 +371,6 @@ void BattleScene::enemyTurn()
 			this->enemyTurnIndex = 0;
 			this->enemyIndex++;
 		}
-
 	}
 
 }
@@ -420,7 +419,7 @@ void BattleScene::renderButtons(sf::RenderTarget* target)
 
 void BattleScene::battleSystem(const float& dt)
 {
-	if (this->timer <= 0 && this->ais.front()->enemyPlayed() == false) {
+	if (this->timer <= 0 && !this->ais.front()->enemyPlayed()) {
 		enemyTurn();
 		this->timer = 100;
 	}

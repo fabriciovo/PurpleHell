@@ -13,17 +13,28 @@
 #include "SFML/System.hpp"
 #include "SFML/Audio.hpp"
 #include "SFML/Network.hpp"
+#include "AnimationComponent.h"
 
-enum ENUM_STATUS {
-	normal,
-	poison,
-	fire,
-	stun,
-	shield
+
+enum ENUM_BUFFS_ACTIVE {
+	NORMAL,
+	SHIELD,
+};
+
+enum ENUM_BUFFS_PASSIVE {
+	NORMAL,
+	HEAL,
+};
+
+enum ENUM_DEBUFFS {
+	NORMAL,
+	POISON,
+	FIRE,
+	FREEZE,
+	STUN,
 };
 
 
-#include "AnimationComponent.h"
 class Job;
 
 class Entity
@@ -42,7 +53,10 @@ protected:
 	int power;
 	int special;
 
-	ENUM_STATUS battleStatus;
+	std::vector<ENUM_BUFFS_ACTIVE> activeBuff;
+	std::vector <ENUM_BUFFS_PASSIVE> passiveBuff;
+	std::vector <ENUM_DEBUFFS> debuff;
+
 
 	bool selected = false;
 	bool played = false;
@@ -81,17 +95,22 @@ public:
 	const bool &getPlayed() const;		
 	bool getEspecial();
 
-
+	std::vector <ENUM_BUFFS_ACTIVE> GetActiveBuff();
+	std::vector <ENUM_BUFFS_PASSIVE> GetPassiveBuff();
+	std::vector <ENUM_DEBUFFS> GetDebuff();
 
 	void setDamage(int hp);	 
+	void setHp(int hp);
+	void setPower(int power);
 	void setEspecial(bool value);
 	void setPlayed(bool value);
 	void setSelected(bool value);
-	void setHp(int hp);
-	void setPower(int power);
-	void ApplyEffect();
-	void SetEffect(ENUM_STATUS effect);
-	ENUM_STATUS GetEffect();
+	bool AddDebuff(ENUM_DEBUFFS effect);
+	void AddActiveBuff(ENUM_BUFFS_ACTIVE effect);
+	void AddPassiveBuff(ENUM_BUFFS_PASSIVE effect);
+	void ApplyDebuff();
+	void ApplyActiveBuff();
+	void ApplyPassiveBuff();
 };
 
 #endif // ! ENTITY_H

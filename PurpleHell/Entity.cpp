@@ -178,7 +178,20 @@ void Entity::setPlayed(bool value)
 void Entity::setSelected(bool value)
 {
 	this->selected = value;
-
 }
 
+bool Entity::AddDebuff(ENUM_DEBUFFS effect)
+{
+	if (std::find(this->debuff.begin(), this->debuff.end(), effect) != this->debuff.end()) {
+		return false;
+	}
+	else {
+		this->debuff.push_back(effect);
+		return true;
+	}
+}
+
+void Entity::AddActiveBuff(ENUM_BUFFS_ACTIVE effect)
+{
+}
 

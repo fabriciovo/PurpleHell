@@ -55,7 +55,7 @@ void Player::update(sf::Vector2f mousePos, const float& dt)
 					this->team[i]->setSelected(true);
 				}
 				else {
-					this->team[i]->setSelected(false);
+					//this->team[i]->setSelected(false);
 				}
 			}
 			if (this->team[i]->GetSpell()) {
