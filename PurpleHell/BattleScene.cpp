@@ -243,6 +243,7 @@ void BattleScene::update(const float& dt)
 			}
 			else {
 				turn = false;
+				this->timer = 200;
 			}
 
 		}
@@ -361,6 +362,10 @@ void BattleScene::updateTexts()
 	if (turn && !win && !winEnemy) {
 		this->infoText.setString(" - TURN - \n- PLAYER -");
 	}
+	else {
+		this->infoText.setString(" - TURN - \n- ENEMY -");
+
+	}
 
 
 	if (win && !winEnemy) {
@@ -401,7 +406,7 @@ void BattleScene::damageTexts(int key, Entity* entity, std::string text)
 {
 	this->battleInfo[key].setString(text);
 	this->battleInfo[key].setPosition(entity->getPosition().x, entity->getPosition().y - 18);
-	this->timerDamageText = 30;
+	this->timerDamageText = 50;
 }
 
 void BattleScene::updateDamageText(const float& dt, int key)
