@@ -58,8 +58,8 @@ public:
 	bool CanBuy(Item* item, Hero* hero);
 
 	Hero* getHero();
+	Hero* getHero(int i);
 	Hero* getRandomHero();
 	EquipedItems* getEquipedItems();
-	Entity* getTeam(int i);
 };
 #endif // !PLAYER_H

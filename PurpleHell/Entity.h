@@ -16,27 +16,6 @@
 #include "AnimationComponent.h"
 
 
-enum ENUM_BUFFS_ACTIVE {
-	NORMAL,
-	SHIELD,
-};
-
-enum ENUM_BUFFS_PASSIVE {
-	NORMAL,
-	HEAL,
-};
-
-enum ENUM_DEBUFFS {
-	NORMAL,
-	POISON,
-	FIRE,
-	FREEZE,
-	STUN,
-};
-
-
-class Job;
-
 class Entity
 {
 private:
@@ -52,11 +31,6 @@ protected:
 	int hp;
 	int power;
 	int special;
-
-	std::vector<ENUM_BUFFS_ACTIVE> activeBuff;
-	std::vector <ENUM_BUFFS_PASSIVE> passiveBuff;
-	std::vector <ENUM_DEBUFFS> debuff;
-
 
 	bool selected = false;
 	bool played = false;
@@ -95,22 +69,13 @@ public:
 	const bool &getPlayed() const;		
 	bool getEspecial();
 
-	std::vector <ENUM_BUFFS_ACTIVE> GetActiveBuff();
-	std::vector <ENUM_BUFFS_PASSIVE> GetPassiveBuff();
-	std::vector <ENUM_DEBUFFS> GetDebuff();
-
 	void setDamage(int hp);	 
 	void setHp(int hp);
 	void setPower(int power);
 	void setEspecial(bool value);
 	void setPlayed(bool value);
 	void setSelected(bool value);
-	bool AddDebuff(ENUM_DEBUFFS effect);
-	void AddActiveBuff(ENUM_BUFFS_ACTIVE effect);
-	void AddPassiveBuff(ENUM_BUFFS_PASSIVE effect);
-	void ApplyDebuff();
-	void ApplyActiveBuff();
-	void ApplyPassiveBuff();
+
 };
 
 #endif // ! ENTITY_H

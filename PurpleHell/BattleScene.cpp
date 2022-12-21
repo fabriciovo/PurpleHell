@@ -165,11 +165,8 @@ void BattleScene::updateButtons()
 			if (this->player->getHero()->getSelected()) {
 				if (this->buttons[1]->isPressed()) {
 					if (!this->buttonPressed) {
-						/*this->player->getHero()->Action(this->ais.front()->getEnemy());*/
-						//damageTexts(this->player->getTeam(playerIndex), this->ais.front()->getEnemy(), false, false);
 						this->buttonPressed = true;
 						this->playerAttack();
-						this->playerIndex++;
 					}
 				}
 			}
@@ -181,7 +178,6 @@ void BattleScene::updateButtons()
 				if (this->buttons[2]->isPressed()) {
 					if (!this->buttonPressed) {
 						this->player->getHero()->Special(this->ais.front()->getEnemy());
-						//damageTexts(this->player->getTeam(playerIndex), this->ais.front()->getEnemy(), false, false);
 						this->buttonPressed = true;
 						this->playerIndex++;
 					}
@@ -190,7 +186,7 @@ void BattleScene::updateButtons()
 		}
 
 
-		if (turn && this->player->getEquipedItems()->getItem() && this->player->getTeam(playerIndex)) {
+		if (turn && this->player->getEquipedItems()->getItem() && this->player->getHero(playerIndex)) {
 			if (this->buttons[3]->isPressed()) {
 				if (!this->buttonPressed) {
 					this->buttonPressed = true;
@@ -227,21 +223,47 @@ void BattleScene::update(const float& dt)
 			this->playerIndex = 0;
 			this->ais.pop();
 		}
-	}
 
-	if (!this->player->checkPlayed()) {
-		turn = false;
-	}
+		if (this->player->checkDeads()) {
+			//game over
+		}
 
-	if (turn && this->player->checkPlayed()) {
-		if (playerIndex < this->player->teamSize())
-			if (this->player->getTeam(playerIndex)->getHp() > 0) {
-				this->player->getTeam(playerIndex)->setSelected(true);
+
+		if (turn) {
+			//player turn
+			if (this->player->checkPlayed()) {
+				if (this->playerIndex < this->player->teamSize()) {
+					if (this->player->getHero(this->playerIndex)->getHp() > 0) {
+						this->player->getHero(this->playerIndex)->setSelected(true);
+					}
+					else {
+						playerIndex++;
+					}
+				}
 			}
 			else {
-				playerIndex++;
+				turn = false;
 			}
 
+		}
+		else {
+			//enemy turn
+			battleSystemEnemy(dt);
+		}
+	}
+
+
+
+	/*if (this->playerIndex < this->player->teamSize())
+		if (this->player->getHero(this->playerIndex)->getHp() > 0) {
+			this->player->getHero(playerIndex)->setSelected(true);
+		}
+		else {
+			playerIndex++;
+		}
+	}
+	else {
+		turn = false;
 	}
 
 	if (turn == false && !this->ais.empty()) {
@@ -268,6 +290,7 @@ void BattleScene::update(const float& dt)
 
 	}
 
+*/
 	for (int key = 0; key < 7; key++) {
 		this->updateDamageText(dt, key);
 	}
@@ -353,7 +376,7 @@ void BattleScene::updateTexts()
 void BattleScene::enemyTurn()
 {
 
-	if (this->ais.front()->getTeam(this->enemyIndex)->getHp() <= 0) {
+	if (this->ais.front()->getTeam(this->enemyIndex)->getHp() <= 0 && !this->ais.front()->checkPlayed()) {
 		this->enemyIndex++;
 	}
 	else {
@@ -368,8 +391,7 @@ void BattleScene::enemyTurn()
 		}
 		else if (this->enemyTurnIndex == 2) {
 			this->enemyAttack();
-			this->enemyTurnIndex = 0;
-			this->enemyIndex++;
+	
 		}
 	}
 
@@ -397,7 +419,7 @@ void BattleScene::updateDamageText(const float& dt, int key)
 void BattleScene::useItem()
 {
 	int itemId = this->player->getEquipedItems()->getItemId();
-	this->player->getEquipedItems()->getItem()->Action(this->player->getTeam(playerIndex));
+	this->player->getEquipedItems()->getItem()->Action(this->player->getHero(playerIndex));
 	this->player->getEquipedItems()->removeItem(itemId);
 	this->player->getEquipedItems()->save();
 	playerIndex++;
@@ -407,7 +429,7 @@ void BattleScene::renderButtons(sf::RenderTarget* target)
 {
 	this->buttons[0]->render(target);
 
-	if (turn && this->player->getHero() && this->ais.front()->selectedEnemy() && !this->player->getHero()->getPlayed()) {
+	if (turn && this->ais.front()->selectedEnemy()) {
 		this->buttons[1]->render(target);
 		this->buttons[2]->render(target);
 	}
@@ -417,7 +439,7 @@ void BattleScene::renderButtons(sf::RenderTarget* target)
 	}
 }
 
-void BattleScene::battleSystem(const float& dt)
+void BattleScene::battleSystemEnemy(const float& dt)
 {
 	if (this->timer <= 0 && !this->ais.front()->enemyPlayed()) {
 		enemyTurn();
@@ -475,37 +497,32 @@ void BattleScene::enemyAttack()
 	Hero* player = this->player->getRandomHero();
 	Enemy* enemy = this->ais.front()->getTeam(this->enemyIndex);
 
-	if (enemy->GetEffect() == stun) {
-		this->damageTexts(this->enemyIndex + 3, enemy, "STUNNED");
-		return;
-	}else if (player->GetEffect() == shield)
-	{
-		this->damageTexts(0, player, "Shield Break");
-		player->SetEffect(normal);
-		return;
+	std::srand(time(NULL));
+	int r = rand() % 100;
+	if (r < 33) {
+		this->damageTexts(0, player, "MISS");
+		enemy->setPlayed(true);
+		enemy->setSelected(false);
+		player->setSelected(false);
 	}
 	else {
-		std::srand(time(NULL));
-		int r = rand() % 100;
-		if (r < 33) {
-			this->damageTexts(0, player, "MISS");
-			return;
-		}
-		else {
-			enemy->Action(player);
-			this->damageTexts(0, player, "- " + std::to_string( enemy->getPower()));
-			return;
-		}
+		enemy->Action(player);
+		this->damageTexts(0, player, "- " + std::to_string( enemy->getPower()));
 	}
-
+	this->enemyIndex++;
 }
 
 void BattleScene::playerAttack()
 {
-	Hero* player = this->player->getRandomHero();
-	Enemy* enemy = this->ais.front()->getTeam(this->enemyIndex);
-	player->SetEffect(shield);
+	Hero* player = this->player->getHero(this->playerIndex);
+	Enemy* enemy = this->ais.front()->getEnemy();
+
+	this->damageTexts(1, player, "a");
 	player->Action(enemy);
+
+	this->damageTexts(0, enemy, "- " + std::to_string(player->getPower()));
+	this->playerIndex++;
+
 }
 
 

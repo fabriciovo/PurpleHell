@@ -20,13 +20,6 @@
 class BattleScene :
 	public Scene
 {
-private:
-	enum BATTLE_STATUS {
-		damage,
-		areaDamage,
-		heal,
-		miss,
-	};
 protected:
 
 	Player * player;
@@ -44,7 +37,7 @@ protected:
 	std::vector <sf::Text> battleInfo;
 	std::queue<AI*> ais;
 
-	bool turn;
+	bool turn = true;
 	bool win;
 	bool winEnemy;
 
@@ -62,7 +55,7 @@ protected:
 	void initTexts();
 	void initPlayer();
 	void initAI();
-	void battleSystem(const float& dt);
+	void battleSystemEnemy(const float& dt);
 	void playerReward();
 	void enemyAttack();
 	void playerAttack();

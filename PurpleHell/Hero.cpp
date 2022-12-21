@@ -54,7 +54,7 @@ Hero::~Hero()
 }
 void Hero::Special(Entity *entity)
 { 
-	this->spell = new Especial(this->special, entity);
+	this->spell = new Especial(this->special, entity, "slash");
 	entity->setDamage(6);
 	this->setEspecial(false);
 	this->setPlayed(true);
@@ -63,7 +63,7 @@ void Hero::Special(Entity *entity)
 
 void Hero::Action(Entity * entity)
 {
-	entity->setDamage(8);
+	entity->setDamage(this->getPower());
 	this->setPlayed(true);
 	this->setSelected(false);
 }

@@ -67,37 +67,6 @@ void Entity::setPower(int power)
 	this->power = power;
 }
 
-void Entity::ApplyEffect()
-{
-	switch (battleStatus)
-	{
-	case poison:
-		std::cout << "poison" << std::endl;
-		break;
-	case fire:
-		std::cout << "fire" << std::endl;
-		break;
-	case stun:
-		std::cout << "stun" << std::endl;
-		break;
-	case shield:
-		std::cout << "shield" << std::endl;
-		break;
-	default:
-		std::cout << "No effect" << std::endl;
-		break;
-	}
-}
-void Entity::SetEffect(ENUM_STATUS effect)
-{
-	this->battleStatus = effect;
-}
-ENUM_STATUS Entity::GetEffect()
-{
-	return this->battleStatus;
-}
-
-
 int Entity::getType()
 {
 	return this->special;
@@ -178,20 +147,5 @@ void Entity::setPlayed(bool value)
 void Entity::setSelected(bool value)
 {
 	this->selected = value;
-}
-
-bool Entity::AddDebuff(ENUM_DEBUFFS effect)
-{
-	if (std::find(this->debuff.begin(), this->debuff.end(), effect) != this->debuff.end()) {
-		return false;
-	}
-	else {
-		this->debuff.push_back(effect);
-		return true;
-	}
-}
-
-void Entity::AddActiveBuff(ENUM_BUFFS_ACTIVE effect)
-{
 }
 

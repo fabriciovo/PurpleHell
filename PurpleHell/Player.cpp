@@ -51,11 +51,11 @@ void Player::update(sf::Vector2f mousePos, const float& dt)
 	for (int i = 0; i < this->maxUnits; i++) {
 		if (this->team[i]) {
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-				if (this->team[i]->getSprite()->getGlobalBounds().contains(mousePos)) {
+				if (this->team[i]->getSprite()->getGlobalBounds().contains(mousePos) && this->team[i]->getName() != "slot" && !this->team[i]->getPlayed()) {
 					this->team[i]->setSelected(true);
 				}
 				else {
-					//this->team[i]->setSelected(false);
+					// this->team[i]->setSelected(false);
 				}
 			}
 			if (this->team[i]->GetSpell()) {
@@ -108,7 +108,7 @@ Hero* Player::getHero()
 	return nullptr;
 }
 
-Entity* Player::getTeam(int i)
+Hero* Player::getHero(int i)
 {
 	return this->team[i];
 }
@@ -205,8 +205,8 @@ int Player::teamSize()
 bool Player::checkPlayed()
 {
 	for (int i = 0; i < this->maxUnits; i++) {
-		if (team[i]) {
-			if (!team[i]->getPlayed()) {
+		if (this->team[i]->getHp() > 0) {
+			if (!this->team[i]->getPlayed()) {
 				return true;
 			}
 		}
