@@ -39,44 +39,21 @@ void BattleScene::initTexts()
 	this->infoText = turnText;
 
 	//Player/Enemy
-	sf::Text nameSelectedHero;
-	sf::Text nameSelectedEnemy;
-	sf::Text heroHP;
-	sf::Text heroPower;
-	sf::Text enemyHP;
-	sf::Text enemyTitle;
-	sf::Text played;
-
-	//TItle
-	enemyTitle.setFont(this->font);
-	enemyTitle.setString("- ENEMY -");
-	enemyTitle.setCharacterSize(16);
-	enemyTitle.setPosition(20, 3);
+	sf::Text playerTeamSetting;
+	sf::Text enemyTeamSetting;
 
 
-	//Names
-	nameSelectedHero.setFont(this->font);
-	nameSelectedHero.setCharacterSize(16);
-	nameSelectedHero.setPosition(280, 10);
 
-	nameSelectedEnemy.setFont(this->font);
-	nameSelectedEnemy.setCharacterSize(16);
-	nameSelectedEnemy.setPosition(20, 10);
+	//Player Team
+	playerTeamSetting.setFont(this->font);
+	playerTeamSetting.setCharacterSize(14);
+	playerTeamSetting.setPosition(257, 4);
 
-	//HP
-	heroHP.setFont(this->font);
-	heroHP.setCharacterSize(18);
-	heroHP.setPosition(275, 20);
-
-	//POWER
-	heroPower.setFont(this->font);
-	heroPower.setCharacterSize(18);
-	heroPower.setPosition(275, 30);
-
-	enemyHP.setFont(this->font);
-	enemyHP.setCharacterSize(18);
-	enemyHP.setPosition(20, 30);
-
+	this->playerTeamTexts.push_back(playerTeamSetting);
+	playerTeamSetting.setPosition(260, 20);
+	this->playerTeamTexts.push_back(playerTeamSetting);
+	playerTeamSetting.setPosition(260, 30);
+	this->playerTeamTexts.push_back(playerTeamSetting);
 
 	//BattleInfo
 	sf::Text genericBattleTextSetting;
@@ -91,20 +68,6 @@ void BattleScene::initTexts()
 	this->battleInfo.push_back(genericBattleTextSetting);
 	this->battleInfo.push_back(genericBattleTextSetting);
 	this->battleInfo.push_back(genericBattleTextSetting);
-
-	//player played
-	played.setFont(this->font);
-	played.setCharacterSize(18);
-	played.setPosition(325, 525);
-
-
-	this->battleTexts.push_back(nameSelectedHero);
-	this->battleTexts.push_back(nameSelectedEnemy);
-	this->battleTexts.push_back(heroHP);
-	this->battleTexts.push_back(enemyHP);
-	this->battleTexts.push_back(enemyTitle);
-	this->battleTexts.push_back(played);
-	this->battleTexts.push_back(heroPower);
 }
 
 void BattleScene::initPlayer()
@@ -327,38 +290,30 @@ void BattleScene::renderTexts(sf::RenderTarget* target)
 	for (auto& it : this->battleInfo) {
 		target->draw(it);
 	}
+	for (auto& it : this->playerTeamTexts) {
+		target->draw(it);
+	}
 
 
 }
 
 void BattleScene::updateTexts()
 {
+	for (int i = 0; i < this->player->teamSize(); i++)
+	{
+		if (this->player->getHero(i)->getName() != "slot") {
+			Hero* hero = this->player->getHero(i);
+			this->playerTeamTexts[i].setString(hero->getName() + " / " + " HP:" + std::to_string(hero->getHp()) +  " / MP:" + std::to_string(hero->getEspecial()));
+		}
+	}
+
 	if (this->player->getHero(0)->getName() != "slot") {
-		this->battleTexts[0].setString(this->player->getHero(0)->getName());
-		this->battleTexts[2].setString("HP: " + std::to_string(this->player->getHero(0)->getHp()));
-		this->battleTexts[6].setString("POWER: " + std::to_string(this->player->getHero(0)->getPower()));
+
 	}
 	if (!this->ais.empty()) {
-		if (this->ais.front()->selectedEnemy()) {
-			this->battleTexts[1].setString(this->ais.front()->getEnemy()->getName());
-			this->battleTexts[3].setString("HP: " + std::to_string(this->ais.front()->getEnemy()->getHp()));
-		}
-		else {
-			this->battleTexts[1].setString("");
-			this->battleTexts[3].setString("");
-		}
-
-		if (this->player->getHero()) {
-			if (this->player->getHero()->getPlayed()) {
-				this->battleTexts[5].setString("Played");
-			}
-			else {
-				this->battleTexts[5].setString("");
-			}
-		}
-		else {
-			this->battleTexts[5].setString("");
-		}
+		//if (this->player->getHero(i)->getName() != "slot") {
+		//	this->playerTeamTexts[i].setString(this->player->getHero(i)->getName() + " / " + " HP:" + std::to_string(this->player->getHero(i)->getHp()) + " / MP:1");
+		//}
 	}
 
 	if (turn && !win && !winEnemy) {
