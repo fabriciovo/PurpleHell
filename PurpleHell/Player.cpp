@@ -390,9 +390,16 @@ void Player::SaveInfoFile()
 
 void Player::WinBattle()
 {
+	this->gold += 50;
+	this->level++;
+	this->SaveInfoFile();
 }
 void Player::LostBattle()
 {
+	this->gold = this->gold / 2;
+	this->level = 1;
+	this->SaveInfoFile();
+
 }
 
 void Player::GameOver()
