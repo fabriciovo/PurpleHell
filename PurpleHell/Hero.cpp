@@ -81,5 +81,15 @@ void Hero::UpdateAnimation(const float & dt)
 	this->animationComponent->play("IDLE", dt);	
 }
 
+void Hero::SetViewStatus(bool value)
+{
+	this->viewStatus = value;
+}
+
+bool Hero::GetViewStatus()
+{
+	return this->viewStatus;
+}
+
 
 

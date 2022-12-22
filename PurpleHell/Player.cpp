@@ -51,11 +51,14 @@ void Player::update(sf::Vector2f mousePos, const float& dt)
 	for (int i = 0; i < this->maxUnits; i++) {
 		if (this->team[i]) {
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-				if (this->team[i]->getSprite()->getGlobalBounds().contains(mousePos) && this->team[i]->getName() != "slot" && !this->team[i]->getPlayed()) {
-					this->team[i]->setSelected(true);
+				if (this->team[i]->getSprite()->getGlobalBounds().contains(mousePos) && this->team[i]->getName() != "slot") {
+					this->team[i]->SetViewStatus(true);
+					this->team[i]->getSprite()->setColor(sf::Color(sf::Color::Green));
 				}
 				else {
-					// this->team[i]->setSelected(false);
+					this->team[i]->SetViewStatus(false);
+					this->team[i]->getSprite()->setColor(sf::Color(sf::Color::White));
+
 				}
 			}
 			if (this->team[i]->GetSpell()) {
@@ -100,7 +103,7 @@ Hero* Player::getHero()
 {
 	for (int i = 0; i < this->maxUnits; i++) {
 		if (this->team[i]) {
-			if (team[i]->getSelected()) {
+			if (this->team[i]->getSelected()) {
 				return this->team[i];
 			}
 		}
@@ -126,6 +129,18 @@ Hero * Player::getRandomHero()
 
 
 	return getRandomHero();
+}
+
+Hero* Player::GetHeroViewStatus()
+{
+	for (int i = 0; i < this->maxUnits; i++) {
+		if (this->team[i]) {
+			if (this->team[i]->GetViewStatus()) {
+				return this->team[i];
+			}
+		}
+	}
+	return nullptr;
 }
 
 int Player::getGold()
@@ -183,6 +198,17 @@ bool Player::CanBuy(Item* item, Hero* hero)
 	}
 
 
+}
+bool Player::IsSelectedForViewStatus()
+{
+	for (int i = 0; i < this->maxUnits; i++) {
+		if (this->team[i]) {
+			if (this->team[i]->GetViewStatus()) {
+				return true;
+			}
+		}
+	}
+	return false;
 }
 void Player::setClear(bool value)
 {

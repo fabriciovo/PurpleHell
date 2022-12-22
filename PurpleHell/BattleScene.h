@@ -34,6 +34,8 @@ protected:
 
 	std::vector <Button*> buttons;
 	std::vector <sf::Text> battleTexts;
+	std::vector <sf::Text> playerTeamTexts;
+
 	std::vector <sf::Text> battleInfo;
 	std::queue<AI*> ais;
 

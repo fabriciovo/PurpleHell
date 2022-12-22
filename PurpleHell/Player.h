@@ -20,7 +20,6 @@ private:
 	int run = 1;
 	int level = 1;
 
-
 	//Init
 	void initPlayerInfo();
 	void initHeroes();
@@ -28,7 +27,7 @@ private:
 	//Arquivos
 	void heroesFile(std::ifstream& ifsHeroes, int i);
 	void infoFile(std::ifstream& ifsHeroes, int i);
-
+	
 
 public:
 	Player();
@@ -56,10 +55,13 @@ public:
 	bool getClear();
 	bool canEquipHero();
 	bool CanBuy(Item* item, Hero* hero);
+	bool IsSelectedForViewStatus();
 
 	Hero* getHero();
 	Hero* getHero(int i);
 	Hero* getRandomHero();
+	Hero* GetHeroViewStatus();
+
 	EquipedItems* getEquipedItems();
 };
 #endif // !PLAYER_H

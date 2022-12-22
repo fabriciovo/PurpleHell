@@ -12,6 +12,7 @@ private:
 	int originalY;
 
 	Especial *spell;
+	bool viewStatus;
 
 public:
 	Hero();
@@ -21,6 +22,9 @@ public:
 	void Special(Entity *entity);
 	void Action(Entity * entity);
 	void UpdateAnimation(const float &dt);
+	void SetViewStatus(bool);
+	bool GetViewStatus();
+
 
 	Especial * GetSpell();
 
