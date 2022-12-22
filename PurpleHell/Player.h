@@ -52,6 +52,7 @@ public:
 	int UnitNumber(Entity* hero);
 	int teamSize();
 	int getGold();
+	int GetLevel();
 
 	bool checkPlayed();
 	bool checkDeads();

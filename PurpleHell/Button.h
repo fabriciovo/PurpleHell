@@ -37,6 +37,7 @@ public:
 	//functions
 	void render(sf::RenderTarget *target);
 	void update(sf::Vector2f mousePos);
+	void SetText(std::string text);
 
 	//accessors
 	const bool isPressed() const;

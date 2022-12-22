@@ -150,6 +150,11 @@ int Player::getGold()
 	return this->gold;
 }
 
+int Player::GetLevel()
+{
+	return this->level;
+}
+
 void Player::updateGold(int value)
 {
 	this->gold += value;

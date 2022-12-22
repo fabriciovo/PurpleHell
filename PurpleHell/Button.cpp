@@ -77,6 +77,11 @@ void Button::update(sf::Vector2f mousePos)
 	}
 }
 
+void Button::SetText(std::string text)
+{
+	this->text.setString(text);
+}
+
 
 
 void Button::render(sf::RenderTarget * target)

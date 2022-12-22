@@ -24,24 +24,25 @@ void GameScene::initButtons()
 
 	sf::Texture texture3;
 	texture3.loadFromFile("res/hud/button3.png");
-	this->buttons.push_back(new Button(5, 18, 75,20, &this->font, "CHASE", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture1));
-	this->buttons.push_back(new Button(5, 48, 75,20, &this->font, "SHOP",  sf::Color::White, sf::Color::Black, sf::Color::Blue, texture1));
-	this->buttons.push_back(new Button(5, 78, 75,20, &this->font, "INVENTORY", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture1));
-	this->buttons.push_back(new Button(5, 108,75,20, &this->font, "UNITS", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture1));
-	this->buttons.push_back(new Button(5, 138,75,20, &this->font, "QUIT", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture1));
+	this->buttons.push_back(new Button(5, 18, 75, 20, &this->font, "LEVELS", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture1));
+	this->buttons.push_back(new Button(5, 48, 75, 20, &this->font, "SHOP", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture1));
+	this->buttons.push_back(new Button(5, 78, 75, 20, &this->font, "INVENTORY", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture1));
+	this->buttons.push_back(new Button(5, 108, 75, 20, &this->font, "UNITS", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture1));
+	this->buttons.push_back(new Button(5, 138, 75, 20, &this->font, "QUIT", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture1));
 
 	this->buttonsUnits.push_back(new Button(91, 84, 2, 5, &this->font, "Equip", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
 	this->buttonsUnits.push_back(new Button(134, 84, 2, 5, &this->font, "Sell", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
 	this->buttonsUnits.push_back(new Button(134, 84, 2, 5, &this->font, "Remove", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
 
 
-	this->buttonsItems.push_back(new Button(91, 84,  2,5, &this->font, "Equip", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
+	this->buttonsItems.push_back(new Button(91, 84, 2, 5, &this->font, "Equip", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
 	this->buttonsItems.push_back(new Button(134, 84, 2, 5, &this->font, "Sell", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
-	this->buttonsItems.push_back(new Button(134, 84, 2,5, &this->font, "Remove", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
+	this->buttonsItems.push_back(new Button(134, 84, 2, 5, &this->font, "Remove", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
 
 	this->buttonsShop.push_back(new Button(91, 84, 2, 5, &this->font, "Buy", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
 
-	this->buttonStages.push_back(new Button(91, 20, 2, 5, &this->font, "STAGE 1", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
+	this->buttonStages.push_back(new Button(91, 20, 2, 5, &this->font, "Level 1", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
+	this->buttonStages.push_back(new Button(140, 20, 2, 5, &this->font, "Level x", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
 	/*this->buttonStages.push_back(new Button(134, 20, 2, 5, &this->font, "STAGE 2", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
 	this->buttonStages.push_back(new Button(177, 20, 2, 5, &this->font, "STAGE 3", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
 	this->buttonStages.push_back(new Button(220, 20, 2, 5, &this->font, "STAGE 4", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
@@ -80,7 +81,7 @@ void GameScene::initTexts()
 
 	panelText.setFont(this->font);
 	panelText.setCharacterSize(16);
-	panelText.setPosition(175,0);
+	panelText.setPosition(175, 0);
 
 	this->texts[0] = goldText;
 	this->texts[1] = unitText;
@@ -94,7 +95,7 @@ GameScene::GameScene()
 {
 }
 
-GameScene::GameScene(sf::RenderWindow *window, std::stack<Scene*> *scenes) : Scene(window, scenes)
+GameScene::GameScene(sf::RenderWindow* window, std::stack<Scene*>* scenes) : Scene(window, scenes)
 {
 	this->initFont();
 	this->init();
@@ -132,7 +133,7 @@ GameScene::~GameScene()
 }
 
 //Updates
-void GameScene::update(const float & dt)
+void GameScene::update(const float& dt)
 {
 	this->updateMousePosition();
 	this->updateFade(dt);
@@ -140,7 +141,7 @@ void GameScene::update(const float & dt)
 	this->updateButtons();
 
 	this->player->update(this->mousePosView, dt);
-	this->player->getEquipedItems()->updateEquipedItems(this->mousePosView,dt);
+	this->player->getEquipedItems()->updateEquipedItems(this->mousePosView, dt);
 	this->player->MenuPosition();
 
 	if (this->texts[2].getString() == "SHOP") {
@@ -156,7 +157,7 @@ void GameScene::update(const float & dt)
 	}
 
 	this->updateTexts();
-	
+
 }
 
 void GameScene::updateTexts()
@@ -219,7 +220,7 @@ void GameScene::updateButtons()
 	}
 
 	//Inventory
-	if (this->texts[2].getString() == "INVENTORY" && this->inventory->getItem()){
+	if (this->texts[2].getString() == "INVENTORY" && this->inventory->getItem()) {
 		if (this->buttonsItems[0]->isPressed() && !this->buttonPressed) {
 			this->EquipItem(this->inventory->getItem());
 			this->buttonPressed = true;
@@ -236,10 +237,17 @@ void GameScene::updateButtons()
 		}
 	}
 	//Stages
-	if (this->texts[2].getString() == "STAGES") {
+	if (this->texts[2].getString() == "LEVELS") {
 		if (this->buttonStages[0]->isPressed() && !this->buttonPressed) {
-			this->scenes->push(new BattleScene(this->window, this->scenes, 0));
+			this->scenes->push(new BattleScene(this->window, this->scenes, 1));
 			this->buttonPressed = true;
+		}
+		if (this->player->GetLevel() > 1) {
+			this->buttonStages[1]->SetText("Level " + std::to_string(this->player->GetLevel()));
+			if (this->buttonStages[1]->isPressed() && !this->buttonPressed) {
+				this->scenes->push(new BattleScene(this->window, this->scenes, this->player->GetLevel()));
+				this->buttonPressed = true;
+			}
 		}
 	}
 	//Shop
@@ -251,7 +259,7 @@ void GameScene::updateButtons()
 	}
 }
 
-void GameScene::updateInput(const float & dt)
+void GameScene::updateInput(const float& dt)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {
 		//this->scenes->push(new BattleState(this->window, this->scenes));
@@ -259,13 +267,13 @@ void GameScene::updateInput(const float & dt)
 }
 
 //Renders
-void GameScene::render(sf::RenderTarget * target)
+void GameScene::render(sf::RenderTarget* target)
 {
 	if (!target)
 		target = this->window;
 
 	target->draw(this->background);
-	this->renderButtons(target);		
+	this->renderButtons(target);
 	this->renderTexts(target);
 	this->player->render(target);
 	this->player->getEquipedItems()->renderEquipedItems(target);
@@ -275,7 +283,7 @@ void GameScene::render(sf::RenderTarget * target)
 	}
 
 	if (this->texts[2].getString() == "INVENTORY") {
-		this->inventory->renderInventory (target);
+		this->inventory->renderInventory(target);
 	}
 	if (this->texts[2].getString() == "SHOP") {
 		this->shop->Render(target);
@@ -314,9 +322,10 @@ void GameScene::renderButtons(sf::RenderTarget* target)
 		this->buttonsItems[2]->render(target);
 	}
 
-	if (this->texts[2].getString() == "STAGES") {
-		for (auto& it : this->buttonStages) {
-			it->render(target);
+	if (this->texts[2].getString() == "LEVELS") {
+		this->buttonStages[0]->render(target);
+		if (this->player->GetLevel() > 1) {
+			this->buttonStages[1]->render(target);
 		}
 	}
 	if (this->texts[2].getString() == "SHOP") {
@@ -342,10 +351,10 @@ void GameScene::listShop()
 
 void GameScene::Stages()
 {
-	this->texts[2].setString("STAGES");
+	this->texts[2].setString("LEVELS");
 }
 
-void GameScene::EquipHero(Hero * hero)
+void GameScene::EquipHero(Hero* hero)
 {
 
 	if (!this->player->canEquipHero()) return;
@@ -378,12 +387,12 @@ void GameScene::EquipItem(Item* inventoryItem)
 	this->inventory->removeItem(inventoryItem);
 
 	this->inventory->save();
-	this->player->getEquipedItems()->save(); 
+	this->player->getEquipedItems()->save();
 }
 
-void GameScene::RemoveEquipedItem(Item * equipedItem) {
+void GameScene::RemoveEquipedItem(Item* equipedItem) {
 	if (!this->inventory->canPutItemInInventory()) return;
-	
+
 	this->inventory->setItem(equipedItem);
 	this->player->getEquipedItems()->removeItem(equipedItem);
 
@@ -400,8 +409,8 @@ void GameScene::SellItem(Item* inventoryItem)
 
 void GameScene::buy()
 {
-	Item * item = this->shop->GetSelectedItem();
-	Hero * hero = this->shop->GetSelectedHero();
+	Item* item = this->shop->GetSelectedItem();
+	Hero* hero = this->shop->GetSelectedHero();
 
 	if (!this->player->CanBuy(item, hero)) return;
 
