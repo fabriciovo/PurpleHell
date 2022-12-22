@@ -47,7 +47,6 @@ public:
 	void SaveInfoFile();
 	void WinBattle();
 	void LostBattle();
-
 	void GameOver();
 
 	int UnitNumber(Entity* hero);

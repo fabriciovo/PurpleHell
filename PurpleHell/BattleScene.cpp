@@ -17,7 +17,7 @@ void BattleScene::initButtons()
 	this->buttons.push_back(new Button(100, 5, 75, 40, &this->font, "ATTACK", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture));
 	this->buttons.push_back(new Button(150, 5, 75, 40, &this->font, "MAGIC", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture));
 	this->buttons.push_back(new Button(200, 5, 75, 40, &this->font, "ITEM", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture));
-	this->buttonEnd = new Button(150, 400, 75, 40, &this->font, "Exit", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture);
+	this->buttonEnd = new Button(150, 5, 75, 40, &this->font, "Exit", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture);
 }
 
 void BattleScene::initFont()
@@ -136,6 +136,25 @@ void BattleScene::updateButtons()
 		this->endScene();
 	}
 
+	if (this->win || this->winEnemy) {
+		this->buttonEnd->update(this->mousePosView);
+
+		if (this->buttonEnd->isPressed() && this->win) {
+			if (!this->buttonPressed) {
+				this->buttonPressed = true;
+				this->player->WinBattle();
+				this->endScene();
+			}
+		}
+		if (this->buttonEnd->isPressed() && this->winEnemy) {
+			if (!this->buttonPressed) {
+				this->buttonPressed = true;
+				this->player->LostBattle();
+				this->endScene();
+			}
+		}
+	}
+
 	if (!this->ais.empty()) {
 		if (turn && this->player->getHero() && this->ais.front()->selectedEnemy()) {
 			if (this->player->getHero()->getSelected()) {
@@ -171,24 +190,7 @@ void BattleScene::updateButtons()
 			}
 		}
 	}
-	if (this->win || this->winEnemy) {
-		this->buttonEnd->update(this->mousePosView);
 
-		if (this->buttonEnd->isPressed() && this->win) {
-			if (!this->buttonPressed) {
-				this->buttonPressed = true;
-				this->player->WinBattle();
-				this->endScene();
-			}
-		}
-		if (this->buttonEnd->isPressed() && this->winEnemy) {
-			if (!this->buttonPressed) {
-				this->buttonPressed = true;
-				this->player->LostBattle();
-				this->endScene();
-			}
-		}
-	}
 }
 
 void BattleScene::updateInput(const float& dt)
@@ -204,11 +206,11 @@ void BattleScene::update(const float& dt)
 	this->updateMousePosition();
 	this->player->getEquipedItems()->updateEquipedItems(mousePosView, dt);
 	this->updateTexts();
+	this->updateButtons();
 
 	if (!this->ais.empty()) {
 		this->ais.front()->updateEnemies(mousePosView, dt);
-		this->updateInput(dt);
-		this->updateButtons();
+		this->ais.front()->battlePosition();
 		this->player->update(mousePosView, dt);
 
 		if (this->ais.front()->checkDeads()) {
@@ -296,7 +298,7 @@ void BattleScene::renderTexts(sf::RenderTarget* target)
 
 void BattleScene::updateTexts()
 {
-	for (int i = 0; i < this->player->teamSize(); i++)
+	for (int i = 0; i < 3; i++)
 	{
 		if (this->player->getHero(i)->getName() != "slot") {
 			Hero* hero = this->player->getHero(i);
@@ -305,7 +307,7 @@ void BattleScene::updateTexts()
 	}
 	if (!this->ais.empty()) {
 
-		for (int i = 0; i < this->ais.front()->NumberOfEnemies(); i++)
+		for (int i = 0; i < 5; i++)
 		{
 			if (this->ais.front()->getTeam(i)->getName() != "slot") {
 				Enemy* enemy = this->ais.front()->getTeam(i);
@@ -335,7 +337,7 @@ void BattleScene::updateTexts()
 void BattleScene::enemyTurn()
 {
 
-	if (this->ais.front()->getTeam(this->enemyIndex)->getHp() <= 0 && !this->ais.front()->checkPlayed()) {
+	if (this->ais.front()->getTeam(this->enemyIndex)->getHp() <= 0) {
 		this->enemyIndex++;
 	}
 	else {
