@@ -27,7 +27,6 @@ private:
 	//Arquivos
 	void heroesFile(std::ifstream& ifsHeroes, int i);
 	void infoFile(std::ifstream& ifsHeroes, int i);
-	
 
 public:
 	Player();
@@ -45,6 +44,11 @@ public:
 	void Save();
 	void MenuPosition();
 	void AddHeroToTeam(Hero* hero);
+	void SaveInfoFile();
+	void WinBattle();
+	void LostBattle();
+
+	void GameOver();
 
 	int UnitNumber(Entity* hero);
 	int teamSize();

@@ -17,6 +17,7 @@ void BattleScene::initButtons()
 	this->buttons.push_back(new Button(100, 5, 75, 40, &this->font, "ATTACK", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture));
 	this->buttons.push_back(new Button(150, 5, 75, 40, &this->font, "MAGIC", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture));
 	this->buttons.push_back(new Button(200, 5, 75, 40, &this->font, "ITEM", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture));
+	this->buttonEnd = new Button(150, 400, 75, 40, &this->font, "Exit", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture);
 }
 
 void BattleScene::initFont()
@@ -50,10 +51,21 @@ void BattleScene::initTexts()
 	playerTeamSetting.setPosition(257, 4);
 
 	this->playerTeamTexts.push_back(playerTeamSetting);
-	playerTeamSetting.setPosition(260, 20);
+	playerTeamSetting.setPosition(257, 20);
 	this->playerTeamTexts.push_back(playerTeamSetting);
-	playerTeamSetting.setPosition(260, 30);
+	playerTeamSetting.setPosition(257, 30);
 	this->playerTeamTexts.push_back(playerTeamSetting);
+
+	//Enemy Team
+	enemyTeamSetting.setFont(this->font);
+	enemyTeamSetting.setCharacterSize(14);
+	enemyTeamSetting.setPosition(10, 4);
+
+	this->enemyTeamTexts.push_back(enemyTeamSetting);
+	enemyTeamSetting.setPosition(10, 20);
+	this->enemyTeamTexts.push_back(enemyTeamSetting);
+	enemyTeamSetting.setPosition(10, 30);
+	this->enemyTeamTexts.push_back(enemyTeamSetting);
 
 	//BattleInfo
 	sf::Text genericBattleTextSetting;
@@ -159,6 +171,24 @@ void BattleScene::updateButtons()
 			}
 		}
 	}
+	if (this->win || this->winEnemy) {
+		this->buttonEnd->update(this->mousePosView);
+
+		if (this->buttonEnd->isPressed() && this->win) {
+			if (!this->buttonPressed) {
+				this->buttonPressed = true;
+				this->player->WinBattle();
+				this->endScene();
+			}
+		}
+		if (this->buttonEnd->isPressed() && this->winEnemy) {
+			if (!this->buttonPressed) {
+				this->buttonPressed = true;
+				this->player->LostBattle();
+				this->endScene();
+			}
+		}
+	}
 }
 
 void BattleScene::updateInput(const float& dt)
@@ -189,12 +219,11 @@ void BattleScene::update(const float& dt)
 		}
 
 		if (this->player->checkDeads()) {
-			//game over
+			this->winEnemy = true;
 		}
 
 
-		if (turn) {
-			//player turn
+		if (turn && !this->winEnemy ) {
 			if (this->player->checkPlayed()) {
 				if (this->playerIndex < this->player->teamSize()) {
 					if (this->player->getHero(this->playerIndex)->getHp() > 0) {
@@ -212,50 +241,13 @@ void BattleScene::update(const float& dt)
 
 		}
 		else {
-			//enemy turn
 			battleSystemEnemy(dt);
 		}
 	}
-
-
-
-	/*if (this->playerIndex < this->player->teamSize())
-		if (this->player->getHero(this->playerIndex)->getHp() > 0) {
-			this->player->getHero(playerIndex)->setSelected(true);
-		}
-		else {
-			playerIndex++;
-		}
-	}
 	else {
-		turn = false;
-	}
-
-	if (turn == false && !this->ais.empty()) {
-		battleSystem(dt);
-	}
-
-	if (this->ais.empty()) {
-		std::cout << "PLAYER WIN" << std::endl;
-		this->winEnemy = false;
 		this->win = true;
-		this->playerReward();
-		this->endScene();
-	}
-	else
-	{
-		this->ais.front()->battlePosition();
 	}
 
-	if (this->player->checkDeads()) {
-		this->winEnemy = true;
-		this->win = false;
-		std::cout << "ENEMY WIN" << std::endl;;
-		this->endScene();
-
-	}
-
-*/
 	for (int key = 0; key < 7; key++) {
 		this->updateDamageText(dt, key);
 	}
@@ -277,6 +269,9 @@ void BattleScene::render(sf::RenderTarget* target)
 		this->renderButtons(target);
 		this->ais.front()->renderEnemies(target);
 	}
+	if (this->win || this->winEnemy) {
+		this->buttonEnd->render(target);
+	}
 	this->renderFade(target);
 
 }
@@ -293,7 +288,9 @@ void BattleScene::renderTexts(sf::RenderTarget* target)
 	for (auto& it : this->playerTeamTexts) {
 		target->draw(it);
 	}
-
+	for (auto& it : this->enemyTeamTexts) {
+		target->draw(it);
+	}
 
 }
 
@@ -306,14 +303,15 @@ void BattleScene::updateTexts()
 			this->playerTeamTexts[i].setString(hero->getName() + " / " + " HP:" + std::to_string(hero->getHp()) +  " / MP:" + std::to_string(hero->getEspecial()));
 		}
 	}
-
-	if (this->player->getHero(0)->getName() != "slot") {
-
-	}
 	if (!this->ais.empty()) {
-		//if (this->player->getHero(i)->getName() != "slot") {
-		//	this->playerTeamTexts[i].setString(this->player->getHero(i)->getName() + " / " + " HP:" + std::to_string(this->player->getHero(i)->getHp()) + " / MP:1");
-		//}
+
+		for (int i = 0; i < this->ais.front()->NumberOfEnemies(); i++)
+		{
+			if (this->ais.front()->getTeam(i)->getName() != "slot") {
+				Enemy* enemy = this->ais.front()->getTeam(i);
+				this->enemyTeamTexts[i].setString(enemy->getName() + " / " + " HP:" + std::to_string(enemy->getHp()) + " / MP:" + std::to_string(enemy->getEspecial()));
+			}
+		}
 	}
 
 	if (turn && !win && !winEnemy) {
@@ -321,7 +319,6 @@ void BattleScene::updateTexts()
 	}
 	else {
 		this->infoText.setString(" - TURN - \n- ENEMY -");
-
 	}
 
 

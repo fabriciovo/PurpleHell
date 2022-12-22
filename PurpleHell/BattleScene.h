@@ -35,13 +35,16 @@ protected:
 	std::vector <Button*> buttons;
 	std::vector <sf::Text> battleTexts;
 	std::vector <sf::Text> playerTeamTexts;
+	std::vector <sf::Text> enemyTeamTexts;
 
 	std::vector <sf::Text> battleInfo;
 	std::queue<AI*> ais;
 
+	Button* buttonEnd;
+
 	bool turn = true;
-	bool win;
-	bool winEnemy;
+	bool win = false;
+	bool winEnemy = false;
 
 	int wave;
 	int maxWave;
@@ -78,6 +81,7 @@ public:
 	void damageTexts(int key, Entity* entity, std::string text);
 	void updateDamageText(const float& dt, int key);
 	void useItem();
+
 };
 
 #endif // !BATTLESTATE_H

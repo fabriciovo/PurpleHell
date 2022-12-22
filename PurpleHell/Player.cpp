@@ -21,6 +21,8 @@ Player::~Player()
 }
 void Player::initPlayerInfo()
 {
+	std::ifstream ifs("res/Player/Info.txt");
+	this->infoFile(ifs, 0);
 }
 void Player::initHeroes()
 {
@@ -116,7 +118,7 @@ Hero* Player::getHero(int i)
 	return this->team[i];
 }
 
-Hero * Player::getRandomHero()
+Hero* Player::getRandomHero()
 {
 	int heroIndex = rand() % 3;
 
@@ -326,7 +328,6 @@ void Player::heroesFile(std::ifstream& ifsHeroes, int i)
 
 	if (ifsHeroes.is_open())
 	{
-
 		if (!ifsHeroes.eof())
 		{
 			ifsHeroes >> name >> job >> hp >> power >> spell;
@@ -335,7 +336,7 @@ void Player::heroesFile(std::ifstream& ifsHeroes, int i)
 			tex->loadFromFile("res/img/Player/" + job + ".png");
 			this->team[i] = (new Hero(0, 0, name, job, hp, power, spell, tex));
 			i++;
-			
+
 			heroesFile(ifsHeroes, i);
 		}
 		else {
@@ -365,10 +366,35 @@ void Player::infoFile(std::ifstream& ifs, int i)
 				this->level = value;
 			}
 			i++;
+			std::cout << name << value << std::endl;
 			infoFile(ifs, i);
 		}
 		else {
 			ifs.close();
 		}
 	}
+}
+
+void Player::SaveInfoFile()
+{
+	std::fstream ofs;
+	ofs.open("res/Player/Info.txt", std::ofstream::out | std::ofstream::trunc);
+
+	ofs
+		<< "gold " << this->gold
+		<< "run " << this->run
+		<< "level " << this->level;
+
+	ofs.close();
+}
+
+void Player::WinBattle()
+{
+}
+void Player::LostBattle()
+{
+}
+
+void Player::GameOver()
+{
 }
