@@ -50,9 +50,6 @@
     <Filter Include="Resource Files\Rewards">
       <UniqueIdentifier>{b972c647-a588-4749-8e6c-83dc0f090eb5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\RewardSystem">
-      <UniqueIdentifier>{1dc5fb50-2a62-4c82-b2e5-2d4413a4bfca}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Scene">
       <UniqueIdentifier>{3db9ba11-09ed-4d47-af65-e1f178f831fb}</UniqueIdentifier>
     </Filter>

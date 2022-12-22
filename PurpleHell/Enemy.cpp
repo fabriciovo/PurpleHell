@@ -51,15 +51,11 @@ void Enemy::update(sf::Vector2f mousePos, const float& dt)
 {	
 	Entity::update(mousePos, dt);
 	if (this->hp > 0) {
-		if (this->sprite->getGlobalBounds().contains(mousePos)) {
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-				this->selected = true;
-			}
-		}
-		if (!this->sprite->getGlobalBounds().contains(mousePos)) {
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+			if (this->sprite->getGlobalBounds().contains(mousePos)) {
+					this->selected = true;
+			}else{
 				this->selected = false;
-
 			}
 		}
 	}

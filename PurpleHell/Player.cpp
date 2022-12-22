@@ -54,13 +54,10 @@ void Player::update(sf::Vector2f mousePos, const float& dt)
 		if (this->team[i]) {
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 				if (this->team[i]->getSprite()->getGlobalBounds().contains(mousePos) && this->team[i]->getName() != "slot") {
-					this->team[i]->SetViewStatus(true);
-					this->team[i]->getSprite()->setColor(sf::Color(sf::Color::Green));
+					this->team[i]->setSelected(true);
 				}
 				else {
-					this->team[i]->SetViewStatus(false);
-					this->team[i]->getSprite()->setColor(sf::Color(sf::Color::White));
-
+					this->team[i]->setSelected(false);
 				}
 			}
 			if (this->team[i]->GetSpell()) {

@@ -1,1 +1,1 @@
-gold 100run 0level 3
+gold 150run 0level 4
