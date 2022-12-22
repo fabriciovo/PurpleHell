@@ -31,7 +31,8 @@ void BattleScene::initTexts()
 	sf::Text turnText;
 
 	turnText.setFont(this->font);
-	turnText.setString("- TURN -");
+	turnText.setString(" - TURN - \n- PLAYER -");
+	turnText.setString(" - TURN - \n- PLAYER -");
 	turnText.setCharacterSize(18);
 	turnText.setPosition(135, 60);
 
@@ -208,8 +209,8 @@ void BattleScene::update(const float& dt)
 {
 	this->updateFade(dt);
 	this->updateMousePosition();
-	this->updateTexts();
 	this->player->getEquipedItems()->updateEquipedItems(mousePosView, dt);
+	this->updateTexts();
 
 	if (!this->ais.empty()) {
 		this->ais.front()->updateEnemies(mousePosView, dt);
@@ -295,6 +296,7 @@ void BattleScene::update(const float& dt)
 	for (int key = 0; key < 7; key++) {
 		this->updateDamageText(dt, key);
 	}
+
 }
 
 //Renders
@@ -331,10 +333,10 @@ void BattleScene::renderTexts(sf::RenderTarget* target)
 
 void BattleScene::updateTexts()
 {
-	if (this->player->getHero()) {
-		this->battleTexts[0].setString(this->player->getHero()->getName());
-		this->battleTexts[2].setString("HP: " + std::to_string(this->player->getHero()->getHp()));
-		this->battleTexts[6].setString("POWER: " + std::to_string(this->player->getHero()->getPower()));
+	if (this->player->getHero(0)->getName() != "slot") {
+		this->battleTexts[0].setString(this->player->getHero(0)->getName());
+		this->battleTexts[2].setString("HP: " + std::to_string(this->player->getHero(0)->getHp()));
+		this->battleTexts[6].setString("POWER: " + std::to_string(this->player->getHero(0)->getPower()));
 	}
 	if (!this->ais.empty()) {
 		if (this->ais.front()->selectedEnemy()) {
@@ -521,13 +523,10 @@ void BattleScene::playerAttack()
 {
 	Hero* player = this->player->getHero(this->playerIndex);
 	Enemy* enemy = this->ais.front()->getEnemy();
-
-	this->damageTexts(1, player, "a");
 	player->Action(enemy);
 
 	this->damageTexts(0, enemy, "- " + std::to_string(player->getPower()));
 	this->playerIndex++;
-
 }
 
 
