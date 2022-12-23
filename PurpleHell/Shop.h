@@ -1,5 +1,6 @@
 #ifndef SHOP_H
 #define SHOP_H
+#include <random>
 #include "Hero.h"
 #include "Item.h"
 class Shop
@@ -96,7 +97,7 @@ private:
 				"Lesym",
 				"Vyncis",
 				"Centwy" };
-
+	std::string jobs[6] = { "mage", "archer", "knight","warlock", "demon hunter", "rogue" };
 	static const int maxArrayValues = 10;
 	Hero* heroes[maxArrayValues];
 	Item* items[maxArrayValues];

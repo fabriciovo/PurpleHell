@@ -3,14 +3,39 @@
 Shop::Shop()
 {
 	for (int i = 0; i < this->maxArrayValues; i++) {
-		std::srand(time(NULL));
-		int randomLife = rand() % 100;
-		int randomPower = rand() % 100;
-		int randomSpecial = rand() % 3;
+		//std::srand(std::time(nullptr));
+		//int randomLife = rand() % 100;
+		//std::srand(std::time(nullptr));
+		//int randomPower = rand() % 100;
+		//std::srand(std::time(nullptr));
+		//int randomSpecial = rand() % 3;
+		//std::srand(std::time(nullptr));
+		//int randomJob = rand() % 6;
+
+		//std::cout << randomLife << randomPower << randomSpecial << jobs[randomJob] << std::endl;
+
+		std::random_device rd;
+		std::mt19937 generator(rd());
+
+		// Generate a random integer between 1 and 10
+		std::uniform_int_distribution<int> rngName(0, 80);
+		std::uniform_int_distribution<int> rngLife(10, 300);
+		std::uniform_int_distribution<int> rngPower(1, 300);
+		std::uniform_int_distribution<int> rngJob(0, 5);
+		std::uniform_int_distribution<int> rngSpecial(1, 3);
+
+		int hp = rngLife(generator);
+		int power = rngPower(generator);
+		int special = rngSpecial(generator);
+		int job = rngJob(generator);
+		int name = rngName(generator);
+
+
+		//std::cout << names[80] << " life: " << hp << " power: " << power << " special: " << special << " job: " << jobs[job] << std::endl;
 
 		sf::Texture* tex = new sf::Texture();
-		tex->loadFromFile("res/img/Player/mage.png");
-		this->heroes[i] = new Hero(0.0, 0.0 , names[80],"mage", randomLife, randomPower, randomSpecial, tex);
+		tex->loadFromFile("res/img/Player/"+ jobs[job] +".png");
+		this->heroes[i] = new Hero(0.0, 0.0 , names[name],jobs[job], hp, power, special, tex);
 		
 		sf::Texture * emptyTex = new sf::Texture();
 		emptyTex->loadFromFile("res/img/items/slot.png");
