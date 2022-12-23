@@ -7,12 +7,12 @@ class Shop
 {
 public:
 	Shop();
-
 	void Render(sf::RenderTarget* target);
 	void Update(sf::Vector2f mousePos, const float& dt);
 	Item * GetSelectedItem();
 	Hero * GetSelectedHero();
 	void RemoveItem();
+	void Refresh();
 	~Shop();
 private:
 	std::string names[82] = 
@@ -98,6 +98,10 @@ private:
 				"Vyncis",
 				"Centwy" };
 	std::string jobs[6] = { "mage", "archer", "knight","warlock", "demon hunter", "rogue" };
+	std::string itemsArray[4] = { "magicAxe","magicAxe","magicAxe","magicAxe"};
+	void generateHeroes();
+	void generateItems();
+
 	static const int maxArrayValues = 10;
 	Hero* heroes[maxArrayValues];
 	Item* items[maxArrayValues];
