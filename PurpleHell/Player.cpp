@@ -144,6 +144,7 @@ Hero* Player::GetHeroViewStatus()
 
 int Player::getGold()
 {
+	this->initPlayerInfo();
 	return this->gold;
 }
 
@@ -185,6 +186,7 @@ bool Player::CanBuy(Item* item, Hero* hero)
 {
 	int tempGold = 0;
 	int totalGold = 0;
+	
 	if (item) {
 		tempGold += 10;
 	}
@@ -368,7 +370,6 @@ void Player::infoFile(std::ifstream& ifs, int i)
 				this->level = value;
 			}
 			i++;
-			std::cout << name << value << std::endl;
 			infoFile(ifs, i);
 		}
 		else {
@@ -383,8 +384,8 @@ void Player::SaveInfoFile()
 	ofs.open("res/Player/Info.txt", std::ofstream::out | std::ofstream::trunc);
 
 	ofs
-		<< "gold " << this->gold
-		<< "run " << this->run
+		<< "gold " << this->gold << std::endl
+		<< "run " << this->run << std::endl
 		<< "level " << this->level;
 
 	ofs.close();

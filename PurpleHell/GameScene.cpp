@@ -165,7 +165,7 @@ void GameScene::update(const float& dt)
 
 void GameScene::updateTexts()
 {
-	this->texts[0].setString("Gold: " + std::to_string(this->player->getGold()));
+	this->texts[0].setString("Gold: " + std::to_string(this->player->getGold ()));
 }
 
 void GameScene::updateButtons()
@@ -418,6 +418,8 @@ void GameScene::SellItem(Item* inventoryItem)
 	this->inventory->removeItem(inventoryItem);
 	this->player->updateGold(10);
 	this->inventory->save();
+	this->player->SaveInfoFile();
+
 }
 
 void GameScene::buy()
@@ -425,6 +427,8 @@ void GameScene::buy()
 	Item* item = this->shop->GetSelectedItem();
 	Hero* hero = this->shop->GetSelectedHero();
 
+	if(item) if (!this->inventory->canPutItemInInventory()) return;
+	if (hero) if (!this->units->canRemoveHero()) return;
 	if (!this->player->CanBuy(item, hero)) return;
 
 
@@ -441,6 +445,9 @@ void GameScene::buy()
 		this->units->Save();
 	}
 
+
+	this->player->SaveInfoFile();
+
 }
 
 void GameScene::sellHero()
@@ -449,6 +456,7 @@ void GameScene::sellHero()
 	this->units->removeHero(hero);
 	this->player->updateGold(10);
 	this->units->Save();
+	this->player->SaveInfoFile();
 }
 
 void GameScene::showMenuInfo(sf::Text * text, Entity* entity,sf::Vector2f pos, sf::RenderTarget* target) {

@@ -1,5 +1,5 @@
-Centwy mage 7 37 0
-Centwy mage 43 63 0
+Centwy mage 74 25 2
+Centwy mage 34 44 2
 Centwy mage 83 27 2
 Centwy mage 83 27 2
 Centwy mage 43 11 0
