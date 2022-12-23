@@ -56,7 +56,7 @@ void Hero::Special(Entity *entity)
 { 
 	this->spell = new Especial(this->special, entity, "slash");
 	entity->setDamage(6);
-	this->setEspecial(false);
+	this->setCanUseSpecial(false);
 	this->setPlayed(true);
 	this->setSelected(false);	
 }

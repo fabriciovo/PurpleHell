@@ -125,7 +125,7 @@ void Inventory::save()
 			<< this->items[i]->getName()
 			<< " " << this->items[i]->getHp()
 			<< " " << this->items[i]->getPower()
-			<< " " << this->items[i]->getType() << std::endl;
+			<< " " << this->items[i]->getSpecial() << std::endl;
 	}
 	ofsInventory.close();
 }

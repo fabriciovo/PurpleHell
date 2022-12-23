@@ -173,13 +173,13 @@
     <ClCompile Include="Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Info.txt" />
     <Text Include="res\AI\0.txt" />
     <Text Include="res\AI\1.txt" />
     <Text Include="res\AI\2.txt" />
     <Text Include="res\AI\3.txt" />
     <Text Include="res\AI\Units.txt" />
     <Text Include="res\Player\equiped.txt" />
+    <Text Include="res\Player\Info.txt" />
     <Text Include="res\Player\Inventory.txt" />
     <Text Include="res\Player\Team.txt" />
     <Text Include="res\Player\Units.txt" />

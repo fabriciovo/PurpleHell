@@ -6,7 +6,7 @@ Item::Item()
 {
 }
 
-Item::Item(int x, int y, std::string name,int hp,int power, int type, sf::Texture* texture)
+Item::Item(int x, int y, std::string name,int hp,int power, int special, sf::Texture* texture)
 {
 	this->name = name;
 	this->hp = hp;

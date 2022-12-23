@@ -256,7 +256,7 @@ void Player::setSpecialToTrue()
 {
 	for (int i = 0; i < this->maxUnits; i++) {
 		if (this->team[i] && this->team[i]->getName() != "slot")
-			this->team[i]->setEspecial(true);
+			this->team[i]->setCanUseSpecial(true);
 	}
 }
 
@@ -285,7 +285,7 @@ void Player::Save()
 			<< " " << this->team[i]->GetJob()
 			<< " " << this->team[i]->getHp()
 			<< " " << this->team[i]->getPower()
-			<< " " << this->team[i]->getType() << std::endl;
+			<< " " << this->team[i]->getSpecial() << std::endl;
 	}
 	ofsTeam.close();
 

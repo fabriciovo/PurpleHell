@@ -36,7 +36,7 @@ protected:
 	bool played = false;
 	bool canUseSpecial = true;
 
-	AnimationComponent *animationComponent;
+	AnimationComponent* animationComponent;
 
 public:
 
@@ -51,31 +51,31 @@ public:
 	virtual void SetPosition(const float x, const float y);
 	virtual void SetScale(const float x, const float y);
 	virtual void Action(Entity* entity) = 0;
-	virtual void Special(Entity *entity) = 0;
-	virtual void update(sf::Vector2f mousePos, const float &dt);
+	virtual void Special(Entity* entity) = 0;
+	virtual void update(sf::Vector2f mousePos, const float& dt);
 	virtual void render(sf::RenderTarget* target);
 
-	sf::Sprite *getSprite();
+	sf::Sprite* getSprite();
 	sf::Vector2f getPosition();
-	
+
 	std::string getName();
 	std::string GetJob();
 
-	int getType();
 	int getHp();
 	int getPower();
+	int getSpecial();
 
-	const bool &getSelected() const;
-	const bool &getPlayed() const;		
-	bool getEspecial();
+	const bool& getSelected() const;
+	const bool& getPlayed() const;
+	bool CanUseEspecial();
 
-	void setDamage(int hp);	 
+	void setDamage(int hp);
 	void setHp(int hp);
 	void setPower(int power);
-	void setEspecial(bool value);
+	void setCanUseSpecial(bool value);
 	void setPlayed(bool value);
 	void setSelected(bool value);
-
+	void SetSpecial(int value);
 };
 
 #endif // ! ENTITY_H

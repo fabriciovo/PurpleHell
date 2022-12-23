@@ -130,7 +130,7 @@ void Units::Save()
 			<< " " << this->heroes[i]->GetJob()
 			<< " " << this->heroes[i]->getHp()
 			<< " " << this->heroes[i]->getPower()
-			<< " " << this->heroes[i]->getType() << std::endl;
+			<< " " << this->heroes[i]->getSpecial() << std::endl;
 	}
 	ofsHeroes.close();
 }

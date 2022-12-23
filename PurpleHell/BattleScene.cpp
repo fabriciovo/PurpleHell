@@ -168,7 +168,7 @@ void BattleScene::updateButtons()
 		}
 
 
-		if (turn && this->player->getHero() && this->ais.front()->selectedEnemy() && this->player->getHero()->getEspecial()) {
+		if (turn && this->player->getHero() && this->ais.front()->selectedEnemy() && this->player->getHero()->CanUseEspecial()) {
 			if (this->player->getHero()->getSelected()) {
 				if (this->buttons[2]->isPressed()) {
 					if (!this->buttonPressed) {
@@ -302,7 +302,7 @@ void BattleScene::updateTexts()
 	{
 		if (this->player->getHero(i)->getName() != "slot") {
 			Hero* hero = this->player->getHero(i);
-			this->playerTeamTexts[i].setString(hero->getName() + " / " + " HP:" + std::to_string(hero->getHp()) +  " / MP:" + std::to_string(hero->getEspecial()));
+			this->playerTeamTexts[i].setString(hero->getName() + " / " + " HP:" + std::to_string(hero->getHp()) +  " / MP:" + std::to_string(hero->CanUseEspecial()));
 		}
 	}
 	if (!this->ais.empty()) {
@@ -311,7 +311,7 @@ void BattleScene::updateTexts()
 		{
 			if (this->ais.front()->getTeam(i)->getName() != "slot") {
 				Enemy* enemy = this->ais.front()->getTeam(i);
-				this->enemyTeamTexts[i].setString(enemy->getName() + " / " + " HP:" + std::to_string(enemy->getHp()) + " / MP:" + std::to_string(enemy->getEspecial()));
+				this->enemyTeamTexts[i].setString(enemy->getName() + " / " + " HP:" + std::to_string(enemy->getHp()) + " / MP:" + std::to_string(enemy->CanUseEspecial()));
 			}
 		}
 	}

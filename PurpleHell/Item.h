@@ -7,7 +7,7 @@ class Item : public Entity
 {
 public:
 	Item();
-	Item(int x, int y, std::string name, int hp, int power, int type, sf::Texture* texture);
+	Item(int x, int y, std::string name, int hp, int power, int special, sf::Texture* texture);
 	virtual ~Item();
 	void Action(Entity* entity);
 	void Special(Entity *entity);

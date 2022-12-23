@@ -14,7 +14,6 @@ Entity::Entity()
 	this->initVariables();
 }
 
-
 Entity::~Entity()
 {
 	delete this->texture;
@@ -67,7 +66,7 @@ void Entity::setPower(int power)
 	this->power = power;
 }
 
-int Entity::getType()
+int Entity::getSpecial()
 {
 	return this->special;
 }
@@ -124,12 +123,12 @@ int Entity::getPower()
 	return this->power;
 }
 
-bool Entity::getEspecial()
+bool Entity::CanUseEspecial()
 {
 	return this->canUseSpecial;
 }
 
-void Entity::setEspecial(bool value)
+void Entity::setCanUseSpecial(bool value)
 {
 	this->canUseSpecial = value;
 }
@@ -147,5 +146,10 @@ void Entity::setPlayed(bool value)
 void Entity::setSelected(bool value)
 {
 	this->selected = value;
+}
+
+void Entity::SetSpecial(int value)
+{
+	this->special = value;
 }
 

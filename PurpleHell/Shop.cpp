@@ -47,7 +47,6 @@ void Shop::Update(sf::Vector2f mousePos, const float& dt)
 				}
 			}
 			this->heroes[i]->update(mousePos, dt);
-			this->heroes[i]->UpdateAnimation(dt);
 		}
 		if (this->items[i]) {
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {

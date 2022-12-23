@@ -225,7 +225,7 @@
     <Text Include="res\AI\Units.txt">
       <Filter>Resource Files\AI</Filter>
     </Text>
-    <Text Include="Info.txt">
+    <Text Include="res\Player\Info.txt">
       <Filter>Resource Files\Player</Filter>
     </Text>
   </ItemGroup>

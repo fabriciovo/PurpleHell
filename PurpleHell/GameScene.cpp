@@ -43,11 +43,7 @@ void GameScene::initButtons()
 
 	this->buttonStages.push_back(new Button(91, 20, 2, 5, &this->font, "Level 1", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
 	this->buttonStages.push_back(new Button(140, 20, 2, 5, &this->font, "Level x", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
-	/*this->buttonStages.push_back(new Button(134, 20, 2, 5, &this->font, "STAGE 2", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
-	this->buttonStages.push_back(new Button(177, 20, 2, 5, &this->font, "STAGE 3", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
-	this->buttonStages.push_back(new Button(220, 20, 2, 5, &this->font, "STAGE 4", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
-	this->buttonStages.push_back(new Button(263, 20, 2, 5, &this->font, "STAGE 5", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
-	this->buttonStages.push_back(new Button(298, 20, 2, 5, &this->font, "STAGE 6", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));*/
+
 
 }
 
@@ -87,6 +83,13 @@ void GameScene::initTexts()
 	this->texts[1] = unitText;
 	this->texts[2] = panelText;
 	this->texts[3] = equipText;
+
+	this->textInfoMenu.setFont(this->font);
+	this->textInfoMenu.setCharacterSize(15);
+	this->textInfoMenu.setLineSpacing(0.9);
+
+	this->textInfoPlayerTeam.setFont(this->font);
+	this->textInfoPlayerTeam.setCharacterSize(14);
 
 }
 //Constructors
@@ -296,6 +299,8 @@ void GameScene::renderTexts(sf::RenderTarget* target)
 	for (int i = 0; i < 4; i++) {
 		target->draw(texts[i]);
 	}
+
+
 }
 
 void GameScene::renderButtons(sf::RenderTarget* target)
@@ -304,9 +309,14 @@ void GameScene::renderButtons(sf::RenderTarget* target)
 		it->render(target);
 	}
 
+	if (this->player->getHero()) {
+		this->showMenuInfo(&this->textInfoPlayerTeam, this->player->getHero(), { 70, 164 }, target);
+	}
+
 	if (this->texts[2].getString() == "UNITS" && this->units->getHero()) {
 		this->buttonsUnits[0]->render(target);
 		this->buttonsUnits[1]->render(target);
+		this->showMenuInfo(&this->textInfoMenu, this->units->getHero(), {180, 72}, target);
 	}
 
 	if (this->texts[2].getString() == "UNITS" && this->player->getHero()) {
@@ -328,10 +338,13 @@ void GameScene::renderButtons(sf::RenderTarget* target)
 			this->buttonStages[1]->render(target);
 		}
 	}
-	if (this->texts[2].getString() == "SHOP") {
+	if (this->texts[2].getString() == "SHOP" && this->shop->GetSelectedHero() || this->shop->GetSelectedItem()) {
 		for (auto& it : this->buttonsShop) {
 			it->render(target);
 		}
+		if (this->shop->GetSelectedHero())this->showMenuInfo(&this->textInfoMenu, this->shop->GetSelectedHero(), { 180, 72 }, target);
+		if (this->shop->GetSelectedItem())this->showMenuInfo(&this->textInfoMenu, this->shop->GetSelectedItem(), { 180, 72 }, target);
+
 	}
 }
 void GameScene::listUnits()
@@ -438,3 +451,18 @@ void GameScene::sellHero()
 	this->units->Save();
 }
 
+void GameScene::showMenuInfo(sf::Text * text, Entity* entity,sf::Vector2f pos, sf::RenderTarget* target) {
+	target->draw(*text);
+	text->setPosition(pos);
+	text->setString(
+		entity->getName()
+		+ " / "
+		+ entity->GetJob()
+		+ " / "
+		+ "HP: " + std::to_string(entity->getHp())
+		+ " / "
+		+ "Power: " + std::to_string(entity->getPower())
+		+ "\n"
+		+ "Spell: " + "Thunder"/*this->units->getHero()->GetSpell()->getName()*/
+		+ ": deals damage\nto all enemies");
+}

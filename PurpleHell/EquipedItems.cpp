@@ -126,14 +126,14 @@ void EquipedItems::save()
 				<< this->items[t]->getName()
 				<< " " << this->items[t]->getHp()
 				<< " " << this->items[t]->getPower()
-				<< " " << this->items[t]->getType() << std::endl;
+				<< " " << this->items[t]->getSpecial() << std::endl;
 		}
 		else {
 			ofsEquiped
 				<< this->items[t]->getName()
 				<< " " << this->items[t]->getHp()
 				<< " " << this->items[t]->getPower()
-				<< " " << this->items[t]->getType();
+				<< " " << this->items[t]->getSpecial();
 		}
 	}
 	ofsEquiped.close();
