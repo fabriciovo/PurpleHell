@@ -156,6 +156,8 @@ int Player::GetLevel()
 void Player::updateGold(int value)
 {
 	this->gold += value;
+	this->SaveInfoFile();
+
 }
 
 

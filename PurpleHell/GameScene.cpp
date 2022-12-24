@@ -40,6 +40,8 @@ void GameScene::initButtons()
 	this->buttonsItems.push_back(new Button(134, 84, 2, 5, &this->font, "Remove", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
 
 	this->buttonsShop.push_back(new Button(91, 84, 2, 5, &this->font, "Buy", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
+	this->buttonsShop.push_back(new Button(134, 84, 2, 5, &this->font, "Refresh", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
+
 
 	this->buttonStages.push_back(new Button(91, 20, 2, 5, &this->font, "Level 1", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
 	this->buttonStages.push_back(new Button(140, 20, 2, 5, &this->font, "Level x", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture3));
@@ -259,6 +261,13 @@ void GameScene::updateButtons()
 			this->buttonPressed = true;
 			this->buy();
 		}
+		if (this->buttonsShop[1]->isPressed() && !this->buttonPressed) {
+			this->buttonPressed = true;
+			if (this->player->getGold() >= 100) {
+				this->shop->Refresh();
+				this->player->updateGold(-100);
+			}
+		}
 	}
 }
 
@@ -299,8 +308,6 @@ void GameScene::renderTexts(sf::RenderTarget* target)
 	for (int i = 0; i < 4; i++) {
 		target->draw(texts[i]);
 	}
-
-
 }
 
 void GameScene::renderButtons(sf::RenderTarget* target)
@@ -338,10 +345,11 @@ void GameScene::renderButtons(sf::RenderTarget* target)
 			this->buttonStages[1]->render(target);
 		}
 	}
+	if (this->texts[2].getString() == "SHOP") {
+		this->buttonsShop[1]->render(target);
+	}
 	if (this->texts[2].getString() == "SHOP" && this->shop->GetSelectedHero() || this->shop->GetSelectedItem()) {
-		for (auto& it : this->buttonsShop) {
-			it->render(target);
-		}
+		this->buttonsShop[0]->render(target);
 		if (this->shop->GetSelectedHero())this->showMenuInfo(&this->textInfoMenu, this->shop->GetSelectedHero(), { 180, 72 }, target);
 		if (this->shop->GetSelectedItem())this->showMenuInfo(&this->textInfoMenu, this->shop->GetSelectedItem(), { 180, 72 }, target);
 
@@ -431,7 +439,6 @@ void GameScene::buy()
 	if (hero) if (!this->units->canRemoveHero()) return;
 	if (!this->player->CanBuy(item, hero)) return;
 
-
 	if (item && this->inventory->canPutItemInInventory()) {
 		this->inventory->setItem(item);
 		this->shop->RemoveItem();
@@ -439,15 +446,10 @@ void GameScene::buy()
 	}
 	if (hero && this->units->canRemoveHero()) {
 		this->units->setUnits(hero);
-
 		this->shop->RemoveItem();
-
 		this->units->Save();
 	}
-
-
 	this->player->SaveInfoFile();
-
 }
 
 void GameScene::sellHero()

@@ -14,9 +14,9 @@ void BattleScene::initButtons()
 	sf::Texture texture;
 	texture.loadFromFile("res/hud/button2.png");
 	this->buttons.push_back(new Button(280, 70, 75, 40, &this->font, "RUN", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture));
-	this->buttons.push_back(new Button(100, 5, 75, 40, &this->font, "ATTACK", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture));
-	this->buttons.push_back(new Button(150, 5, 75, 40, &this->font, "MAGIC", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture));
-	this->buttons.push_back(new Button(200, 5, 75, 40, &this->font, "ITEM", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture));
+	this->buttons.push_back(new Button(100, 170, 75, 40, &this->font, "ATTACK", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture));
+	this->buttons.push_back(new Button(150, 170, 75, 40, &this->font, "MAGIC", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture));
+	this->buttons.push_back(new Button(200, 170, 75, 40, &this->font, "ITEM", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture));
 	this->buttonEnd = new Button(150, 5, 75, 40, &this->font, "Exit", sf::Color::White, sf::Color::Black, sf::Color::Blue, texture);
 }
 
@@ -35,7 +35,7 @@ void BattleScene::initTexts()
 	turnText.setString(" - TURN - \n- PLAYER -");
 	turnText.setString(" - TURN - \n- PLAYER -");
 	turnText.setCharacterSize(18);
-	turnText.setPosition(135, 60);
+	turnText.setPosition(143, 60);
 
 	this->infoText = turnText;
 
@@ -48,12 +48,12 @@ void BattleScene::initTexts()
 	//Player Team
 	playerTeamSetting.setFont(this->font);
 	playerTeamSetting.setCharacterSize(14);
-	playerTeamSetting.setPosition(257, 4);
+	playerTeamSetting.setPosition(220, 4);
 
 	this->playerTeamTexts.push_back(playerTeamSetting);
-	playerTeamSetting.setPosition(257, 20);
+	playerTeamSetting.setPosition(220, 20);
 	this->playerTeamTexts.push_back(playerTeamSetting);
-	playerTeamSetting.setPosition(257, 30);
+	playerTeamSetting.setPosition(220, 30);
 	this->playerTeamTexts.push_back(playerTeamSetting);
 
 	//Enemy Team

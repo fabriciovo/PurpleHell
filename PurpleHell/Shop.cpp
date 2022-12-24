@@ -73,7 +73,6 @@ void Shop::RemoveItem()
 {
 	Hero* hero = this->GetSelectedHero();
 	Item* item = this->GetSelectedItem();
-
 	if (hero) {
 		for (int i = 0; i < this->maxArrayValues; i++) {
 			if (this->heroes[i] == hero) {
@@ -83,7 +82,6 @@ void Shop::RemoveItem()
 			}
 		}
 	}
-
 	if (item) {
 		for (int i = 0; i < this->maxArrayValues; i++) {
 			if (this->items[i] == item) {
@@ -93,14 +91,12 @@ void Shop::RemoveItem()
 			}
 		}
 	}
-
 }
 
 void Shop::Refresh()
 {
 	this->generateHeroes();
 	this->generateItems();
-
 }
 
 Shop::~Shop()
