@@ -22,7 +22,8 @@ Hero::Hero(float x, float y, std::string name, std::string job, int hp, int powe
 
 	this->originalX = x;
 	this->originalY = y;
-
+	
+	this->actionEffect = new Especial("slash");
 	this->animationComponent->addAnimation("IDLE", 90.f, 0, 0, 1, 0, 18, 18);
 }
 
@@ -54,7 +55,7 @@ Hero::~Hero()
 }
 void Hero::Special(Entity *entity)
 { 
-	this->spell = new Especial(this->special, entity, "slash");
+	this->spell = new Especial(this->special, entity, this->job);
 	entity->setDamage(6);
 	this->setCanUseSpecial(false);
 	this->setPlayed(true);
@@ -63,6 +64,8 @@ void Hero::Special(Entity *entity)
 
 void Hero::Action(Entity * entity)
 {
+	this->actionEffect->SetIsPlaying(true);
+	this->actionEffect->SetPosition(entity->getPosition().x, entity->getPosition().y);
 	entity->setDamage(this->getPower());
 	this->setPlayed(true);
 	this->setSelected(false);
@@ -75,6 +78,11 @@ Especial * Hero::GetSpell()
 	}
 	return nullptr;
 }
+Especial* Hero::GetAction()
+{
+	return this->actionEffect;
+}
+
 
 void Hero::UpdateAnimation(const float & dt)
 {

@@ -5,10 +5,7 @@ void BattleScene::initTextures()
 {
 	this->textureBackground.loadFromFile("res/backgrounds/battle.png");
 	this->background.setTexture(textureBackground);
-
 }
-
-
 void BattleScene::initButtons()
 {
 	sf::Texture texture;
@@ -122,7 +119,6 @@ BattleScene::~BattleScene()
 	for (auto& it : this->buttons) {
 		delete it;
 	}
-
 }
 
 //Updates
@@ -161,6 +157,7 @@ void BattleScene::updateButtons()
 				if (this->buttons[1]->isPressed()) {
 					if (!this->buttonPressed) {
 						this->buttonPressed = true;
+						this->timer = 100;
 						this->playerAttack();
 					}
 				}
@@ -214,18 +211,15 @@ void BattleScene::update(const float& dt)
 		this->player->update(mousePosView, dt);
 
 		if (this->ais.front()->checkDeads()) {
-			this->player->setTeamToTrue();
-			this->player->setSpecialToTrue();
-			this->playerIndex = 0;
-			this->ais.pop();
+				this->player->setTeamToTrue();
+				this->player->setSpecialToTrue();
+				this->playerIndex = 0;
+				this->ais.pop();
 		}
-
 		if (this->player->checkDeads()) {
 			this->winEnemy = true;
 		}
-
-
-		if (turn && !this->winEnemy ) {
+		if (turn && !this->winEnemy) {
 			if (this->player->checkPlayed()) {
 				if (this->playerIndex < this->player->teamSize()) {
 					if (this->player->getHero(this->playerIndex)->getHp() > 0) {
@@ -238,9 +232,8 @@ void BattleScene::update(const float& dt)
 			}
 			else {
 				turn = false;
-				this->timer = 200;
+				this->timer = 100;
 			}
-
 		}
 		else {
 			battleSystemEnemy(dt);
@@ -253,7 +246,8 @@ void BattleScene::update(const float& dt)
 	for (int key = 0; key < 7; key++) {
 		this->updateDamageText(dt, key);
 	}
-
+	this->timer -= dt;
+	std::cout << timer << std::endl;
 }
 
 //Renders
@@ -274,8 +268,10 @@ void BattleScene::render(sf::RenderTarget* target)
 	if (this->win || this->winEnemy) {
 		this->buttonEnd->render(target);
 	}
-	this->renderFade(target);
+	this->player->renderActions(target);
+	//this->ais.front()->renderActions(target);
 
+	this->renderFade(target);
 }
 
 void BattleScene::renderTexts(sf::RenderTarget* target)
@@ -302,7 +298,11 @@ void BattleScene::updateTexts()
 	{
 		if (this->player->getHero(i)->getName() != "slot") {
 			Hero* hero = this->player->getHero(i);
-			this->playerTeamTexts[i].setString(hero->getName() + " / " + " HP:" + std::to_string(hero->getHp()) +  " / MP:" + std::to_string(hero->CanUseEspecial()));
+			this->playerTeamTexts[i].setString(hero->getName()
+				+ " / "
+				+ " HP:"
+				+ std::to_string(hero->getHp())
+				+ " / MP:" + std::to_string(hero->CanUseEspecial()));
 		}
 	}
 	if (!this->ais.empty()) {
@@ -352,7 +352,7 @@ void BattleScene::enemyTurn()
 		}
 		else if (this->enemyTurnIndex == 2) {
 			this->enemyAttack();
-	
+
 		}
 	}
 
@@ -414,7 +414,6 @@ void BattleScene::battleSystemEnemy(const float& dt)
 		turn = true;
 	}
 
-	this->timer -= dt;
 }
 
 void BattleScene::playerReward()
@@ -468,7 +467,7 @@ void BattleScene::enemyAttack()
 	}
 	else {
 		enemy->Action(player);
-		this->damageTexts(0, player, "- " + std::to_string( enemy->getPower()));
+		this->damageTexts(0, player, "- " + std::to_string(enemy->getPower()));
 	}
 	this->enemyIndex++;
 }
@@ -478,9 +477,10 @@ void BattleScene::playerAttack()
 	Hero* player = this->player->getHero(this->playerIndex);
 	Enemy* enemy = this->ais.front()->getEnemy();
 	player->Action(enemy);
-
 	this->damageTexts(0, enemy, "- " + std::to_string(player->getPower()));
 	this->playerIndex++;
+	
+
 }
 
 

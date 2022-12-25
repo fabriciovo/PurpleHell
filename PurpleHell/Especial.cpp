@@ -1,28 +1,157 @@
 #include "Especial.h"
 
+void Especial::specialInit()
+{
+	if (this->job == "mage") {
+
+		switch (this->special)
+		{
+		case 1:
+			this->name = "Thunder";
+			this->description = "Deals damage to all enemies.";
+			break;
+		case 2:
+			this->name = "Fireball";
+			this->description = "Deals damage to one enemy and burn it";
+			break;
+		case 3:
+			this->name = "Waterfall";
+			this->description = "Deals extra damage to one enemy.";
+			break;
+		}
+	}
+	else if (this->job == "rogue") {
+		switch (this->special)
+		{
+		case 1:
+			this->name = "Steal";
+			this->description = "Deals damage to one enemy and steal gold";
+			break;
+		case 2:
+			this->name = "Poison Dagger";
+			this->description = "Deals damage to one enemy with a poison knife";
+			break;
+		case 3:
+			this->name = "Kick";
+			this->description = "Stun an enemy";
+			break;
+		}
+	}
+	else if (this->job == "knight") {
+		switch (this->special)
+		{
+		case 1:
+			this->name = "Double slash";
+			this->description = "Deals .";
+			break;
+		case 2:
+			this->name = "Rage";
+			this->description = "Deals x4 more damage";
+			break;
+		case 3:
+			this->name = "Kick";
+			this->description = "Stun an enemy.";
+			break;
+		}
+	}
+	else if (this->job == "demon hunter") {
+		switch (this->special)
+		{
+		case 1:
+			this->name = "Scars slash";
+			this->description = "Deals ";
+			break;
+		case 2:
+			this->name = "Drain Blood";
+			this->description = "Deals damage to one enemy with a poison knife.";
+			break;
+		case 3:
+			this->name = "Punch";
+			this->description = "Deals damage to one enemy.";
+			break;
+		}
+	}
+	else if (this->job == "warlock") {
+		switch (this->special)
+		{
+		case 1:
+			this->name = "Drain Life";
+			this->description = "Deals damage to one enemy and heal half of the damage.";
+			break;
+		case 2:
+			this->name = "Death Touch";
+			this->description = "Instant kill an enemy but you lost half of the life.";
+			break;
+		case 3:
+			this->name = "Curse";
+			this->description = "Deals curse damage to one enemy.";
+			break;
+		}
+	}
+	else if (this->job == "archer") {
+		switch (this->special)
+		{
+		case 1:
+			this->name = "Double slash";
+			this->description = "Deals ";
+			break;
+		case 2:
+			this->name = "Poison Dagger";
+			this->description = "Deals damage to one enemy with a poison knife";
+			break;
+		case 3:
+			this->name = "Kick";
+			this->description = "Stun an enemy";
+			break;
+		}
+	}
+}
+
 Especial::Especial()
 {
 
 }
-Especial::Especial(int i, Entity* entity, std::string name)
+Especial::Especial(std::string name)
 {
+	this->name = name;
 	this->texture = new sf::Texture();
-	this->texture->loadFromFile("res/img/Spells/" + name + ".png");
+	this->texture->loadFromFile("res/img/Effects/" + this->name + ".png");
+	this->CreateSprite(texture);
+	this->createAnimationComponent(*texture);
+	this->animationComponent->addAnimation(this->name + "_animation", 8, 0, 0, 4, 0, 16, 16);
+}
+Especial::Especial(int special, Entity* entity, std::string jobName)
+{
+	this->special = special;
+	this->job = jobName;
+	this->specialInit();
+	this->texture = new sf::Texture();
+	this->texture->loadFromFile("res/img/Effects/" + this->name + ".png");
 	this->CreateSprite(texture);
 	this->createAnimationComponent(*texture);
 	this->SetPosition(entity->getPosition().x, entity->getPosition().y);
-	this->SetScale(0.5f, 0.5f);
-	this->animationComponent->addAnimation(name + "_animation", 8, 0, 0, 6, 2, 196, 178);
+	this->animationComponent->addAnimation(this->name + "_animation", 8, 0, 0, 6, 2, 196, 178);
+}
+
+Especial::Especial(std::string name, Entity* entity)
+{
+	this->name = name;
+	this->texture = new sf::Texture();
+	this->texture->loadFromFile("res/img/Effects/" + this->name + ".png");
+	this->CreateSprite(texture);
+	this->createAnimationComponent(*texture);
+	this->SetPosition(entity->getPosition().x, entity->getPosition().y);
+	this->animationComponent->addAnimation(this->name + "_animation", 8, 0, 0, 4, 0, 16, 16);
 }
 
 Especial::~Especial()
 {
-	delete this->sprite;
-	delete this->texture;
-	delete this->animationComponent;
+	//delete this->sprite;
+	//delete this->texture;
+	//delete this->animationComponent;
 }
 
-void Especial::Thunder(Entity * entity[5])
+void Especial::Thunder(Entity* entity[5])
 {
 
 }
@@ -45,15 +174,33 @@ void Especial::Special(Entity* entity)
 {
 }
 
+void Especial::SetIsPlaying(bool value)
+{
+	 this->isPlaying = value;
+}
+
+bool Especial::GetIsPlaying()
+{
+	return this->isPlaying;
+}
+
 
 
 
 void Especial::updateAnimation(const float& dt)
 {
-	std::string animation = this->name + "_animation";
-	this->animationComponent->play(animation, dt);
-	if (this->animationComponent->isDone(animation) && this->shouldDestroy) {
-		this->animationComponent->~AnimationComponent();
+	if (isPlaying) {
+		std::string animation = this->name + "_animation";
+		this->animationComponent->play(animation, dt);
+		if (this->animationComponent->isDone(animation)) {
+			isPlaying = false;
+		}
+
 	}
+}
+
+std::string Especial::GetDescription()
+{
+	return this->description;
 }
 

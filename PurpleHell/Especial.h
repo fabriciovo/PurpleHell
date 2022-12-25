@@ -7,10 +7,19 @@ class Especial : public Entity
 
 {
 private:
-	bool shouldDestroy = false;
+	bool shouldDestroy = true;
+	bool isPlaying = false;
+
+	std::string description;
+	std::string job;
+	int special = 0;
+	void specialInit();
 public:
 	Especial();
-	Especial(int i, Entity *entity, std::string name);
+	Especial(int i, Entity *entity, std::string jobName);
+	Especial(std::string name, Entity * entity);
+	Especial(std::string name);
+
 	virtual ~Especial();
 
 	void Thunder(Entity *entity[5]);
@@ -19,13 +28,18 @@ public:
 
 	void Action(Entity* entity);
 	void Special(Entity *entity);
+	void SetIsPlaying(bool value);
+	bool GetIsPlaying();
 	void updateAnimation(const float &dt);
 
-	enum Especials
+	std::string GetDescription();
+
+
+	enum mage_specials
 	{
-		especial_thunder =  0,
-		especial_fireball = 1,
-		especial_megaslash =2
+		mage_thunder =  0,
+		mage_fireball = 1,
+		mage_waterfall = 2,
 	};
 
 	enum CombatBuffs
@@ -45,7 +59,8 @@ public:
 		debuff_normal = 0,
 		debuff_poison = 1,
 		debuff_fire = 2,
-		debuff_stun = 3
+		debuff_stun = 3,
+		debuff_blood = 4
 	};
 
 

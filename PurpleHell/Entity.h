@@ -35,7 +35,6 @@ protected:
 	bool selected = false;
 	bool played = false;
 	bool canUseSpecial = true;
-
 	AnimationComponent* animationComponent;
 
 public:

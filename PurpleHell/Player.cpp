@@ -40,8 +40,19 @@ void Player::render(sf::RenderTarget* target)
 	for (int i = 0; i < this->maxUnits; i++) {
 		if (this->team[i]) {
 			this->team[i]->render(target);
+		}
+	}
+}
+
+void Player::renderActions(sf::RenderTarget* target)
+{
+	for (int i = 0; i < this->maxUnits; i++) {
+		if (this->team[i]) {
 			if (this->team[i]->GetSpell()) {
 				this->team[i]->GetSpell()->render(target);
+			}
+			if (this->team[i]->GetAction()->GetIsPlaying()) {
+				this->team[i]->GetAction()->render(target);
 			}
 		}
 	}
@@ -62,6 +73,9 @@ void Player::update(sf::Vector2f mousePos, const float& dt)
 			}
 			if (this->team[i]->GetSpell()) {
 				this->team[i]->GetSpell()->updateAnimation(dt);
+			}
+			if (this->team[i]->GetAction()->GetIsPlaying()) {
+				this->team[i]->GetAction()->updateAnimation(dt);
 			}
 
 			this->team[i]->UpdateAnimation(dt);

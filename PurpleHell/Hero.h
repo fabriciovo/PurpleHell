@@ -10,7 +10,7 @@ private:
 	bool attack;
 	int originalX;
 	int originalY;
-
+	Especial* actionEffect;
 	Especial *spell;
 	bool viewStatus;
 
@@ -25,7 +25,7 @@ public:
 	void SetViewStatus(bool);
 	bool GetViewStatus();
 
-
+	Especial* GetAction();
 	Especial * GetSpell();
 
 	virtual ~Hero();
