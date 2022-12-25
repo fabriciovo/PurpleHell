@@ -23,6 +23,7 @@ public:
 	void updateEnemies(sf::Vector2f mousePos, const float &dt);
 	void battlePosition();
 	void setTeamToPlay();
+	void renderActions(sf::RenderTarget* target);
 
 	bool selectedEnemy();
 	bool enemyPlayed();

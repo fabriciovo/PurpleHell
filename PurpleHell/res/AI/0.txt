@@ -1,6 +1,6 @@
-monster01 200 2
-monster01 20 2
-monster01 300 2
+monster01 2000 2
+monster01 2000 2
+monster01 3000 2
 slot 0 0
 slot 0 0
 slot 0 0

@@ -269,7 +269,7 @@ void BattleScene::render(sf::RenderTarget* target)
 		this->buttonEnd->render(target);
 	}
 	this->player->renderActions(target);
-	//this->ais.front()->renderActions(target);
+	this->ais.front()->renderActions(target);
 
 	this->renderFade(target);
 }

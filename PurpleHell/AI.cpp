@@ -8,7 +8,7 @@ AI::AI()
 
 AI::AI(int i)
 {
-	std::ifstream ifsEnemies("res/AI/"+std::to_string(i)+".txt");
+	std::ifstream ifsEnemies("res/AI/" + std::to_string(i) + ".txt");
 	ArquivoEnemies(ifsEnemies, 0);
 }
 
@@ -20,10 +20,10 @@ AI::~AI()
 }
 
 //Update
-void AI::updateEnemies(sf::Vector2f mousePos, const float &dt)
+void AI::updateEnemies(sf::Vector2f mousePos, const float& dt)
 {
 	for (int i = 0; i < this->maxUnits; i++) {
-		if (this->team[i]){
+		if (this->team[i]) {
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 				if (this->team[i]->getSprite()->getGlobalBounds().contains(mousePos) && this->team[i]->getName() != "slot") {
 					this->team[i]->setSelected(true);
@@ -32,14 +32,20 @@ void AI::updateEnemies(sf::Vector2f mousePos, const float &dt)
 					//this->team[i]->setSelected(false);
 				}
 			}
-				this->team[i]->update(mousePos, dt);
-				this->team[i]->updateAnimation(dt);
+			if (this->team[i]->GetSpell()) {
+				this->team[i]->GetSpell()->updateAnimation(dt);
 			}
+			if (this->team[i]->GetAction()->GetIsPlaying()) {
+				this->team[i]->GetAction()->updateAnimation(dt);
+			}
+			this->team[i]->update(mousePos, dt);
+			this->team[i]->updateAnimation(dt);
 		}
+	}
 }
 
 //Render
-void AI::renderEnemies(sf::RenderTarget * target)
+void AI::renderEnemies(sf::RenderTarget* target)
 {
 	for (int i = 0; i < this->maxUnits; i++) {
 		if (this->team[i]->getHp() > 0) {
@@ -53,10 +59,10 @@ void AI::renderEnemies(sf::RenderTarget * target)
 void AI::battlePosition()
 {
 	for (int i = 0; i < this->maxUnits; i++) {
-			if (this->team[i]) {
-				this->team[i]->SetPosition(55 + (35 * i), 152);
-			}
+		if (this->team[i]) {
+			this->team[i]->SetPosition(55 + (35 * i), 152);
 		}
+	}
 }
 
 bool AI::selectedEnemy()
@@ -85,15 +91,15 @@ Enemy* AI::getTeam(int i)
 	return this->team[i];
 }
 
-bool AI::checkDeads(){
-		for (int i = 0; i < this->maxUnits; i++) {
-			if (this->team[i])
-				if (this->team[i]->getHp() > 0) {
-					return false;
-					break;
-				}
-		}
-		return true;
+bool AI::checkDeads() {
+	for (int i = 0; i < this->maxUnits; i++) {
+		if (this->team[i])
+			if (this->team[i]->getHp() > 0) {
+				return false;
+				break;
+			}
+	}
+	return true;
 }
 
 int AI::NumberOfEnemies()
@@ -114,6 +120,20 @@ void AI::setTeamToPlay()
 		if (this->team[i] != nullptr) {
 			if (this->team[i]->getName() != "slot" && this->team[i]->getHp() > 0) {
 				this->team[i]->setPlayed(false);
+			}
+		}
+	}
+}
+
+void AI::renderActions(sf::RenderTarget* target)
+{
+	for (int i = 0; i < this->maxUnits; i++) {
+		if (this->team[i]) {
+			if (this->team[i]->GetSpell()) {
+				this->team[i]->GetSpell()->render(target);
+			}
+			if (this->team[i]->GetAction()->GetIsPlaying()) {
+				this->team[i]->GetAction()->render(target);
 			}
 		}
 	}
@@ -144,7 +164,7 @@ bool AI::enemyPlayed()
 }
 
 //Arquivos
-void AI::ArquivoEnemies(std::ifstream &ifsEnemies, int i)
+void AI::ArquivoEnemies(std::ifstream& ifsEnemies, int i)
 {
 	std::string name = " ";
 	int hp = 0, power = 0;
@@ -156,12 +176,12 @@ void AI::ArquivoEnemies(std::ifstream &ifsEnemies, int i)
 		{
 
 			ifsEnemies >> name >> hp >> power;
-			sf::Texture *tex;
+			sf::Texture* tex;
 			tex = new sf::Texture();
 			tex->loadFromFile("res/img/AI/" + name + ".png");
 			this->team[i] = (new Enemy(0, 0, name, hp, power, tex));
 			i++;
-		
+
 			ArquivoEnemies(ifsEnemies, i);
 		}
 		else {

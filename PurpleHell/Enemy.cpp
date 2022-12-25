@@ -14,18 +14,8 @@ Enemy::Enemy(float x, float y, std::string name, int hp, int power, sf::Texture*
 	this->CreateSprite(texture);
 	this->SetPosition(x, y);
 	this->createAnimationComponent(*texture);
+	this->actionEffect = new Especial("slash");
 	this->animationComponent->addAnimation("IDLE_MONSTER", 90.f, 0, 0, 1, 0, 16, 16);
-}
-
-Enemy::Enemy(std::string name, int hp, int power, sf::Texture* texture)
-{
-	this->name = name;
-	this->hp = hp;
-	this->power = power;
-	this->CreateSprite(texture);
-	this->createAnimationComponent(*texture);
-	this->animationComponent->addAnimation("IDLE_MONSTER", 90.f, 0, 0, 1, 0, 16, 16);
-
 }
 
 Enemy::~Enemy()
@@ -36,6 +26,8 @@ Enemy::~Enemy()
 
 void Enemy::Action(Entity* entity)
 {		
+	this->actionEffect->SetIsPlaying(true);
+	this->actionEffect->SetPosition(entity->getPosition().x, entity->getPosition().y);
 	entity->setDamage(this->power);
 	this->setPlayed(true);
 	entity->setSelected(false);
@@ -46,6 +38,20 @@ void Enemy::Action(Entity* entity)
 void Enemy::Special(Entity *entity)
 {
 }
+
+Especial* Enemy::GetSpell()
+{
+	if (this->spell != nullptr) {
+		return this->spell;
+	}
+	return nullptr;
+}
+
+Especial* Enemy::GetAction()
+{
+	return this->actionEffect;
+}
+
 
 void Enemy::update(sf::Vector2f mousePos, const float& dt)
 {	
