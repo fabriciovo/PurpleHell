@@ -247,7 +247,6 @@ void BattleScene::update(const float& dt)
 		this->updateDamageText(dt, key);
 	}
 	this->timer -= dt;
-	std::cout << timer << std::endl;
 }
 
 //Renders
@@ -259,6 +258,7 @@ void BattleScene::render(sf::RenderTarget* target)
 	target->draw(this->background);
 	target->draw(this->hudSprite);
 	this->player->getEquipedItems()->renderEquipedItems(target);
+
 	this->renderTexts(target);
 	this->player->render(target);
 	if (!this->ais.empty()) {
@@ -270,6 +270,7 @@ void BattleScene::render(sf::RenderTarget* target)
 	}
 	this->player->renderActions(target);
 	this->ais.front()->renderActions(target);
+	this->player->getEquipedItems()->renderActions(target);
 
 	this->renderFade(target);
 }

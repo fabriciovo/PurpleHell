@@ -113,16 +113,16 @@ Especial::Especial()
 {
 
 }
-Especial::Especial(std::string name)
+Especial::Especial(std::string name,int frames, int timer,  int sizeX, int sizeY)
 {
 	this->name = name;
 	this->texture = new sf::Texture();
 	this->texture->loadFromFile("res/img/Effects/" + this->name + ".png");
 	this->CreateSprite(texture);
 	this->createAnimationComponent(*texture);
-	this->animationComponent->addAnimation(this->name + "_animation", 4, 0, 0, 6, 0, 16, 16);
+	this->animationComponent->addAnimation(this->name + "_animation", timer, 0, 0, frames, 0, sizeX, sizeY);
 }
-Especial::Especial(std::string jobName, int special)
+Especial::Especial( int special, std::string jobName)
 {
 	this->special = special;
 	this->job = jobName;

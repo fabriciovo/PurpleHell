@@ -15,6 +15,7 @@ public:
 	EquipedItems();
 
 	void renderEquipedItems(sf::RenderTarget *target);
+	void renderActions(sf::RenderTarget* target);
 	void updateEquipedItems(sf::Vector2f mousePos,const float &dt);
 	void removeItem(Item * equipedItem);
 	void removeItem(int equipedItemId);

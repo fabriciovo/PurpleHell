@@ -17,9 +17,9 @@ private:
 	void specialInit();
 public:
 	Especial();
-	Especial(std::string jobName, int special);
+	Especial(int special, std::string jobName);
 	Especial(std::string name, Entity * entity);
-	Especial(std::string name);
+	Especial(std::string name, int frames = 6 , int timer = 4, int sizeX = 16, int sizeY = 16);
 
 	virtual ~Especial();
 

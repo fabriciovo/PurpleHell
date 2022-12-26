@@ -2,9 +2,12 @@
 #define ITEM_H
 
 #include "Entity.h"
+#include "Especial.h"
 
 class Item : public Entity
 {
+private:
+	Especial* actionEffect;
 public:
 	Item();
 	Item(int x, int y, std::string name, int hp, int power, int special, sf::Texture* texture);
@@ -18,6 +21,8 @@ public:
 	void MagicAxe(Entity *entity);
 	void Sword(Entity *entity);
 	void Knife(Entity *entity);
+
+	Especial* GetAction();
 
 	enum Items
 	{

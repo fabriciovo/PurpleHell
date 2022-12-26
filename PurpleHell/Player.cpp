@@ -78,9 +78,7 @@ void Player::update(sf::Vector2f mousePos, const float& dt)
 				this->team[i]->GetAction()->updateAnimation(dt);
 			}
 
-			if (this->team[i]->getHp() > 0) {
-				this->team[i]->UpdateAnimation(dt);
-			}
+			this->team[i]->UpdateAnimation(dt);
 			this->team[i]->update(mousePos, dt);
 
 		}
@@ -205,7 +203,7 @@ bool Player::CanBuy(Item* item, Hero* hero)
 {
 	int tempGold = 0;
 	int totalGold = 0;
-	
+
 	if (item) {
 		tempGold += 10;
 	}

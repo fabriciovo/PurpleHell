@@ -6,7 +6,7 @@ Hero::Hero()
 {
 }
 
-Hero::Hero(float x, float y, std::string name, std::string job, int hp, int power,int special, sf::Texture* texture)
+Hero::Hero(float x, float y, std::string name, std::string job, int hp, int power, int special, sf::Texture* texture)
 {
 	this->name = name;
 	this->job = job;
@@ -22,9 +22,9 @@ Hero::Hero(float x, float y, std::string name, std::string job, int hp, int powe
 
 	this->originalX = x;
 	this->originalY = y;
-	
+
 	this->actionEffect = new Especial("slash");
-	this->spell = new Especial(this->job, special);
+	this->spell = new Especial(special, this->job);
 	this->animationComponent->addAnimation("IDLE", 90.f, 0, 0, 1, 0, 18, 18);
 }
 
@@ -54,17 +54,17 @@ Hero::~Hero()
 {
 	delete this->spell;
 }
-void Hero::Special(Entity *entity)
-{ 
+void Hero::Special(Entity* entity)
+{
 	this->spell->SetIsPlaying(true);
 	this->spell->SetPosition(entity->getPosition().x, entity->getPosition().y + this->spell->GetOffsetY());
 	entity->setDamage(6);
 	this->setCanUseSpecial(false);
 	this->setPlayed(true);
-	this->setSelected(false);	
+	this->setSelected(false);
 }
 
-void Hero::Action(Entity * entity)
+void Hero::Action(Entity* entity)
 {
 	this->actionEffect->SetIsPlaying(true);
 	this->actionEffect->SetPosition(entity->getPosition().x, entity->getPosition().y);
@@ -73,7 +73,7 @@ void Hero::Action(Entity * entity)
 	this->setSelected(false);
 }
 
-Especial * Hero::GetSpell()
+Especial* Hero::GetSpell()
 {
 	return this->spell;
 }
@@ -83,9 +83,11 @@ Especial* Hero::GetAction()
 }
 
 
-void Hero::UpdateAnimation(const float & dt)
+void Hero::UpdateAnimation(const float& dt)
 {
-	this->animationComponent->play("IDLE", dt);	
+	if (this->getHp() > 0) {
+		this->animationComponent->play("IDLE", dt);
+	}
 }
 
 void Hero::SetViewStatus(bool value)
