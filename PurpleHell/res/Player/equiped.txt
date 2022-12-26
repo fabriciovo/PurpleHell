@@ -1,4 +1,4 @@
-slot 0 0 0
+magicAxe 1 25 5
 magicAxe 1 25 5
 magicAxe 1 25 5
 magicAxe 1 25 5

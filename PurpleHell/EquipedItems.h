@@ -28,7 +28,7 @@ public:
 	int getItemId();
 
 	Item *getItem();
-	Entity *getItemById(int i);
+	Item *getItemById(int i);
 
 	virtual ~EquipedItems();
 };

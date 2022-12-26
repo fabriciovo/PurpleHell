@@ -183,7 +183,11 @@ void BattleScene::updateButtons()
 			if (this->buttons[3]->isPressed()) {
 				if (!this->buttonPressed) {
 					this->buttonPressed = true;
-					this->useItem();
+					std::thread m_thread = std::thread([this]() {
+						std::cout << "Hello from thread function!" << std::endl;
+						this->useItem();
+						});
+					m_thread.join();
 				}
 			}
 		}
@@ -206,20 +210,22 @@ void BattleScene::update(const float& dt)
 	this->updateTexts();
 	this->updateButtons();
 
+	this->player->update(mousePosView, dt);
+
 	if (!this->ais.empty()) {
 		this->ais.front()->updateEnemies(mousePosView, dt);
 		this->ais.front()->battlePosition();
-		this->player->update(mousePosView, dt);
-
+		
 		if (this->ais.front()->checkDeads()) {
-				this->player->setTeamToTrue();
-				this->player->setSpecialToTrue();
-				this->playerIndex = 0;
-				this->ais.pop();
+			this->player->setTeamToTrue();
+			this->player->setSpecialToTrue();
+			this->playerIndex = 0;
+			this->ais.pop();
 		}
 		if (this->player->checkDeads()) {
 			this->winEnemy = true;
 		}
+
 		if (turn && !this->winEnemy) {
 			if (this->player->checkPlayed()) {
 				if (this->playerIndex < this->player->teamSize()) {
@@ -264,13 +270,14 @@ void BattleScene::render(sf::RenderTarget* target)
 	this->player->render(target);
 	if (!this->ais.empty()) {
 		this->renderButtons(target);
+		this->ais.front()->renderActions(target);
 		this->ais.front()->renderEnemies(target);
 	}
 	if (this->win || this->winEnemy) {
 		this->buttonEnd->render(target);
 	}
 	this->player->renderActions(target);
-	this->ais.front()->renderActions(target);
+
 	this->player->getEquipedItems()->renderActions(target);
 
 	this->renderFade(target);
@@ -383,16 +390,11 @@ void BattleScene::useItem()
 {
 	int itemId = this->player->getEquipedItems()->getItemId();
 	this->player->getEquipedItems()->getItem()->Action(this->player->getHero(playerIndex));
-
-	/*this->player->getEquipedItems()->removeItem(itemId);
-	this->player->getEquipedItems()->save();*/
-	playerIndex++;
-}
-
-void BattleScene::playerActionItem()
-{
-	
-	this->player->getEquipedItems()->getItem()->Action(this->player->getHero(playerIndex));
+	if (!this->player->getEquipedItems()->getItemById(itemId)->GetAction()->GetIsPlaying()) {
+		this->player->getEquipedItems()->removeItem(itemId);
+		this->player->getEquipedItems()->save();
+		playerIndex++;
+	}
 }
 
 void BattleScene::renderButtons(sf::RenderTarget* target)
@@ -491,7 +493,7 @@ void BattleScene::playerAttack()
 	player->Action(enemy);
 	this->damageTexts(0, enemy, "- " + std::to_string(player->getPower()));
 	this->playerIndex++;
-	
+
 
 }
 

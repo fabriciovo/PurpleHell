@@ -62,7 +62,7 @@ void Item::useItem(int i, Entity * entity)
 	}
 	this->actionEffect->SetPosition(entity->getPosition().x+1, entity->getPosition().y-14);
 	this->actionEffect->SetIsPlaying(true);
-	this->selected = false;
+
 
 }
 
@@ -82,7 +82,6 @@ void Item::Sword(Entity *entity)
 
 void Item::MagicAxe(Entity *entity)
 {
-
 	entity->setPower(entity->getPower() + this->getPower());
 	entity->setPlayed(true);
 	entity->setSelected(false);

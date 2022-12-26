@@ -81,8 +81,6 @@ public:
 	void damageTexts(int key, Entity* entity, std::string text);
 	void updateDamageText(const float& dt, int key);
 	void useItem();
-	void playerActionItem();
-
 };
 
 #endif // !BATTLESTATE_H

@@ -99,7 +99,7 @@ Item* EquipedItems::getItem()
 
 }
 
-Entity* EquipedItems::getItemById(int i)
+Item* EquipedItems::getItemById(int i)
 {
 	return this->items[i];
 }
