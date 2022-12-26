@@ -131,6 +131,7 @@ Hero* Player::getHero(int i)
 
 Hero* Player::getRandomHero()
 {
+	if (this->checkDeads()) return nullptr;
 	int heroIndex = rand() % 3;
 
 

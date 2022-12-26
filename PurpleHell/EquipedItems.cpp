@@ -39,7 +39,7 @@ void EquipedItems::updateEquipedItems(sf::Vector2f mousePos,const float &dt)
 				this->items[i]->setSelected(true);
 				}
 				else {
-				 this->items[i]->setSelected(false);
+				 //this->items[i]->setSelected(false);
 				}
 			}
 		this->items[i]->SetPosition(93 + (25 * i), 118);

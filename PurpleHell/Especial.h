@@ -16,7 +16,7 @@ private:
 	void specialInit();
 public:
 	Especial();
-	Especial(int i, Entity *entity, std::string jobName);
+	Especial(std::string jobName, int special);
 	Especial(std::string name, Entity * entity);
 	Especial(std::string name);
 

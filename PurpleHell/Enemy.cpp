@@ -28,9 +28,9 @@ void Enemy::Action(Entity* entity)
 {		
 	this->actionEffect->SetIsPlaying(true);
 	this->actionEffect->SetPosition(entity->getPosition().x, entity->getPosition().y);
+	entity->setSelected(false);
 	entity->setDamage(this->power);
 	this->setPlayed(true);
-	entity->setSelected(false);
 	this->setSelected(false);
 	
 }

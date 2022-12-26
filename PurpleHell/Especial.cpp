@@ -118,9 +118,9 @@ Especial::Especial(std::string name)
 	this->texture->loadFromFile("res/img/Effects/" + this->name + ".png");
 	this->CreateSprite(texture);
 	this->createAnimationComponent(*texture);
-	this->animationComponent->addAnimation(this->name + "_animation", 8, 0, 0, 4, 0, 16, 16);
+	this->animationComponent->addAnimation(this->name + "_animation", 4, 0, 0, 6, 0, 16, 16);
 }
-Especial::Especial(int special, Entity* entity, std::string jobName)
+Especial::Especial(std::string jobName, int special)
 {
 	this->special = special;
 	this->job = jobName;
@@ -129,8 +129,7 @@ Especial::Especial(int special, Entity* entity, std::string jobName)
 	this->texture->loadFromFile("res/img/Effects/" + this->name + ".png");
 	this->CreateSprite(texture);
 	this->createAnimationComponent(*texture);
-	this->SetPosition(entity->getPosition().x, entity->getPosition().y);
-	this->animationComponent->addAnimation(this->name + "_animation", 8, 0, 0, 6, 2, 196, 178);
+	this->animationComponent->addAnimation(this->name + "_animation", 8, 0, 0, 6, 2, 16, 16);
 }
 
 Especial::Especial(std::string name, Entity* entity)

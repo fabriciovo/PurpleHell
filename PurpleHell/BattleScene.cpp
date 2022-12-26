@@ -128,7 +128,7 @@ void BattleScene::updateButtons()
 		it->update(this->mousePosView);
 	}
 
-	if (this->buttons[0]->isPressed()) {
+	if (this->buttons[0]->isPressed() && !this->player->checkDeads()) {
 		this->endScene();
 	}
 
@@ -388,7 +388,9 @@ void BattleScene::useItem()
 
 void BattleScene::renderButtons(sf::RenderTarget* target)
 {
-	this->buttons[0]->render(target);
+	if (!this->player->checkDeads()) {
+		this->buttons[0]->render(target);
+	}
 
 	if (turn && this->ais.front()->selectedEnemy()) {
 		this->buttons[1]->render(target);
@@ -455,6 +457,7 @@ void BattleScene::enemyAttack()
 {
 	//this->ais.front()->getTeam(this->enemyIndex)->Action(player);
 	Hero* player = this->player->getRandomHero();
+	if (!player) return;
 	Enemy* enemy = this->ais.front()->getTeam(this->enemyIndex);
 
 	std::srand(time(NULL));
