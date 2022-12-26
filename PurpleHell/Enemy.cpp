@@ -15,6 +15,7 @@ Enemy::Enemy(float x, float y, std::string name, int hp, int power, sf::Texture*
 	this->SetPosition(x, y);
 	this->createAnimationComponent(*texture);
 	this->actionEffect = new Especial("slash");
+	this->spell = new Especial("slash");
 	this->animationComponent->addAnimation("IDLE_MONSTER", 90.f, 0, 0, 1, 0, 16, 16);
 }
 
@@ -41,10 +42,7 @@ void Enemy::Special(Entity *entity)
 
 Especial* Enemy::GetSpell()
 {
-	if (this->spell != nullptr) {
-		return this->spell;
-	}
-	return nullptr;
+	return this->spell;
 }
 
 Especial* Enemy::GetAction()

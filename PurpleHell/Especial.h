@@ -9,7 +9,8 @@ class Especial : public Entity
 private:
 	bool shouldDestroy = true;
 	bool isPlaying = false;
-
+	int offsetx = 0;
+	int offsety = 0;
 	std::string description;
 	std::string job;
 	int special = 0;
@@ -31,9 +32,11 @@ public:
 	void SetIsPlaying(bool value);
 	bool GetIsPlaying();
 	void updateAnimation(const float &dt);
-
+	void createAnimation(int start_frame_x, int start_frame_y, int frames_x, int frames_y, int width, int height, int offsetx, int offsety);
 	std::string GetDescription();
 
+	int GetOffsetX();
+	int GetOffsetY();
 
 	enum mage_specials
 	{

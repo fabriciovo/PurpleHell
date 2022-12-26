@@ -7,8 +7,10 @@ void Especial::specialInit()
 		switch (this->special)
 		{
 		case 1:
-			this->name = "Thunder";
+			this->name = "thunder";
 			this->description = "Deals damage to all enemies.";
+			this->createAnimation(0, 0, 4, 0, 16, 64, 0, -48);
+			
 			break;
 		case 2:
 			this->name = "Fireball";
@@ -125,11 +127,6 @@ Especial::Especial(std::string jobName, int special)
 	this->special = special;
 	this->job = jobName;
 	this->specialInit();
-	this->texture = new sf::Texture();
-	this->texture->loadFromFile("res/img/Effects/" + this->name + ".png");
-	this->CreateSprite(texture);
-	this->createAnimationComponent(*texture);
-	this->animationComponent->addAnimation(this->name + "_animation", 8, 0, 0, 6, 2, 16, 16);
 }
 
 Especial::Especial(std::string name, Entity* entity)
@@ -203,3 +200,25 @@ std::string Especial::GetDescription()
 	return this->description;
 }
 
+int Especial::GetOffsetX()
+{
+	return this->offsetx;
+}
+
+int Especial::GetOffsetY()
+{
+	return this->offsety;
+}
+
+
+void Especial::createAnimation(int start_frame_x, int start_frame_y, int frames_x, int frames_y, int width, int height, int offsetx, int offsety)
+{
+	this->offsetx = offsetx;
+	this->offsety = offsety;
+	this->texture = new sf::Texture();
+	this->texture->loadFromFile("res/img/Effects/" + this->name + ".png");
+	this->CreateSprite(texture);
+	this->createAnimationComponent(*texture);
+	this->animationComponent->addAnimation(this->name + "_animation", 4, start_frame_x, start_frame_y, frames_x, frames_y, width, height);
+
+}

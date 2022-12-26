@@ -48,7 +48,7 @@ void Player::renderActions(sf::RenderTarget* target)
 {
 	for (int i = 0; i < this->maxUnits; i++) {
 		if (this->team[i]) {
-			if (this->team[i]->GetSpell()) {
+			if (this->team[i]->GetSpell()->GetIsPlaying()) {
 				this->team[i]->GetSpell()->render(target);
 			}
 			if (this->team[i]->GetAction()->GetIsPlaying()) {
@@ -71,14 +71,16 @@ void Player::update(sf::Vector2f mousePos, const float& dt)
 					this->team[i]->setSelected(false);
 				}
 			}
-			if (this->team[i]->GetSpell()) {
+			if (this->team[i]->GetSpell()->GetIsPlaying()) {
 				this->team[i]->GetSpell()->updateAnimation(dt);
 			}
 			if (this->team[i]->GetAction()->GetIsPlaying()) {
 				this->team[i]->GetAction()->updateAnimation(dt);
 			}
 
-			this->team[i]->UpdateAnimation(dt);
+			if (this->team[i]->getHp() > 0) {
+				this->team[i]->UpdateAnimation(dt);
+			}
 			this->team[i]->update(mousePos, dt);
 
 		}
