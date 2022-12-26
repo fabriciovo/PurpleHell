@@ -1,4 +1,5 @@
 #include "Especial.h"
+#include <thread>
 
 void Especial::specialInit()
 {
@@ -180,18 +181,22 @@ bool Especial::GetIsPlaying()
 	return this->isPlaying;
 }
 
-
-
+void Especial::animationDone()
+{
+	std::string animation = this->name + "_animation";
+	if (this->animationComponent->isDone(animation)) {
+		this->isPlaying = false;
+	}
+}
 
 void Especial::updateAnimation(const float& dt)
 {
-	if (isPlaying) {
+	if (this->isPlaying) {
 		std::string animation = this->name + "_animation";
 		this->animationComponent->play(animation, dt);
 		if (this->animationComponent->isDone(animation)) {
-			isPlaying = false;
+			this->isPlaying = false;
 		}
-
 	}
 }
 
@@ -222,3 +227,5 @@ void Especial::createAnimation(int start_frame_x, int start_frame_y, int frames_
 	this->animationComponent->addAnimation(this->name + "_animation", 4, start_frame_x, start_frame_y, frames_x, frames_y, width, height);
 
 }
+
+

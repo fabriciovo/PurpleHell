@@ -13,7 +13,7 @@ Item::Item(int x, int y, std::string name,int hp,int power, int special, sf::Tex
 	this->power = power;
 	this->special = special;
 	this->selected = false;
-	this->actionEffect = new Especial("item", 13, 8, 16, 28);
+	this->actionEffect = new Especial("item", 13, 8, 16, 32);
 	this->CreateSprite(texture);
 	this->SetPosition(x, y);
 	this->createAnimationComponent(*texture);
@@ -60,6 +60,8 @@ void Item::useItem(int i, Entity * entity)
 	default:
 		break;
 	}
+	this->actionEffect->SetPosition(entity->getPosition().x+1, entity->getPosition().y-14);
+	this->actionEffect->SetIsPlaying(true);
 	this->selected = false;
 
 }
@@ -80,10 +82,7 @@ void Item::Sword(Entity *entity)
 
 void Item::MagicAxe(Entity *entity)
 {
-	this->actionEffect->SetPosition(entity->getPosition().x , entity->getPosition().y);
-	this->actionEffect->SetIsPlaying(true);
-	std::cout << this->actionEffect->getPosition().x << std::endl;
-	std::cout << entity->getPosition().x << std::endl;
+
 	entity->setPower(entity->getPower() + this->getPower());
 	entity->setPlayed(true);
 	entity->setSelected(false);

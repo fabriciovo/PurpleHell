@@ -33,6 +33,7 @@ void EquipedItems::renderActions(sf::RenderTarget* target)
 	for (int i = 0; i < this->maxItems; i++) {
 		if (this->items[i]->GetAction()) {
 			if (this->items[i]->GetAction()->GetIsPlaying()) {
+				std::cout << "RENDER" << std::endl;
 				this->items[i]->GetAction()->render(target);
 			}
 		}
@@ -54,6 +55,7 @@ void EquipedItems::updateEquipedItems(sf::Vector2f mousePos, const float& dt)
 				}
 			}
 			if (this->items[i]->GetAction()->GetIsPlaying()) {
+				std::cout << "UPDATE" << std::endl;
 				this->items[i]->GetAction()->updateAnimation(dt);
 			}
 			this->items[i]->SetPosition(93 + (25 * i), 118);

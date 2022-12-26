@@ -33,41 +33,11 @@ public:
 	bool GetIsPlaying();
 	void updateAnimation(const float &dt);
 	void createAnimation(int start_frame_x, int start_frame_y, int frames_x, int frames_y, int width, int height, int offsetx, int offsety);
+	void animationDone();
 	std::string GetDescription();
 
 	int GetOffsetX();
 	int GetOffsetY();
-
-	enum mage_specials
-	{
-		mage_thunder =  0,
-		mage_fireball = 1,
-		mage_waterfall = 2,
-	};
-
-	enum CombatBuffs
-	{
-		combatbuff_normal = 0,
-		combatbuff_normal_shield = 1,
-	};
-
-	enum Buffs
-	{
-		buff_normal = 0,
-		buff_heal = 1,
-	};
-
-	enum Debuffs
-	{
-		debuff_normal = 0,
-		debuff_poison = 1,
-		debuff_fire = 2,
-		debuff_stun = 3,
-		debuff_blood = 4
-	};
-
-
-
 };
 
 

@@ -1,4 +1,5 @@
 #include "BattleScene.h"
+#include <thread>
 
 
 void BattleScene::initTextures()
@@ -382,9 +383,16 @@ void BattleScene::useItem()
 {
 	int itemId = this->player->getEquipedItems()->getItemId();
 	this->player->getEquipedItems()->getItem()->Action(this->player->getHero(playerIndex));
-	this->player->getEquipedItems()->removeItem(itemId);
-	this->player->getEquipedItems()->save();
+
+	/*this->player->getEquipedItems()->removeItem(itemId);
+	this->player->getEquipedItems()->save();*/
 	playerIndex++;
+}
+
+void BattleScene::playerActionItem()
+{
+	
+	this->player->getEquipedItems()->getItem()->Action(this->player->getHero(playerIndex));
 }
 
 void BattleScene::renderButtons(sf::RenderTarget* target)
@@ -398,7 +406,7 @@ void BattleScene::renderButtons(sf::RenderTarget* target)
 		this->buttons[2]->render(target);
 	}
 
-	if (turn && this->player->getEquipedItems()->getItem() && !this->player->getHero()->getPlayed()) {
+	if (turn && this->player->getEquipedItems()->getItem()) {
 		this->buttons[3]->render(target);
 	}
 }
