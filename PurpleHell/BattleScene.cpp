@@ -251,7 +251,7 @@ void BattleScene::update(const float& dt)
 	}
 
 	for (int key = 0; key < 7; key++) {
-		this->updateDamageText(dt, key);
+		this->updateBattleText(dt, key);
 	}
 	this->timer -= dt;
 }
@@ -311,6 +311,8 @@ void BattleScene::updateTexts()
 				+ " / "
 				+ " HP:"
 				+ std::to_string(hero->getHp())
+				+ "\nPOWER:"
+				+ std::to_string(hero->getPower())
 				+ " / MP:" + std::to_string(hero->CanUseEspecial()));
 		}
 	}
@@ -367,14 +369,14 @@ void BattleScene::enemyTurn()
 
 }
 
-void BattleScene::damageTexts(int key, Entity* entity, std::string text)
+void BattleScene::battleText(int key, Entity* entity, std::string text)
 {
 	this->battleInfo[key].setString(text);
 	this->battleInfo[key].setPosition(entity->getPosition().x, entity->getPosition().y - 18);
 	this->timerDamageText = 50;
 }
 
-void BattleScene::updateDamageText(const float& dt, int key)
+void BattleScene::updateBattleText(const float& dt, int key)
 {
 	if (this->battleInfo[key].getString() != "") {
 		int y = this->battleInfo[key].getPosition().y;
@@ -390,6 +392,7 @@ void BattleScene::useItem()
 {
 	int itemId = this->player->getEquipedItems()->getItemId();
 	this->player->getEquipedItems()->getItem()->Action(this->player->getHero(playerIndex));
+	this->battleText(0, this->player->getHero(playerIndex), this->player->getEquipedItems()->getItemById(itemId)->GetAction()->GetDescription());
 	if (!this->player->getEquipedItems()->getItemById(itemId)->GetAction()->GetIsPlaying()) {
 		this->player->getEquipedItems()->removeItem(itemId);
 		this->player->getEquipedItems()->save();
@@ -474,14 +477,14 @@ void BattleScene::enemyAttack()
 	std::srand(time(NULL));
 	int r = rand() % 100;
 	if (r < 33) {
-		this->damageTexts(0, player, "MISS");
+		this->battleText(0, player, "MISS");
 		enemy->setPlayed(true);
 		enemy->setSelected(false);
 		player->setSelected(false);
 	}
 	else {
 		enemy->Action(player);
-		this->damageTexts(0, player, "- " + std::to_string(enemy->getPower()));
+		this->battleText(0, player, "- " + std::to_string(enemy->getPower()));
 	}
 	this->enemyIndex++;
 }
@@ -491,7 +494,7 @@ void BattleScene::playerAttack()
 	Hero* player = this->player->getHero(this->playerIndex);
 	Enemy* enemy = this->ais.front()->getEnemy();
 	player->Action(enemy);
-	this->damageTexts(0, enemy, "- " + std::to_string(player->getPower()));
+	this->battleText(0, enemy, "- " + std::to_string(player->getPower()));
 	this->playerIndex++;
 
 

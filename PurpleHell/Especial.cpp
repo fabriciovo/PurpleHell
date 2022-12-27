@@ -189,6 +189,11 @@ void Especial::animationDone()
 	}
 }
 
+void Especial::SetDescription(std::string text)
+{
+	this->description = text;
+}
+
 void Especial::updateAnimation(const float& dt)
 {
 	if (this->isPlaying) {

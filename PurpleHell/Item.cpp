@@ -82,6 +82,7 @@ void Item::Sword(Entity *entity)
 
 void Item::MagicAxe(Entity *entity)
 {
+	this->GetAction()->SetDescription("+ " + std::to_string(this->getPower()) + "POWER");
 	entity->setPower(entity->getPower() + this->getPower());
 	entity->setPlayed(true);
 	entity->setSelected(false);

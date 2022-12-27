@@ -78,8 +78,8 @@ public:
 	void renderTexts(sf::RenderTarget* target = NULL);
 	void updateTexts();
 	void enemyTurn();
-	void damageTexts(int key, Entity* entity, std::string text);
-	void updateDamageText(const float& dt, int key);
+	void battleText(int key, Entity* entity, std::string text);
+	void updateBattleText(const float& dt, int key);
 	void useItem();
 };
 
