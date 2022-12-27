@@ -46,18 +46,18 @@ void BattleScene::initTexts()
 	//Player Team
 	playerTeamSetting.setFont(this->font);
 	playerTeamSetting.setCharacterSize(14);
-	playerTeamSetting.setPosition(220, 4);
+	playerTeamSetting.setPosition(212, 12);
 
 	this->playerTeamTexts.push_back(playerTeamSetting);
-	playerTeamSetting.setPosition(220, 20);
+	playerTeamSetting.setPosition(212, 22);
 	this->playerTeamTexts.push_back(playerTeamSetting);
-	playerTeamSetting.setPosition(220, 30);
+	playerTeamSetting.setPosition(212, 32);
 	this->playerTeamTexts.push_back(playerTeamSetting);
 
 	//Enemy Team
 	enemyTeamSetting.setFont(this->font);
 	enemyTeamSetting.setCharacterSize(14);
-	enemyTeamSetting.setPosition(10, 4);
+	enemyTeamSetting.setPosition(10, 10);
 
 	this->enemyTeamTexts.push_back(enemyTeamSetting);
 	enemyTeamSetting.setPosition(10, 20);
@@ -170,9 +170,8 @@ void BattleScene::updateButtons()
 			if (this->player->getHero()->getSelected()) {
 				if (this->buttons[2]->isPressed()) {
 					if (!this->buttonPressed) {
-						this->player->getHero()->Special(this->ais.front()->getEnemy());
+						this->playerSpecial();
 						this->buttonPressed = true;
-						this->playerIndex++;
 					}
 				}
 			}
@@ -308,12 +307,12 @@ void BattleScene::updateTexts()
 		if (this->player->getHero(i)->getName() != "slot") {
 			Hero* hero = this->player->getHero(i);
 			this->playerTeamTexts[i].setString(hero->getName()
-				+ " / "
-				+ " HP:"
+				+ "/"
+				+ "HP:"
 				+ std::to_string(hero->getHp())
-				+ "\nPOWER:"
+				+ "/PW:"
 				+ std::to_string(hero->getPower())
-				+ " / MP:" + std::to_string(hero->CanUseEspecial()));
+				+ "/MP:" + std::to_string(hero->CanUseEspecial()));
 		}
 	}
 	if (!this->ais.empty()) {
@@ -496,9 +495,17 @@ void BattleScene::playerAttack()
 	player->Action(enemy);
 	this->battleText(0, enemy, "- " + std::to_string(player->getPower()));
 	this->playerIndex++;
-
-
 }
+
+void BattleScene::playerSpecial()
+{
+	Hero* player = this->player->getHero(this->playerIndex);
+	Enemy* enemy = this->ais.front()->getEnemy();
+	player->Special(enemy);
+	this->battleText(0, enemy, "- " + std::to_string(player->getPower() *2));
+	this->playerIndex++;
+}
+
 
 
 

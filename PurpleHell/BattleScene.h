@@ -64,6 +64,8 @@ protected:
 	void playerReward();
 	void enemyAttack();
 	void playerAttack();
+	void playerSpecial();
+
 
 public:
 	BattleScene();

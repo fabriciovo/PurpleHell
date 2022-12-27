@@ -58,7 +58,7 @@ void Hero::Special(Entity* entity)
 {
 	this->spell->SetIsPlaying(true);
 	this->spell->SetPosition(entity->getPosition().x, entity->getPosition().y + this->spell->GetOffsetY());
-	entity->setDamage(6);
+	entity->setDamage(this->power * 2);
 	this->setCanUseSpecial(false);
 	this->setPlayed(true);
 	this->setSelected(false);

@@ -469,10 +469,10 @@ void GameScene::showMenuInfo(sf::Text * text, Entity* entity,sf::Vector2f pos, s
 		+ " / "
 		+ entity->GetJob()
 		+ " / "
-		+ "HP: " + std::to_string(entity->getHp())
+		+ "HP:" + std::to_string(entity->getHp())
 		+ " / "
-		+ "Power: " + std::to_string(entity->getPower())
+		+ "PW:" + std::to_string(entity->getPower())
 		+ "\n"
-		+ "Spell: " + "Thunder"/*this->units->getHero()->GetSpell()->getName()*/
+		+ "Spell:" + "Thunder"/*this->units->getHero()->GetSpell()->getName()*/
 		+ ": deals damage\nto all enemies");
 }

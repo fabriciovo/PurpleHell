@@ -53,12 +53,14 @@ sf::Sprite* Entity::getSprite()
 void Entity::setDamage(int damage)
 {
 	this->hp -= damage;
+	if (this->hp < 0) {
+		this->hp = 0;
+	}
 
 }
 void Entity::setHp(int hp)
 {
 	this->hp = hp;
-
 }
 
 void Entity::setPower(int power)
