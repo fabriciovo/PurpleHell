@@ -70,7 +70,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>C:\Users\fabri\Github\cpp-purple-hell\SFML-2.5.1\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\fabri\Github\cpp-purple-hell\SFML-2.5.1\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -93,6 +96,7 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>SFML-2.5.1lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -145,7 +149,6 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Especial.h" />
     <ClInclude Include="Potion.h" />
-    <ClInclude Include="resource.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shop.h" />
     <ClInclude Include="Units.h" />
@@ -183,15 +186,6 @@
     <Text Include="res\Player\Inventory.txt" />
     <Text Include="res\Player\Team.txt" />
     <Text Include="res\Player\Units.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="PurpleHell.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\..\..\Downloads\Group 13.png" />
-    <Image Include="..\..\..\Downloads\Group-13.ico" />
-    <Image Include="..\..\..\downloads\icon3.ico" />
-    <Image Include="icon1.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

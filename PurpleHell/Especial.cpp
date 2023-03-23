@@ -57,7 +57,7 @@ void Especial::specialInit()
 			break;
 		}
 	}
-	else if (this->job == "demon hunter") {
+	else if (this->job == "demonhunter") {
 		switch (this->special)
 		{
 		case 1:

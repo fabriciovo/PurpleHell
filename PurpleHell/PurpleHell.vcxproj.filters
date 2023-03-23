@@ -133,7 +133,6 @@
     <ClInclude Include="Shop.h">
       <Filter>Game\Shop</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -228,24 +227,5 @@
     <Text Include="res\Player\Info.txt">
       <Filter>Resource Files\Player</Filter>
     </Text>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="PurpleHell.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\..\..\Downloads\Group 13.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="icon1.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\..\..\Downloads\Group-13.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\..\..\downloads\icon3.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
   </ItemGroup>
 </Project>

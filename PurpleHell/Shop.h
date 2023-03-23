@@ -97,7 +97,7 @@ private:
 				"Lesym",
 				"Vyncis",
 				"Centwy" };
-	std::string jobs[6] = { "mage", "archer", "knight","warlock", "demon hunter", "rogue" };
+	std::string jobs[6] = { "mage", "archer", "knight","warlock", "demonhunter", "rogue" };
 	std::string itemsArray[4] = { "magicAxe","magicAxe","magicAxe","magicAxe"};
 	void generateHeroes();
 	void generateItems();

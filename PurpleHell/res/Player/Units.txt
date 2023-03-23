@@ -1,7 +1,7 @@
 Centwy mage 74 25 2
-Centwy mage 34 44 2
-Centwy mage 83 27 2
-Centwy mage 83 27 2
+joao mage 10000 1000 1
+Cyne demonhunter 93 27 2
+joao mage 10000 1000 1
 Centwy mage 43 11 0
 Centwy mage 43 11 0
 Centwy mage 43 11 0
